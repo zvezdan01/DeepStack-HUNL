@@ -1,8 +1,18 @@
 # CERTIFIED GOLDEN BASELINE v1.0 — FREEZE RECORD
 
-Status: FROZEN (pending final source-fidelity verdict — see
-DS_SOURCE_FIDELITY_AUDIT.md; this record is valid only together with that
-verdict).
+Status: **PREPARED — awaiting owner sign-off.** The source-fidelity audit
+(DS_SOURCE_FIDELITY_AUDIT.md) returned verdict 2 (a precise residual-risk
+list: M1–M4 material, L1–L14 low), not the clean "no material residual
+risk". Per the certification instructions the freeze is therefore NOT
+self-executing. Recommended disposition: freeze `eb7b21d` as Golden
+Baseline v1.0 **with the M1–M4 rider** — none of the material items sits on
+the certified runtime resolve path within the certified envelope (M1/M4 are
+un-certified utilities/defaults outside it, M2 is an unverified saturation
+regime never reached in any certified run, M3 is a coverage hole closable
+only with a Torch7 runtime) — and enforce the Phase-2 guardrails below.
+The engine remains untouched; candidate fidelity fixes (M2 one-line caps,
+M4 default flip) are explicitly deferred until after the freeze decision and
+would require a full oracle-suite re-run.
 
 ## Identity
 
@@ -92,3 +102,24 @@ DS_FINAL_MATRIX.md; determinism hash for the street-1 root resolve:
 2. New training data generators/weights live alongside, never replacing,
    `final_cpu.model`; A/B comparisons always run against the frozen model.
 3. Bit-exact claims are valid only on x86_64 with the bundled BLAS.
+
+## Phase-2 guardrails from the source-fidelity audit (binding)
+
+4. Data generation must NOT use `cfr.py` (TreeCFR) or `evaluate.py` —
+   zero oracle coverage, float64, divergent averaging clamp (audit M1/L8).
+   Use the certified `Resolving`/lookahead path.
+5. Every `Resolving`/`Lookahead` construction must pass the real value
+   network explicitly and assert `torch7_blas.BIT_EXACT_BACKEND` — the
+   silent `MockNNTerminal` default inverts Lua behavior (audit M4/L10).
+6. `get_root_cfv_both_players` requires a one-case comparator before first
+   Phase-2 use (audit L2).
+7. The Lua `DataGeneration/*` + `Training/*` stack has no Python port; the
+   Phase-2 generator is new code with its own certification plan
+   (distributional validation + fixed-seed reproducibility; Lua-seed
+   compatibility is impossible by construction — audit consequences §3).
+8. Any config change (ante/stack/bet fractions/iters) exits the certified
+   envelope (audit L4/L5/L6) and voids bit-exact claims until traces are
+   regenerated.
+9. Open watch-items on the runtime: 999999 regret-cap regime (M2) and
+   P2-street-2 coverage hole (M3) — monitor; closable only with a Torch7
+   runtime or an explicitly gated fidelity patch + full re-certification.
