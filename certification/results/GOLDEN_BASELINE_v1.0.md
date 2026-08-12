@@ -105,8 +105,9 @@ DS_FINAL_MATRIX.md; determinism hash for the street-1 root resolve:
 5. Every `Resolving`/`Lookahead` construction must pass the real value
    network explicitly and assert `torch7_blas.BIT_EXACT_BACKEND` — the
    silent `MockNNTerminal` default inverts Lua behavior (audit M4/L10).
-6. `get_root_cfv_both_players` requires a one-case comparator before first
-   Phase-2 use (audit L2).
+6. `get_root_cfv_both_players`: CLOSED — reproducible comparator
+   `ds_scripts/compare_root_cfv_both_players.py` passes 5/5 (anchored to the
+   frozen `starting_cfvs_p1.t7`); keep it in the standard re-run set.
 7. The Lua `DataGeneration/*` + `Training/*` stack has no Python port; the
    Phase-2 generator is new code with its own certification plan
    (distributional validation + fixed-seed reproducibility; Lua-seed
@@ -114,9 +115,9 @@ DS_FINAL_MATRIX.md; determinism hash for the street-1 root resolve:
 8. Any config change (ante/stack/bet fractions/iters) exits the certified
    envelope (audit L4/L5/L6) and voids bit-exact claims until traces are
    regenerated.
-9. Open watch-items on the runtime: 999999 regret-cap regime (M2) and
-   P2-street-2 coverage hole (M3) — monitor; closable only with a Torch7
-   runtime or an explicitly gated fidelity patch + full re-certification.
+9. M2: CLOSED at the golden commit (Lua 999999 caps restored, full
+   re-certification green, clamp provably never active on the corpus).
+   M3 remains the rider's residual oracle limitation.
 
 
 ## Rider — non-closable oracle limitations (the only exceptions to BIT_EXACT)
