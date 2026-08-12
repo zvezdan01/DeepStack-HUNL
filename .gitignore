@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.o
+third_party/CFR_plus/cfr
+third_party/CFR_plus/cfr_dbg
+third_party/CFR_plus/cfr_o2dbg
+third_party/CFR_plus/cfr_nofortify
+third_party/CFR_plus/compressor/*.a
+certification/scripts/CFR_plus_patched/cfr_patched
+certification/scripts/CFR_plus_patched/compressor/*.a
+certification/scripts/rng_oracle
+certification/agt_run/raw_results.jsonl
