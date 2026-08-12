@@ -21,7 +21,17 @@ accreal for last-dim sums) and fully oracle-backed **within the certified
 envelope** — but the audit identified the following places with a real
 possibility of future divergence vs the original DeepStack:
 
-### MATERIAL
+### MATERIAL — disposition after owner decision (2026-08-12)
+
+M2 and M4 were fixed source-faithfully in DS-repo commit `2ab6dde`
+(branch `golden-baseline-v1.0-m2m4`) and the full certification matrix was
+re-run at zero tolerance — see DS_RECERT_POST_PATCH.md. M3 is reclassified
+as an explicit **residual oracle limitation** (not a verified BIT_EXACT, not
+a known divergence): the P2 street-2 continual path has no original Torch7
+trace and none can be generated without a Torch7 runtime. M1 remains open by
+design — `cfr.py` stays quarantined from Phase-2 data generation; the
+source-faithful DataGeneration plan is in PHASE2_DATAGEN_PLAN.md.
+
 
 **M1 — `cfr.py` (TreeCFR utility): zero oracle coverage + not dtype-faithful.**
 `cfr.py:7-74` vs `Source/Tree/tree_cfr.lua:18-199`. Algorithm structurally

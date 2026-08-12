@@ -52,7 +52,12 @@ for layer in model.feedforward:
             out = layer(torch.from_numpy(np.ascontiguousarray(out, dtype=np.float32))).cpu().numpy().astype(np.float32)
     check(f'layer_{layer_idx:02d}', out)
 
-check('raw_lua_output', out)
+# raw_lua_output.t7 is produced by reference_tools/test_fixed_nn.lua as the
+# FULL model forward, i.e. INCLUDING the zero-sum correction graph — compare
+# against the corrected output, not the bare feedforward chain.
+from deepstack_leduc.value_model import _torch7_exact_inference  # noqa: E402
+
+check('raw_lua_output', _torch7_exact_inference(model, x))
 
 print(f'tensors checked={checked} failures={len(failures)}')
 for f in failures:
