@@ -34,3 +34,15 @@ Comparators written for this audit live in `certification/ds_scripts/`
 - Random action sampling (RNG) is excluded from the certified scope by the
   repo's own report; deterministic paths only. Re-confirmed: certified paths
   call no RNG.
+
+## Fresh results for rows 4–7 and remaining orphan traces (filled in as runs completed)
+
+| Claim | Fresh result | Classification |
+|---|---|---|
+| 744/744 P2 first-street | **PASS: 36/36 cases, 744 tensors bit-exact** | BIT_EXACT |
+| 108/108 terminal leaves | **PASS: 18/18 leaves, 108 tensors bit-exact** | BIT_EXACT |
+| 20340/20340 street-2 exhaustive | **PASS: 90/90 cases, 20340 tensors bit-exact** (stage-by-stage: opponent range, current strategy, ranges, average strategy, terminal CFVs, current CFVs, regrets, positive regrets, average CFVs) | BIT_EXACT |
+| 6/6 deterministic first action (orphan `continual_lua_trace`, no committed comparator) | comparator written fresh → **6/6 BIT-EXACT PASS** | BIT_EXACT |
+| `continual_all_boards_lua_trace` (orphan) | proven byte-identical file-for-file to `continual_all_private_boards_lua_trace/private_1_board_N` → subsumed by the 480/480 PASS | BIT_EXACT (subsumed) |
+| `p2_first_lua_trace` (orphan) | all 15 tensors byte-identical to `p2_all_street1_lua_trace/r300/private_1` → subsumed by the 744/744 PASS | BIT_EXACT (subsumed) |
+| Full suite second run (restart determinism) | **36/36 in 34.28 s** | PASS |
