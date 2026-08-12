@@ -1963,6 +1963,92 @@ static void vanilla_r( const CFRParams *params,
   }
 }
 
+
+static void dumpTreeNode( FILE *f, const BettingNode *node, int depth )
+{
+  if( node == NULL ) { fprintf( f, "%*sNULL\n", depth*2, "" ); return; }
+  if( node->type == BETTING_LEAF ) {
+    fprintf( f, "%*sLEAF sd=%d v0=%d v1=%d\n", depth*2, "",
+             (int)node->u.leaf.isShowdown,
+             (int)node->u.leaf.value[0], (int)node->u.leaf.value[1] );
+    return;
+  }
+  if( node->type == BETTING_CHANCE ) {
+    fprintf( f, "%*sCHANCE round=%d bts0=%d bts1=%d\n", depth*2, "",
+             (int)node->round,
+             node->u.chance.bettingTreeSize[node->round][0],
+             node->u.chance.bettingTreeSize[node->round][1] );
+    dumpTreeNode( f, node->u.chance.nextRound, depth+1 );
+    return;
+  }
+  fprintf( f, "%*sCHOICE round=%d player=%d imm=%d nc=%d\n", depth*2, "",
+           (int)node->round, (int)node->u.choice.playerActing,
+           node->u.choice.immIndex, node->u.choice.numChoices );
+  { int c; for( c = 0; c < node->u.choice.numChoices; ++c ) {
+      dumpTreeNode( f, node->u.choice.children[c], depth+1 ); } }
+}
+
+static void dumpStructure( const Game *game, CFRParams *params,
+                           VanillaStorage *storage, const BettingNode *tree )
+{
+  FILE *f = fopen( "structure_dump.txt", "w" );
+  int r, b, i;
+  fprintf( f, "numRounds=%d deckSize=%d maxRawHandIndex=%d\n",
+           (int)params->numRounds, (int)params->deckSize,
+           (int)params->maxRawHandIndex );
+  for( r = 0; r < params->numRounds; ++r ) {
+    fprintf( f, "round=%d numHands=%d boardFactor=%.17g numBoards=%d bts0=%d bts1=%d strategySize0=%lld strategySize1=%lld\n",
+             r, params->numHands[r], params->boardFactor[r],
+             storage->numBoards[r],
+             storage->bettingTreeSize[r][0], storage->bettingTreeSize[r][1],
+             (long long)storage->strategySize[r][0],
+             (long long)storage->strategySize[r][1] );
+    if( storage->boards[r] ) {
+      for( b = 0; b < storage->numBoards[r]; ++b ) {
+        fprintf( f, "board r=%d b=%d weight=%d cards=%llx firstChild=%d endChild=%d\n",
+                 r, b, (int)storage->boards[r][b].weight,
+                 (unsigned long long)storage->boards[r][b].board.cards,
+                 storage->boards[r][b].firstChildIndex,
+                 storage->boards[r][b].endChildIndex );
+      }
+    }
+  }
+  /* hand list for round 0 (empty board) */
+  {
+    Cardset board = emptyCardset();
+    int numHands = numCardCombinations( params->deckSize, params->numHoleCards );
+    Hand hands[ numHands ];
+    numHands = getHandList( &board, initSuitGroups( game->numSuits ),
+                            game->numSuits, params->deckSize,
+                            params->numHoleCards, hands );
+    fprintf( f, "r0hands n=%d\n", numHands );
+    for( i = 0; i < numHands; ++i ) {
+      fprintf( f, "hand i=%d raw=%d rank=%d weight=%d canon=%d card=%d\n",
+               i, hands[i].rawIndex, (int)hands[i].rank,
+               (int)hands[i].weight, hands[i].canonIndex,
+               (int)hands[i].cards[0] );
+    }
+    /* per-board child hands for round 1 via getHandList on each board */
+    for( b = 0; b < storage->numBoards[1]; ++b ) {
+      Hand ch[ numHands ];
+      int n2 = getHandList( &storage->boards[1][b].board,
+                            storage->boards[1][b].suitGroups,
+                            game->numSuits, params->deckSize,
+                            params->numHoleCards, ch );
+      fprintf( f, "r1hands b=%d n=%d suitGroups=%u\n", b, n2,
+               storage->boards[1][b].suitGroups );
+      for( i = 0; i < n2; ++i ) {
+        fprintf( f, "bhand b=%d i=%d raw=%d rank=%d weight=%d canon=%d card=%d\n",
+                 b, i, ch[i].rawIndex, (int)ch[i].rank,
+                 (int)ch[i].weight, ch[i].canonIndex, (int)ch[i].cards[0] );
+      }
+    }
+  }
+  fprintf( f, "TREE\n" );
+  dumpTreeNode( f, tree, 0 );
+  fclose( f );
+}
+
 void vanillaIteration( const CFRParams *params,
 		       const BettingNode *tree,
 		       const int numSubgames,
@@ -3686,6 +3772,7 @@ int main( int argc, char **argv )
   numSubgames
     = params.numBettingSubgames
     * trunkStorage.numBoards[ params.splitRound - 1 ];
+  dumpStructure( game, &params, &trunkStorage, tree );
   if( numSubgames ) {
 
     fprintf( stderr, "%d subgames, %d nodes\n", numSubgames, params.numNodes );

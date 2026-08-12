@@ -1,0 +1,124 @@
+numRounds=2 deckSize=6 maxRawHandIndex=6
+round=0 numHands=6 boardFactor=1 numBoards=1 bts0=7 bts1=7 strategySize0=42 strategySize1=42
+board r=0 b=0 weight=1 cards=0 firstChild=0 endChild=3
+round=1 numHands=5 boardFactor=4 numBoards=3 bts0=35 bts1=35 strategySize0=525 strategySize1=525
+board r=1 b=0 weight=2 cards=1 firstChild=0 endChild=0
+board r=1 b=1 weight=2 cards=2 firstChild=0 endChild=0
+board r=1 b=2 weight=2 cards=4 firstChild=0 endChild=0
+r0hands n=6
+hand i=0 raw=0 rank=0 weight=2 canon=0 card=0
+hand i=1 raw=1 rank=0 weight=0 canon=0 card=1
+hand i=2 raw=2 rank=1 weight=2 canon=2 card=2
+hand i=3 raw=3 rank=1 weight=0 canon=2 card=3
+hand i=4 raw=4 rank=2 weight=2 canon=4 card=4
+hand i=5 raw=5 rank=2 weight=0 canon=4 card=5
+r1hands b=0 n=5 suitGroups=256
+bhand b=0 i=0 raw=2 rank=0 weight=1 canon=2 card=2
+bhand b=0 i=1 raw=3 rank=0 weight=1 canon=3 card=3
+bhand b=0 i=2 raw=4 rank=1 weight=1 canon=4 card=4
+bhand b=0 i=3 raw=5 rank=1 weight=1 canon=5 card=5
+bhand b=0 i=4 raw=1 rank=1287 weight=1 canon=1 card=1
+r1hands b=1 n=5 suitGroups=256
+bhand b=1 i=0 raw=0 rank=0 weight=1 canon=0 card=0
+bhand b=1 i=1 raw=1 rank=0 weight=1 canon=1 card=1
+bhand b=1 i=2 raw=4 rank=2 weight=1 canon=4 card=4
+bhand b=1 i=3 raw=5 rank=2 weight=1 canon=5 card=5
+bhand b=1 i=4 raw=3 rank=1573 weight=1 canon=3 card=3
+r1hands b=2 n=5 suitGroups=256
+bhand b=2 i=0 raw=0 rank=1 weight=1 canon=0 card=0
+bhand b=2 i=1 raw=1 rank=1 weight=1 canon=1 card=1
+bhand b=2 i=2 raw=2 rank=2 weight=1 canon=2 card=2
+bhand b=2 i=3 raw=3 rank=2 weight=1 canon=3 card=3
+bhand b=2 i=4 raw=5 rank=1859 weight=1 canon=5 card=5
+TREE
+CHANCE round=0 bts0=7 bts1=7
+  CHOICE round=0 player=0 imm=0 nc=2
+    CHOICE round=0 player=1 imm=0 nc=2
+      CHANCE round=1 bts0=7 bts1=7
+        CHOICE round=1 player=0 imm=0 nc=2
+          CHOICE round=1 player=1 imm=0 nc=2
+            LEAF sd=1 v0=1 v1=1
+            CHOICE round=1 player=0 imm=2 nc=3
+              LEAF sd=0 v0=-1 v1=1
+              LEAF sd=1 v0=5 v1=5
+              CHOICE round=1 player=1 imm=2 nc=2
+                LEAF sd=0 v0=5 v1=-5
+                LEAF sd=1 v0=9 v1=9
+          CHOICE round=1 player=1 imm=4 nc=3
+            LEAF sd=0 v0=1 v1=-1
+            LEAF sd=1 v0=5 v1=5
+            CHOICE round=1 player=0 imm=5 nc=2
+              LEAF sd=0 v0=-5 v1=5
+              LEAF sd=1 v0=9 v1=9
+      CHOICE round=0 player=0 imm=2 nc=3
+        LEAF sd=0 v0=-1 v1=1
+        CHANCE round=1 bts0=7 bts1=7
+          CHOICE round=1 player=0 imm=0 nc=2
+            CHOICE round=1 player=1 imm=0 nc=2
+              LEAF sd=1 v0=3 v1=3
+              CHOICE round=1 player=0 imm=2 nc=3
+                LEAF sd=0 v0=-3 v1=3
+                LEAF sd=1 v0=7 v1=7
+                CHOICE round=1 player=1 imm=2 nc=2
+                  LEAF sd=0 v0=7 v1=-7
+                  LEAF sd=1 v0=11 v1=11
+            CHOICE round=1 player=1 imm=4 nc=3
+              LEAF sd=0 v0=3 v1=-3
+              LEAF sd=1 v0=7 v1=7
+              CHOICE round=1 player=0 imm=5 nc=2
+                LEAF sd=0 v0=-7 v1=7
+                LEAF sd=1 v0=11 v1=11
+        CHOICE round=0 player=1 imm=2 nc=2
+          LEAF sd=0 v0=3 v1=-3
+          CHANCE round=1 bts0=7 bts1=7
+            CHOICE round=1 player=0 imm=0 nc=2
+              CHOICE round=1 player=1 imm=0 nc=2
+                LEAF sd=1 v0=5 v1=5
+                CHOICE round=1 player=0 imm=2 nc=3
+                  LEAF sd=0 v0=-5 v1=5
+                  LEAF sd=1 v0=9 v1=9
+                  CHOICE round=1 player=1 imm=2 nc=2
+                    LEAF sd=0 v0=9 v1=-9
+                    LEAF sd=1 v0=13 v1=13
+              CHOICE round=1 player=1 imm=4 nc=3
+                LEAF sd=0 v0=5 v1=-5
+                LEAF sd=1 v0=9 v1=9
+                CHOICE round=1 player=0 imm=5 nc=2
+                  LEAF sd=0 v0=-9 v1=9
+                  LEAF sd=1 v0=13 v1=13
+    CHOICE round=0 player=1 imm=4 nc=3
+      LEAF sd=0 v0=1 v1=-1
+      CHANCE round=1 bts0=7 bts1=7
+        CHOICE round=1 player=0 imm=0 nc=2
+          CHOICE round=1 player=1 imm=0 nc=2
+            LEAF sd=1 v0=3 v1=3
+            CHOICE round=1 player=0 imm=2 nc=3
+              LEAF sd=0 v0=-3 v1=3
+              LEAF sd=1 v0=7 v1=7
+              CHOICE round=1 player=1 imm=2 nc=2
+                LEAF sd=0 v0=7 v1=-7
+                LEAF sd=1 v0=11 v1=11
+          CHOICE round=1 player=1 imm=4 nc=3
+            LEAF sd=0 v0=3 v1=-3
+            LEAF sd=1 v0=7 v1=7
+            CHOICE round=1 player=0 imm=5 nc=2
+              LEAF sd=0 v0=-7 v1=7
+              LEAF sd=1 v0=11 v1=11
+      CHOICE round=0 player=0 imm=5 nc=2
+        LEAF sd=0 v0=-3 v1=3
+        CHANCE round=1 bts0=7 bts1=7
+          CHOICE round=1 player=0 imm=0 nc=2
+            CHOICE round=1 player=1 imm=0 nc=2
+              LEAF sd=1 v0=5 v1=5
+              CHOICE round=1 player=0 imm=2 nc=3
+                LEAF sd=0 v0=-5 v1=5
+                LEAF sd=1 v0=9 v1=9
+                CHOICE round=1 player=1 imm=2 nc=2
+                  LEAF sd=0 v0=9 v1=-9
+                  LEAF sd=1 v0=13 v1=13
+            CHOICE round=1 player=1 imm=4 nc=3
+              LEAF sd=0 v0=5 v1=-5
+              LEAF sd=1 v0=9 v1=9
+              CHOICE round=1 player=0 imm=5 nc=2
+                LEAF sd=0 v0=-9 v1=9
+                LEAF sd=1 v0=13 v1=13
