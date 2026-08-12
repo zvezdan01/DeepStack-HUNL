@@ -11,7 +11,7 @@ non-closable oracle limitations.
 | Item | Value |
 |---|---|
 | Repository | `zvezdan01/deepstack_leduc_v1.1-bitexact-certified` |
-| Golden commit | **`2ab6ddedd9dd1265a29a4f8e774dbeef05e17148`** (branch `golden-baseline-v1.0-m2m4`; parent `eb7b21d` + M2/M4 fidelity patch) |
+| Golden commit | **`2ab6dde943ebad2f5458779dc561ed203f796e39`** (branch `golden-baseline-v1.0-m2m4`; parent `eb7b21d` + M2/M4 fidelity patch) |
 | Certification branch (oracles + comparators + reports) | `zvezdan01/quant-trade` @ `claude/huhl-deepstack-certification-tutg3b` |
 | Upstream provenance anchor | `lifrordi/DeepStack-Leduc` @ `da416f9646725def43e668851593de13ead8b607` (`reference_lua/Source` byte-identical; weights byte-identical) |
 | OpenBLAS of record | `torch7_openblas.so.0` = `libopenblas_sandybridgep-r0.3.0.dev.so` SHA-256 `cd143947c657673d238a0cf7bc9473d5fdc8cbe964cc940dbe8ec86bb98df7b7`; `libgfortran.so.3.0.0` `f7d383795ed22c54a591ef38223b6d3b1c95da7b376057d900096fab68cd9736` |
@@ -48,7 +48,7 @@ export CERT=/path/to/quant-trade/certification   # certification branch checkout
 cd "$DS"
 
 # 0) identity + weights immutability
-git rev-parse HEAD    # must be 2ab6ddedd9dd1265a29a4f8e774dbeef05e17148 (golden-baseline-v1.0-m2m4)
+git rev-parse HEAD    # must be 2ab6dde943ebad2f5458779dc561ed203f796e39 (golden-baseline-v1.0-m2m4)
 sha256sum deepstack_leduc/models/final_cpu.model deepstack_leduc/models/final_cpu.info
 
 # 1) full unit/regression suite (36/36)
