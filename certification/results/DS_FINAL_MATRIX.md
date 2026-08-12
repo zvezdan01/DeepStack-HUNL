@@ -13,8 +13,8 @@ CFR core              BIT_EXACT       PASS   (232/232 one-iteration tensors; 203
 RNG                   BIT_EXACT       PASS   (MT19937 vs rng.c: 16/16 streams; DS certified paths call no RNG — excluded scope re-confirmed)
 Kuhn CFR+             BIT_EXACT       PASS   (independent replica vs Tammelin binary: 6/6 integer checkpoints incl. iter 1000)
 Leduc CFR+            BIT_EXACT       PASS   (independent replica vs Tammelin binary: 6/6 integer checkpoints incl. iter 1000; suit isomorphism + boards)
-CFR-D gadget          BIT_EXACT       PASS   (line-audit vs cfrd_gadget.lua + gadget-in-loop 1000-iteration resolves byte-equal in 480/744/PENDING traces)
-Continual resolving   BIT_EXACT       PASS   (6/6 first action; 480/480 r300->call; 744/744 P2; 108/108 terminals; e2e hand; chance histories: PENDING)
+CFR-D gadget          BIT_EXACT       PASS   (line-audit vs cfrd_gadget.lua + gadget-in-loop 1000-iteration resolves byte-equal in 480/744/3720 traces)
+Continual resolving   BIT_EXACT       PASS   (6/6 first action; 480/480 r300->call; 744/744 P2; 108/108 terminals; e2e hand; 150/150 chance histories, 3720/3720 tensors)
 CFV averaging         BIT_EXACT       PASS   (skip-500 accumulation + float32 scaler audited vs Lua; average_strategies/average_cfvs stages in 20340-tensor set byte-equal)
 Tensor construction   BIT_EXACT       PASS   (NN boxes 8/8: bucketing, range normalization, pot feature, layout; NN layers 11/11 + corrected output byte-equal)
 Original weights      BIT_EXACT       PASS   (SHA-256 d5fcba44… == reference_lua copy == public upstream; runtime loads bundled copy; nothing overwrites it)
@@ -22,7 +22,7 @@ Full resolve trace    BIT_EXACT       PASS   (street-2 exhaustive 90/90 cases; e
 Determinism           BIT_EXACT       PASS   (full 1000-iter resolve: identical SHA-256 across 4 runs / 2 processes; full suite 36/36 twice: 33.25 s / 34.28 s)
 
 FIRST UNEXPLAINED DIVERGENCE:
-PENDING (no unexplained divergence so far)
+NONE
 ```
 
 ## Explained (non-engine) divergences encountered during this run
