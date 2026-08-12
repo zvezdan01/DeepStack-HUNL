@@ -1,27 +1,21 @@
 # CERTIFIED GOLDEN BASELINE v1.0 — FREEZE RECORD
 
-Status: **PREPARED — awaiting owner sign-off.** The source-fidelity audit
-(DS_SOURCE_FIDELITY_AUDIT.md) returned verdict 2 (a precise residual-risk
-list: M1–M4 material, L1–L14 low), not the clean "no material residual
-risk". Per the certification instructions the freeze is therefore NOT
-self-executing. Recommended disposition: freeze `eb7b21d` as Golden
-Baseline v1.0 **with the M1–M4 rider** — none of the material items sits on
-the certified runtime resolve path within the certified envelope (M1/M4 are
-un-certified utilities/defaults outside it, M2 is an unverified saturation
-regime never reached in any certified run, M3 is a coverage hole closable
-only with a Torch7 runtime) — and enforce the Phase-2 guardrails below.
-The engine remains untouched; candidate fidelity fixes (M2 one-line caps,
-M4 default flip) are explicitly deferred until after the freeze decision and
-would require a full oracle-suite re-run.
+Status: **FROZEN — Certified Golden Baseline v1.0** (2026-08-12).
+The M2+M4 source-fidelity patches were applied and the complete
+certification matrix re-ran at zero tolerance with every BIT_EXACT claim
+intact (DS_RECERT_POST_PATCH.md). The rider below covers only genuinely
+non-closable oracle limitations.
 
 ## Identity
 
 | Item | Value |
 |---|---|
 | Repository | `zvezdan01/deepstack_leduc_v1.1-bitexact-certified` |
-| Golden commit | **`eb7b21d1cffcccb786093f808721a592f57e21d0`** |
+| Golden commit | **`2ab6ddedd9dd1265a29a4f8e774dbeef05e17148`** (branch `golden-baseline-v1.0-m2m4`; parent `eb7b21d` + M2/M4 fidelity patch) |
 | Certification branch (oracles + comparators + reports) | `zvezdan01/quant-trade` @ `claude/huhl-deepstack-certification-tutg3b` |
 | Upstream provenance anchor | `lifrordi/DeepStack-Leduc` @ `da416f9646725def43e668851593de13ead8b607` (`reference_lua/Source` byte-identical; weights byte-identical) |
+| OpenBLAS of record | `torch7_openblas.so.0` = `libopenblas_sandybridgep-r0.3.0.dev.so` SHA-256 `cd143947c657673d238a0cf7bc9473d5fdc8cbe964cc940dbe8ec86bb98df7b7`; `libgfortran.so.3.0.0` `f7d383795ed22c54a591ef38223b6d3b1c95da7b376057d900096fab68cd9736` |
+| Environment hash | SHA-256 `6898ff78d748130326f71ac73a75ec31548de6cb6dbf444d0628eb931dc549b2` over the environment-of-record tuple below |
 | Frozen upstream weights | `deepstack_leduc/models/final_cpu.model` SHA-256 `d5fcba4402cec46a9b02cea0f96cb78bda83f284ea36f6d5db84529e83eb59a1` |
 | | `deepstack_leduc/models/final_cpu.info` SHA-256 `9ff711ffec93bf7b70ac8e405de9c72b67776ecf0f3f9cb8fba5c64e59fa482e` |
 
@@ -54,7 +48,7 @@ export CERT=/path/to/quant-trade/certification   # certification branch checkout
 cd "$DS"
 
 # 0) identity + weights immutability
-git rev-parse HEAD                      # must be eb7b21d1cffcccb786093f808721a592f57e21d0
+git rev-parse HEAD    # must be 2ab6ddedd9dd1265a29a4f8e774dbeef05e17148 (golden-baseline-v1.0-m2m4)
 sha256sum deepstack_leduc/models/final_cpu.model deepstack_leduc/models/final_cpu.info
 
 # 1) full unit/regression suite (36/36)
@@ -123,3 +117,30 @@ DS_FINAL_MATRIX.md; determinism hash for the street-1 root resolve:
 9. Open watch-items on the runtime: 999999 regret-cap regime (M2) and
    P2-street-2 coverage hole (M3) — monitor; closable only with a Torch7
    runtime or an explicitly gated fidelity patch + full re-certification.
+
+
+## Rider — non-closable oracle limitations (the only exceptions to BIT_EXACT)
+
+1. **M3**: P2-position street-2 continual path has no original Torch7 trace
+   and none can be produced without a Torch7 runtime. Explicit residual
+   oracle limitation — neither verified BIT_EXACT nor a known divergence
+   (code is position-agnostic and line-faithful; internal P2 no-swap branch
+   certified via the 744 endpoints).
+2. **RNG**: realized action sampling (`_sample_bet`) and any Lua-side draw
+   reproduction — PCG64 vs unseeded Torch7 global MT; distribution is
+   bit-certified, draws are not reproducible by construction.
+3. **Torch7 runtime absence**: all Lua-side traces are frozen author
+   exports; the Lua exporters cannot be re-executed here (provenance:
+   reference source byte-identical to public upstream + committed exporters).
+4. **Original TrainSamples / final_cpu.model training**: unseeded global
+   RNG and a lost larger dataset make bit-reproduction of the bundled
+   sample draws and the checkpoint's training impossible; the deterministic
+   generator tail is certifiable via row-inversion (PHASE2_DATAGEN_PLAN.md).
+5. **Non-x86_64 platforms**: portable numpy BLAS fallback is by design not
+   bit-exact (`BIT_EXACT_BACKEND=False` flagged).
+
+## Sign-off
+
+Frozen per owner instruction of 2026-08-12 after M2+M4 patch + full
+zero-tolerance re-run: matrix all-PASS, first unexplained divergence NONE,
+`final_cpu.model` byte-untouched.

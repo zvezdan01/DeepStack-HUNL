@@ -32,8 +32,8 @@ Weights untouched: `final_cpu.model` SHA-256
 | NN next-street boxes | **8/8 bit-exact** |
 | Tree manifest | **653/653 exact** |
 | Determinism (full 1000-iter resolve) | SHA-256 `b1e35a1a…` — **identical to the pre-patch hash**, 2×/process ×2 processes |
-| P2 first-street (36 cases) | PENDING-P2 |
-| All chance histories (150 cases) | PENDING-CH |
+| P2 first-street (36 cases) | **744/744 bit-exact** |
+| All chance histories (150 cases) | **3720/3720 bit-exact** (150/150) |
 | `get_root_cfv_both_players` (L2 closure, new comparator) | **PASS** — swap structure vs raw root CFVs, row 0 == `get_root_cfv` == frozen `starting_cfvs_p1.t7`, row 1 == certified `achieved_cfvs`, API result consistency |
 | Kuhn CFR+ author-source replica | **PASS** (6/6 checkpoints) |
 | Leduc CFR+ author-source replica | **PASS** (6/6 checkpoints) |
