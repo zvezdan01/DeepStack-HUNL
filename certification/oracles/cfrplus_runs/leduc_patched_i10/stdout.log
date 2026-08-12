@@ -1,0 +1,40 @@
+Compressor is NORMAL_COMPRESSOR
+Throttling simultaneous network copies to 1
+Sending SIGUSR1 will trigger a save-and-quit
+Sending SIGUSR2 will trigger a save-and-continue
+1 itertime 0.000 total 0.000
+ current 2.937383892,2.659722222 (1399.276528513 mSBet/h)
+ average 2.933333333,2.659722222 (1398.263888889 mSBet/h)
+
+2 itertime 0.000 total 0.000
+ current 2.799263401,2.211111111 (1252.593628080 mSBet/h)
+
+3 itertime 0.000 total 0.000
+ current 2.446825397,1.207569148 (913.598636281 mSBet/h)
+
+4 itertime 0.000 total 0.000
+ current 1.420735872,0.978042436 (599.694577031 mSBet/h)
+
+5 itertime 0.000 total 0.000
+ current 0.813849578,1.107394815 (480.311098206 mSBet/h)
+
+6 itertime 0.000 total 0.000
+ current 0.705505879,0.568538082 (318.510990318 mSBet/h)
+ average 0.765140454,0.645618230 (352.689671010 mSBet/h)
+
+7 itertime 0.000 total 0.000
+ current 0.278761231,0.520589203 (199.837608488 mSBet/h)
+
+8 itertime 0.000 total 0.000
+ current 0.211211177,0.417174819 (157.096498908 mSBet/h)
+
+9 itertime 0.000 total 0.000
+ current 0.251799556,0.369158097 (155.239413135 mSBet/h)
+
+10 itertime 0.000 total 0.000
+ current 0.220491372,0.329780479 (137.567962755 mSBet/h)
+ average 0.315870416,0.378918764 (173.697294997 mSBet/h)
+
+Dumping values to prefix [/home/user/quant-trade/certification/oracles/cfrplus_runs/leduc_patched_i10]
+Dump complete, took 0.000
+

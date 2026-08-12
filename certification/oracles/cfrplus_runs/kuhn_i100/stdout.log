@@ -1,0 +1,328 @@
+Compressor is NORMAL_COMPRESSOR
+Throttling simultaneous network copies to 1
+Sending SIGUSR1 will trigger a save-and-quit
+Sending SIGUSR2 will trigger a save-and-continue
+1 itertime 0.000 total 0.000
+ current 0.333333333,0.416666667 (375.000000000 mSBet/h)
+ average 0.333333333,0.416666667 (375.000000000 mSBet/h)
+
+2 itertime 0.000 total 0.000
+ current 0.111111111,0.166666667 (138.888888889 mSBet/h)
+
+3 itertime 0.000 total 0.000
+ current 0.154040404,0.166666667 (160.353535354 mSBet/h)
+
+4 itertime 0.000 total 0.000
+ current 0.090476190,0.186887255 (138.681722689 mSBet/h)
+
+5 itertime 0.000 total 0.000
+ current 0.003284072,0.161764706 (82.524389066 mSBet/h)
+
+6 itertime 0.000 total 0.000
+ current 0.033333333,0.153391053 (93.362193362 mSBet/h)
+ average -0.014880952,0.077876984 (31.498015873 mSBet/h)
+
+7 itertime 0.000 total 0.000
+ current 0.047222222,0.088863751 (68.042986425 mSBet/h)
+
+8 itertime 0.000 total 0.000
+ current 0.036251920,0.104231166 (70.241543137 mSBet/h)
+
+9 itertime 0.000 total 0.000
+ current -0.011111111,0.149110149 (68.999519000 mSBet/h)
+
+10 itertime 0.000 total 0.000
+ current 0.069105691,0.127218615 (98.162152888 mSBet/h)
+
+11 itertime 0.000 total 0.000
+ current 0.041231127,0.074838969 (58.035048001 mSBet/h)
+ average -0.027304293,0.071338384 (22.017045455 mSBet/h)
+
+12 itertime 0.000 total 0.000
+ current -0.025284900,0.151058201 (62.886650387 mSBet/h)
+
+13 itertime 0.000 total 0.000
+ current 0.031578947,0.140367965 (85.973456368 mSBet/h)
+
+14 itertime 0.000 total 0.000
+ current 0.020325203,0.137681159 (79.003181336 mSBet/h)
+
+15 itertime 0.000 total 0.000
+ current 0.012195122,0.111111111 (61.653116531 mSBet/h)
+
+16 itertime 0.000 total 0.000
+ current -0.007936508,0.102065381 (47.064436331 mSBet/h)
+ average -0.037377451,0.064950980 (13.786764706 mSBet/h)
+
+17 itertime 0.000 total 0.000
+ current -0.036507937,0.105141844 (34.316953732 mSBet/h)
+
+18 itertime 0.000 total 0.000
+ current -0.017441860,0.119565217 (51.061678463 mSBet/h)
+
+19 itertime 0.000 total 0.000
+ current 0.056458898,0.102777778 (79.618337850 mSBet/h)
+
+20 itertime 0.000 total 0.000
+ current 0.059757236,0.081413178 (70.585207056 mSBet/h)
+
+21 itertime 0.000 total 0.000
+ current -0.000569801,0.136752137 (68.091168091 mSBet/h)
+ average -0.042478355,0.062364719 (9.943181818 mSBet/h)
+
+22 itertime 0.000 total 0.000
+ current -0.037220026,0.151583710 (57.181842028 mSBet/h)
+
+23 itertime 0.000 total 0.000
+ current -0.020833333,0.123821195 (51.493930906 mSBet/h)
+
+24 itertime 0.000 total 0.000
+ current 0.003401361,0.126423576 (64.912468484 mSBet/h)
+
+25 itertime 0.000 total 0.000
+ current 0.048963772,0.092873176 (70.918473881 mSBet/h)
+
+26 itertime 0.000 total 0.000
+ current 0.030303030,0.072255589 (51.279309613 mSBet/h)
+ average -0.046652422,0.062707740 (8.027659069 mSBet/h)
+
+27 itertime 0.000 total 0.000
+ current -0.026666667,0.117636868 (45.485100485 mSBet/h)
+
+28 itertime 0.000 total 0.000
+ current -0.036139456,0.129833680 (46.847112026 mSBet/h)
+
+29 itertime 0.000 total 0.000
+ current 0.001360544,0.088853559 (45.107051830 mSBet/h)
+
+30 itertime 0.000 total 0.000
+ current 0.015873016,0.096197827 (56.035421601 mSBet/h)
+
+31 itertime 0.000 total 0.000
+ current 0.045502646,0.082432432 (63.967538968 mSBet/h)
+ average -0.049143145,0.063025034 (6.940944220 mSBet/h)
+
+32 itertime 0.000 total 0.000
+ current 0.024242424,0.092764443 (58.503433503 mSBet/h)
+
+33 itertime 0.000 total 0.000
+ current -0.035602837,0.146658152 (55.527657763 mSBet/h)
+
+34 itertime 0.000 total 0.000
+ current -0.028301887,0.158152405 (64.925259243 mSBet/h)
+
+35 itertime 0.000 total 0.000
+ current -0.006172840,0.136781609 (65.304384845 mSBet/h)
+
+36 itertime 0.000 total 0.000
+ current 0.006172840,0.085978836 (46.075837743 mSBet/h)
+ average -0.053178178,0.062312312 (4.567067067 mSBet/h)
+
+37 itertime 0.000 total 0.000
+ current 0.006172840,0.076754386 (41.463612736 mSBet/h)
+
+38 itertime 0.000 total 0.000
+ current 0.019277885,0.104166667 (61.722275951 mSBet/h)
+
+39 itertime 0.000 total 0.000
+ current 0.010064412,0.095151515 (52.607963695 mSBet/h)
+
+40 itertime 0.000 total 0.000
+ current -0.022058824,0.120370370 (49.155773420 mSBet/h)
+
+41 itertime 0.000 total 0.000
+ current 0.012446113,0.131818182 (72.132147508 mSBet/h)
+ average -0.052240612,0.059608498 (3.683943089 mSBet/h)
+
+42 itertime 0.000 total 0.000
+ current 0.044580420,0.097358338 (70.969378978 mSBet/h)
+
+43 itertime 0.000 total 0.001
+ current 0.031075808,0.071853085 (51.464446835 mSBet/h)
+
+44 itertime 0.000 total 0.001
+ current -0.018099548,0.127276867 (54.588659760 mSBet/h)
+
+45 itertime 0.000 total 0.001
+ current -0.017710532,0.151994302 (67.141884753 mSBet/h)
+
+46 itertime 0.000 total 0.001
+ current 0.027493169,0.132825929 (80.159549388 mSBet/h)
+ average -0.050917360,0.058799722 (3.941181005 mSBet/h)
+
+47 itertime 0.000 total 0.001
+ current 0.028637261,0.123804645 (76.220953082 mSBet/h)
+
+48 itertime 0.000 total 0.001
+ current 0.005376344,0.121863799 (63.620071685 mSBet/h)
+
+49 itertime 0.000 total 0.001
+ current 0.005376344,0.105224868 (55.300605905 mSBet/h)
+
+50 itertime 0.000 total 0.001
+ current -0.005376344,0.104233871 (49.428763441 mSBet/h)
+
+51 itertime 0.000 total 0.001
+ current -0.021016618,0.084244080 (31.613731177 mSBet/h)
+ average -0.049333836,0.057833710 (4.249937154 mSBet/h)
+
+52 itertime 0.000 total 0.001
+ current -0.047561222,0.118644068 (35.541422686 mSBet/h)
+
+53 itertime 0.000 total 0.001
+ current -0.011043498,0.118644068 (53.800284969 mSBet/h)
+
+54 itertime 0.000 total 0.001
+ current 0.036281179,0.094780479 (65.530828876 mSBet/h)
+
+55 itertime 0.000 total 0.001
+ current 0.041538462,0.087320087 (64.429274429 mSBet/h)
+
+56 itertime 0.000 total 0.001
+ current 0.021286889,0.097069597 (59.178243141 mSBet/h)
+ average -0.052272609,0.059680451 (3.703921261 mSBet/h)
+
+57 itertime 0.000 total 0.001
+ current 0.001122334,0.122710623 (61.916478583 mSBet/h)
+
+58 itertime 0.000 total 0.001
+ current -0.026229508,0.131696429 (52.733460187 mSBet/h)
+
+59 itertime 0.000 total 0.001
+ current -0.038461538,0.123404918 (42.471689531 mSBet/h)
+
+60 itertime 0.000 total 0.001
+ current -0.019607843,0.126496626 (53.444391680 mSBet/h)
+
+61 itertime 0.000 total 0.001
+ current -0.002415459,0.114035088 (55.809814391 mSBet/h)
+ average -0.052843513,0.058572404 (2.864445620 mSBet/h)
+
+62 itertime 0.000 total 0.001
+ current 0.020066890,0.088488248 (54.277568748 mSBet/h)
+
+63 itertime 0.000 total 0.001
+ current 0.026854220,0.060606061 (43.730140277 mSBet/h)
+
+64 itertime 0.000 total 0.001
+ current 0.007388463,0.085258644 (46.323553213 mSBet/h)
+
+65 itertime 0.000 total 0.001
+ current -0.021739130,0.109788360 (44.024614677 mSBet/h)
+
+66 itertime 0.000 total 0.001
+ current -0.043028322,0.120967742 (38.969709748 mSBet/h)
+ average -0.050062189,0.057331713 (3.634761797 mSBet/h)
+
+67 itertime 0.000 total 0.001
+ current -0.019278253,0.106284153 (43.502950197 mSBet/h)
+
+68 itertime 0.000 total 0.001
+ current 0.007337526,0.096200096 (51.768811203 mSBet/h)
+
+69 itertime 0.000 total 0.001
+ current 0.027003784,0.093724924 (60.364353869 mSBet/h)
+
+70 itertime 0.000 total 0.001
+ current 0.049946294,0.074851190 (62.398742392 mSBet/h)
+
+71 itertime 0.000 total 0.001
+ current 0.040277778,0.085020739 (62.649258241 mSBet/h)
+ average -0.051553534,0.059516823 (3.981644497 mSBet/h)
+
+72 itertime 0.000 total 0.001
+ current 0.001308216,0.127350427 (64.329321472 mSBet/h)
+
+73 itertime 0.000 total 0.001
+ current -0.047069597,0.154227053 (53.578728035 mSBet/h)
+
+74 itertime 0.000 total 0.001
+ current -0.038812785,0.157352941 (59.270077894 mSBet/h)
+
+75 itertime 0.000 total 0.001
+ current -0.020000000,0.141062802 (60.531400966 mSBet/h)
+
+76 itertime 0.000 total 0.001
+ current -0.004385965,0.107518797 (51.566416040 mSBet/h)
+ average -0.053090824,0.059153566 (3.031371041 mSBet/h)
+
+77 itertime 0.000 total 0.001
+ current 0.004385965,0.089650368 (47.018166623 mSBet/h)
+
+78 itertime 0.000 total 0.001
+ current 0.004385965,0.077660875 (41.023419780 mSBet/h)
+
+79 itertime 0.000 total 0.001
+ current 0.015221878,0.088490539 (51.856208710 mSBet/h)
+
+80 itertime 0.000 total 0.001
+ current 0.019122807,0.088095238 (53.609022556 mSBet/h)
+
+81 itertime 0.000 total 0.001
+ current -0.008366013,0.093266254 (42.450120399 mSBet/h)
+ average -0.051189401,0.056603182 (2.706890495 mSBet/h)
+
+82 itertime 0.000 total 0.001
+ current -0.037749288,0.116780607 (39.515659851 mSBet/h)
+
+83 itertime 0.000 total 0.001
+ current -0.014887436,0.121434938 (53.273750578 mSBet/h)
+
+84 itertime 0.000 total 0.001
+ current 0.016761364,0.103113553 (59.937458375 mSBet/h)
+
+85 itertime 0.000 total 0.001
+ current 0.030849478,0.068667934 (49.758706118 mSBet/h)
+
+86 itertime 0.000 total 0.001
+ current 0.021007567,0.073114478 (47.061022410 mSBet/h)
+ average -0.052297737,0.058420765 (3.061514301 mSBet/h)
+
+87 itertime 0.000 total 0.001
+ current 0.009627479,0.107012987 (58.320233226 mSBet/h)
+
+88 itertime 0.000 total 0.001
+ current 0.000746965,0.122736373 (61.741669095 mSBet/h)
+
+89 itertime 0.000 total 0.001
+ current -0.014117647,0.122705971 (54.294161985 mSBet/h)
+
+90 itertime 0.000 total 0.001
+ current -0.016025641,0.139611872 (61.793115560 mSBet/h)
+
+91 itertime 0.000 total 0.001
+ current -0.020833333,0.146231597 (62.699132059 mSBet/h)
+ average -0.052663143,0.056602365 (1.969611005 mSBet/h)
+
+92 itertime 0.000 total 0.001
+ current -0.008333333,0.128888889 (60.277777778 mSBet/h)
+
+93 itertime 0.000 total 0.001
+ current 0.000000000,0.098627980 (49.313990103 mSBet/h)
+
+94 itertime 0.000 total 0.001
+ current 0.000000000,0.059827184 (29.913592204 mSBet/h)
+
+95 itertime 0.000 total 0.001
+ current -0.004166667,0.079592363 (37.712848297 mSBet/h)
+
+96 itertime 0.000 total 0.001
+ current -0.003240741,0.097013889 (46.886574074 mSBet/h)
+ average -0.052785832,0.057121635 (2.167901632 mSBet/h)
+
+97 itertime 0.000 total 0.001
+ current 0.014240506,0.099488031 (56.864268662 mSBet/h)
+
+98 itertime 0.000 total 0.001
+ current -0.005341880,0.087996447 (41.327283405 mSBet/h)
+
+99 itertime 0.000 total 0.001
+ current -0.028589994,0.113728632 (42.569319488 mSBet/h)
+
+100 itertime 0.000 total 0.001
+ current -0.012896825,0.117757937 (52.430555556 mSBet/h)
+ average -0.053407591,0.057568069 (2.080239274 mSBet/h)
+
+Dumping values to prefix [/home/user/quant-trade/certification/oracles/cfrplus_runs/kuhn_i100]
+Dump complete, took 0.000
+

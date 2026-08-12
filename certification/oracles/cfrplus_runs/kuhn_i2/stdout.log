@@ -1,0 +1,15 @@
+Compressor is NORMAL_COMPRESSOR
+Throttling simultaneous network copies to 1
+Sending SIGUSR1 will trigger a save-and-quit
+Sending SIGUSR2 will trigger a save-and-continue
+1 itertime 0.000 total 0.000
+ current 0.333333333,0.416666667 (375.000000000 mSBet/h)
+ average 0.333333333,0.416666667 (375.000000000 mSBet/h)
+
+2 itertime 0.000 total 0.000
+ current 0.111111111,0.166666667 (138.888888889 mSBet/h)
+ average 0.187500000,0.166666667 (177.083333333 mSBet/h)
+
+Dumping values to prefix [/home/user/quant-trade/certification/oracles/cfrplus_runs/kuhn_i2]
+Dump complete, took 0.001
+

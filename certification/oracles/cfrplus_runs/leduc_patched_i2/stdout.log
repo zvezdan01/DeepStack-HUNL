@@ -1,0 +1,15 @@
+Compressor is NORMAL_COMPRESSOR
+Throttling simultaneous network copies to 1
+Sending SIGUSR1 will trigger a save-and-quit
+Sending SIGUSR2 will trigger a save-and-continue
+1 itertime 0.000 total 0.000
+ current 2.937383892,2.659722222 (1399.276528513 mSBet/h)
+ average 2.933333333,2.659722222 (1398.263888889 mSBet/h)
+
+2 itertime 0.000 total 0.000
+ current 2.799263401,2.211111111 (1252.593628080 mSBet/h)
+ average 2.850000000,2.360648148 (1302.662037037 mSBet/h)
+
+Dumping values to prefix [/home/user/quant-trade/certification/oracles/cfrplus_runs/leduc_patched_i2]
+Dump complete, took 0.000
+
