@@ -36,7 +36,17 @@ Quarantined `cfr.py`/`evaluate.py` are not referenced anywhere.
   `datagen/lua_tree.py` `LuaF32TreeBuilder` (dependency-injected; golden
   untouched). Candidate future golden fidelity note, currently value-inert.
 
-### D2 — target divergence on 134/200 bundled rows — EXPLAINED-BY-ELIMINATION (author-side provenance), not conclusively proven
+### D2 — target divergence on 134/200 bundled rows — **RESOLVED: PROVEN author-side provenance artifact** (see `DS_D2_TORCH7_THREEWAY.md`)
+
+> **2026-08-12 update (Variant B):** a rebuilt authentic Torch7 runtime
+> (validated 232/232 byte-identical vs the frozen `lua_trace/`) ran the
+> released, unmodified Lua solver on the same 200 reconstructed inputs.
+> Result: released Lua == our Python engine **bit-for-bit on all 200×2×6
+> raw card CFVs**; three-way classes A=66, B=134, C=0, D=0. The released
+> code itself does not reproduce the 134 bundled rows — the divergence is
+> proven to be in the bundled samples' provenance, not in our engine.
+> Bulk-generation blocker lifted. The elimination analysis below is kept
+> as the historical record of the pre-proof state.
 - First divergence frozen: valid row 1, target idx 20 (P1, card Ks):
   ours `5.6546307` (0x40B4F32C) vs stored `5.6546264` (0x40B4F323), 9 ULP;
   full input state recorded in the census log.
