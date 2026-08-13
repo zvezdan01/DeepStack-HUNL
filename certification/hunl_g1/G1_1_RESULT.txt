@@ -1,0 +1,17 @@
+== A. provenance ==
+ACPCServer/evalHandTables  9b8bb8e1c73503d55073757d0434380a69c40431713448c3d578f1a8dca7c3e4
+CFR_plus/evalHandTables    53248e54bafb8fbc67830230baf4ad92abaf1e95425c0326e14e7e7a82ef8425
+parsed-table canonical digest OK; python tables loaded from: /home/user/quant-trade/third_party/CFR_plus/evalHandTables
+C oracle compiled against untouched /workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/evalHandTables
+== B. full 7-card space ==
+C oracle: 133,784,560 ranks in 4s, sha256 91d8792a3c5f6b9538e8005b39276d069c69e2d68b348024e7ce1f30080a0466
+Python port: 133,784,560 ranks in 30s, sha256 91d8792a3c5f6b9538e8005b39276d069c69e2d68b348024e7ce1f30080a0466
+B PASS: full-space stream BYTE-IDENTICAL (SHA-256 match)
+== C. class counts vs canonical frequencies ==
+C PASS: both implementations match published 7-card frequencies [23294460, 58627800, 31433400, 6461620, 6180020, 4047644, 3473184, 224848, 41584]
+== D. board API vs oracle ==
+D PASS: 25,000 boards x 1326 hands (33,150,000 entries incl. blocked sentinels) byte-exact in 11s
+== E. indexing + semantic spot checks ==
+E PASS: 1326 bijective; royal>quads>boat ordering; wheel SF classed
+
+G1.1 RESULT: PASS — evaluator + card layer BIT_EXACT vs untouched author oracle
