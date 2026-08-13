@@ -10,3 +10,8 @@ __pycache__/
 certification/scripts/CFR_plus_patched/cfr_patched
 certification/scripts/CFR_plus_patched/compressor/compressor_test
 .pytest_cache/
+certification/scripts/rng_oracle
+third_party/CFR_plus/cfr
+third_party/CFR_plus/cfr_dbg
+third_party/CFR_plus/cfr_nofortify
+third_party/CFR_plus/cfr_o2dbg
