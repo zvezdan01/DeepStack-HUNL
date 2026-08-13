@@ -1,0 +1,20 @@
+== 1/2. exhaustive combinatorics + chance-mass identities ==
+12 representative boards: rivers 48, hands 1128->1081, per-hand 46, cross-foot 51,888, ALL 14,009,760 legal pairs have exactly 44 mutual rivers (+45/46 overlap/diag structure), 2,400 independent loop recounts (1s)
+FULL turn-board space: all 270,725 boards -> 1128 legal hands; per-hand legal rivers = 46 exactly (both hand cards lie in the 48-card remainder); 48x1081 == 1128x46 == 51,888 per board (1s)
+== 3. all-in runout equity: production vs independent reference ==
+3 small-support states (incl. blocker-heavy): max |prod-ref| = 1.09e-15 of pot (<=1e-9)
+full-range all-in: zero-sum <1e-9 pot, blocked exactly 0, 12 per-hand loop recounts vs full opponent range match (3s)
+identities: board-permutation BYTE-EXACT; suit-isomorphism (h<->s) max |d| 1.82e-12; iso multiplicities/blocker/chance counts preserved (2s)
+suit-isomorphic REDUCTION: not certified, NOT used in the Golden path (full card space only) — verification-only checks above
+== 4/5/6. turn->river transition ==
+3 small-support transition states (48 rivers each, 500/250): production vs independent reference max |d| = 4.55e-15 of pot (<=1e-6); per-river masks BIT-EXACT between code paths (1543s)
+full-range transitions (200/100): finite, blocked-zero, reach-mass identity (46x), zero-sum residual < 2e-3 pot, zero-support river skipped exactly once where constructed (173s)
+transition board-permutation: BYTE-EXACT
+== 7. full-1326 exact BR audit of frozen river baseline ==
+  AsKh7c4d2s pot 2000: audit-f64 value -117.812, frozen engine -117.675 (|d| 0.137 chips = 0.003% pot); full-1326 NashConv of audit profile 20.681 chips (0.517% pot)
+  JdTc9s5h5c pot 9900: audit-f64 value -374.018, frozen engine -374.153 (|d| 0.136 chips = 0.001% pot); full-1326 NashConv of audit profile 24.417 chips (0.123% pot)
+7 PASS: full-1326 BR audit — engine values confirmed by independent f64 solver+BR; NO solver change made (96s)
+== 8. determinism (fresh processes) ==
+8 PASS: all-in + transition byte-identical across fresh processes; SHA 4c26a18f04d73e50c76a1a76976693b67c1c4795bf688a200f37ccd83bbd4fda (138s)
+
+TURN GATE CORE: PASS (34.8 min so far); now running frozen-regression battery...
