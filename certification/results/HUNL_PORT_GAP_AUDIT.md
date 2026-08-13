@@ -1,5 +1,11 @@
 # HUNL PORT GAP AUDIT — Leduc Certified Baseline → Full HU No-Limit Hold'em
 
+> **v1.1 note (2026-08-13):** the parameter sheet, asset inventory, Gate-G1
+> plan and project estimates are superseded by
+> **`HUNL_RECONSTRUCTION_SPEC.md`** (adds DeepHoldem/DyypHoldem
+> corroborating clones, VERIFIED/INFERRED/UNKNOWN parameter statuses, and
+> the M-HUNL-0 milestone). The per-component analysis below remains valid.
+
 Date: 2026-08-13. Scope: **audit only — nothing implemented, nothing modified.**
 Baselines frozen: Golden Baseline `2ab6dde…`, certified datagen `7967622…`,
 Phase-2B dataset (110k) + manifests.
