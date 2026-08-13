@@ -1,0 +1,9 @@
+oracle compiled from untouched game.c (sha256 85b5325dd54e043fdb22548d4e1bfe4ed40b820a87f75f252d93875688b5c7cc) + rng.c
+corpus: EXHAUSTIVE — all 19,801 reachable river entry pots
+generated: 622,563 nodes (227,322 decision, 395,241 terminal), 2,318,960 predicted oracle replies in 7s
+oracle executed in 1s
+oracle comparison: ALL 2,318,960 replies IDENTICAL (0s)
+determinism: combined manifest SHA-256 7e5eb54ca43481b24e3e1b64f7c20881ff2d0f72f41f5cc3c8f6b03a7ceffa50 identical across in-process + 2 fresh subprocess builds (all pots)
+boundary coverage: short_allin_windows=31,088, allin_dedupe=8, menu_reduced=88,167, fold_illegal_checked=39,602, no_raise_states=113,661, exact_stack_exhaustion=113,661, min_raise_probes=113,661
+
+G1 TREE RESULT: PASS (total 12s)

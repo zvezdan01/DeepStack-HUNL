@@ -42,6 +42,19 @@ class HunlConfig:
     river_cfr_iters: int = 2000               # Table 4 (not used by the tree)
     river_cfr_omit: int = 1000                # Table 4 (not used by the tree)
 
+    # Table 4, turn row (VERIFIED, spec f81d08c): lookahead-global action
+    # depths — first {F,C,1/2P,P,A}, second {F,C,P,A}, remaining {F,C,P,A}
+    # (the "remaining" menu also governs river betting inside a turn
+    # resolve, which is solved to the end of the game with no NN).
+    turn_menus: tuple[tuple[Fraction, ...], ...] = (
+        (Fraction(1, 2), Fraction(1)),
+        (Fraction(1),),
+        (Fraction(1),),
+    )
+    turn_allin: bool = True
+    turn_cfr_iters: int = 1000                # Table 4 turn schedule
+    turn_cfr_omit: int = 500
+
     def menu_for_depth(self, depth: int) -> tuple[Fraction, ...]:
         return self.river_menus[min(depth, len(self.river_menus) - 1)]
 

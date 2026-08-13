@@ -1,0 +1,31 @@
+== 1. ACPC replay of turn trees vs untouched game.c ==
+1 PASS: 43 turn pots, 154,041 tree nodes, 355 transitions (48 river subtrees each, betting-identity asserted), 14,199 oracle replies identical incl. round transition + cross-street min-raise reset (2s)
+== 2. forced-check exact anchors (engine == all-in oracle) ==
+2 PASS: 8 forced-check states — engine pipeline == certified all-in oracle, max |d| 9.10e-16 of pot (22s)
+== 3. solve-corpus invariants ==
+3 PASS: 10 states (uniform/skewed/blocker/degenerate/single/disjoint-ish supports; pots 2000..19999): finite, blocked-zero, strategies normalized, max zero-sum 8.19e-16 of pot (418s)
+3b PASS: zero-support river branch (Qh in every hand) — finite, no NaN, river-Qh subtrees receive zero reach
+== 4. engine vs independent recursive reference ==
+4 PASS: 2 small-support states — vectorized engine vs recursive reference max |d| 7.35e-16 of pot (404s)
+== 5. LP cross-anchors + convergence ==
+  full-Table4 AsKh7c4d pot 15000: LP -1700.425 vs engine -1700.425 -> 0.000% pot
+  full-Table4-blocker KsQsJs9s pot 15000: LP +12068.001 vs engine +12067.476 -> 0.002% pot
+  reduced-menu 7c7d2h2s pot 9900: LP +3962.964 vs engine +3962.964 -> 0.000% pot
+  convergence |engine-LP| chips @100/250/500/1000/2000: ['2.3489', '0.0000', '0.0000', '0.0000', '0.0000'] (production stays 1000/500)
+  full-1326 NashConv @250/500/1000: ['40.30', '19.21', '4.09'] chips (['0.204%', '0.097%', '0.021%'] pot) (1278s)
+5 PASS
+== 6. full-schedule 1000/500 corpus + exact BR ==
+  AsKh7c4d pot 2000 (uniform/uniform): value -149.30, zero-sum 3.55e-17, NashConv 27.65 chips (0.691% pot), 6,333 nodes
+  KsQsJs9s pot 4000 (skewed/blocker): value -1880.13, zero-sum 2.84e-17, NashConv 32.66 chips (0.408% pot), 2,571 nodes
+  TsJhQdKc pot 9900 (skewed/skewed): value -579.55, zero-sum 5.74e-18, NashConv 6.66 chips (0.034% pot), 1,023 nodes
+  7c7d2h2s pot 15000 (blocker/uniform): value +0.00, zero-sum 1.73e-16, NashConv 0.00 chips (0.000% pot), 537 nodes
+  5h6h7h8h pot 19999 (uniform/skewed): value +139.74, zero-sum 1.11e-16, NashConv 0.00 chips (0.000% pot), 537 nodes
+6 PASS (1222s)
+== 7. CFR-D gadget re-solves (separate) ==
+7 PASS: 3 gadget re-solves — opponent-optimal terminate values = input CFVs, blocked-zero ranges, normalized strategies (192s)
+== 8. determinism ==
+8 PASS: fresh-process byte-identical; SHA c6c4eb4e9b6b78898c176c2d9e996c159f71e15d09ba4210ca5d07a9255918f7 (67s)
+
+corpus anchors combined SHA-256: 78958278e61db0f1649ef24aa0c5de2a5669294423c7f91b2d841595b6f4f8f9
+COUNTERS: {'turn_states': 74, 'nodes': 154041, 'acpc_cmp': 8752, 'transitions': 355, 'infosets': 11602608}
+TURN ENGINE GATE CORE: PASS (60.3 min)
