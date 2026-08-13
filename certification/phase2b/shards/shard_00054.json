@@ -1,0 +1,35 @@
+{
+  "shard": 54,
+  "split": "train",
+  "seed": 2234515444,
+  "samples": 1000,
+  "sha256": {
+    "inputs": "f22db0481b3d6b840b263a316ac302f96d401dbf0a791e6c922cb109c3271f22",
+    "targets": "eb9faf746e65deed54804a05d8d2b993d8d71302c9ef95192b141e0a47cdf5c7",
+    "mask": "757c4e3778e70bdad6a30813fe7cda19af97b8e25b1ab4259698615534afa52c"
+  },
+  "config_hash": "f0315183c58640812df4cc8560088183b50f7d1abb4544cbdcd71c7defc05c77",
+  "engine_sha": "2ab6dde943ebad2f5458779dc561ed203f796e39",
+  "datagen_sha": "7967622e5b66e35a8e9a17506f97db86c2e6b543",
+  "weights_sha": "d5fcba4402cec46a9b02cea0f96cb78bda83f284ea36f6d5db84529e83eb59a1",
+  "qa": {
+    "boards": [
+      150,
+      160,
+      120,
+      110,
+      240,
+      220
+    ],
+    "pot_min": 100.30929565429688,
+    "pot_max": 1197.567626953125,
+    "pot_mean": 637.2636108398438,
+    "target_absmax": 7.902377128601074
+  },
+  "audit_rows": [
+    231,
+    603
+  ],
+  "audit": "BYTE_EXACT",
+  "gen_seconds": 309.7
+}

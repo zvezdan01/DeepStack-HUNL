@@ -398,15 +398,20 @@ def cmd_finalqa() -> None:
 
 def cmd_replay() -> None:
     """Independent replay of a representative shard subset from the same
-    seeds in this fresh process; require identical SHA-256."""
+    seeds in this fresh process; require identical SHA-256. An optional
+    argv[2] comma-list restricts the subset so several fresh processes can
+    replay disjoint parts in parallel."""
     verify_pins()
     global _NET
     _init_worker()
     cfg = Config()
     tmp = OUT_DIR / '.replay'
     tmp.mkdir(exist_ok=True)
+    subset = ([int(x) for x in sys.argv[2].split(',')]
+              if len(sys.argv) > 2 else REPLAY_SHARDS)
+    assert set(subset) <= set(REPLAY_SHARDS)
     ok = 0
-    for idx in REPLAY_SHARDS:
+    for idx in subset:
         m = json.loads((SHARD_DIR / f'shard_{idx:05d}.json').read_text())
         prefix = tmp / f'replay_{idx:05d}'
         rng = THRandom(shard_seed(idx))
