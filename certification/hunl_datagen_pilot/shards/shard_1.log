@@ -1,2 +1,3 @@
 shard 1 sample 1/20 pot 293 board (15, 28, 41, 49) [27.1 min]
 shard 1 sample 2/20 pot 100 board (15, 28, 41, 49) [65.0 min]
+shard 1 RESUMED from checkpoint at row 2/20 (draws 23300)
