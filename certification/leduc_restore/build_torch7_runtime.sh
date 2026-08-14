@@ -25,7 +25,7 @@ CMVARS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE=Release
   -DCMAKE_C_FLAGS="-O2 -ffp-contract=off"
   -DCMAKE_CXX_FLAGS="-O2 -ffp-contract=off"
   -DLUA_INCDIR="$PREFIX/include/luajit-2.1" -DLUA_LIBDIR="$PREFIX/lib"
-  -DLUADIR="share/lua/5.1" -DLIBDIR="lib/lua/5.1"
+  -DLUADIR="$PREFIX/share/lua/5.1" -DLIBDIR="$PREFIX/lib/lua/5.1"
   -DLUALIB=luajit-5.1 -DLUA="$PREFIX/bin/luajit" -DWITH_LUAJIT21=ON)
 
 echo "== paths =="
