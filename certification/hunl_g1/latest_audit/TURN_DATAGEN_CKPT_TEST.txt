@@ -1,0 +1,8 @@
+A reference: uninterrupted shard 0 (303s)
+B: worker SIGKILLed after >=3 samples (ckpt present, no manifest)
+B PASS: resumed shard byte-identical to reference (5/5 arrays), ckpt cleaned
+C PASS: kill after >=7 samples, resume byte-identical
+D PASS: corrupt ckpt rejected -> fresh regeneration byte-identical
+E PASS: completed shard skipped (manifest mtime unchanged)
+manifests identical modulo wall-clock
+CKPT RESUME TEST: PASS
