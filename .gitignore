@@ -1,6 +1,3 @@
-# HUNL turn datagen pilot data are committed ONLY upon full gate PASS
-# (in-progress generation; verdict pending). Remove this entry at gate commit.
-certification/hunl_datagen_pilot/
 
 # build artifacts / caches (sources are committed; binaries are rebuilt)
 __pycache__/
