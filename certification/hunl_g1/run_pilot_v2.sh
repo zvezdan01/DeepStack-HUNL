@@ -40,12 +40,35 @@ Claude-Session: https://claude.ai/code/session_01Se6m4Dpzr7kPan6kHCTitX" || true
 w=0
 for wave in "0 1 2 3" "4 5 6 7" "8 9 10 11"; do
   w=$((w+1))
-  for s in $wave; do run "$s" "$OUT" & done
-  wait
+  # v2.1: a wave is complete only when every shard manifest exists.
+  # Workers can die (observed: OOM kill of one worker, 2026-08-14) and
+  # bare `wait` does not surface that; missing shards are respawned and
+  # resume from their per-sample checkpoints. Log lines are appended
+  # (>>) so evidence of earlier attempts survives.
+  attempt=0
+  while true; do
+    missing=""
+    for s in $wave; do
+      [ -f "$OUT/$(printf 'shard_%05d.json' "$s")" ] || missing="$missing $s"
+    done
+    [ -z "$missing" ] && break
+    attempt=$((attempt+1))
+    if [ "$attempt" -gt 25 ]; then echo "WAVE $w STUCK: missing$missing" >&2; exit 1; fi
+    echo "WAVE $w attempt $attempt: running shards:$missing"
+    for s in $missing; do
+      python3 "$QT/hunl_datagen/turn_datagen.py" "$s" 20 "$OUT" >> "$OUT/shard_$s.log" 2>&1 &
+    done
+    wait
+  done
   echo "WAVE $w DONE"
   commit_wave "$w"
 done
-run 0 "$REP"
+attempt=0
+until [ -f "$REP/shard_00000.json" ]; do
+  attempt=$((attempt+1))
+  [ "$attempt" -gt 25 ] && { echo "REPLAY0 STUCK" >&2; exit 1; }
+  python3 "$QT/hunl_datagen/turn_datagen.py" 0 20 "$REP" >> "$REP/shard_0.log" 2>&1
+done
 echo "REPLAY0 DONE"
 commit_wave "replay"
 echo "PILOT GENERATION COMPLETE"

@@ -66,6 +66,7 @@ Sorting consumes NO RNG (deterministic stable argsort).
 from __future__ import annotations
 
 import dataclasses
+import gc
 import hashlib
 import json
 import os
@@ -300,6 +301,14 @@ def generate_shard(shard_idx: int, n_samples: int, out_dir: Path) -> dict:
         ranges[row, 1] = r2[i]
         targets[row] = tgt
         masks[row] = pmask.astype(np.uint8)
+        # v1.1.1: free the engine's node tree + terminal matrices NOW.
+        # TurnNode trees are cyclic (children lists), so without an
+        # explicit collect the ~GB-scale per-sample engines linger until
+        # the cyclic GC threshold and 4 workers OOM a 16 GB container
+        # (observed: oom-kill of shard-3 worker, RSS 4.4 GB, 2026-08-14).
+        # No RNG draw and no numeric path is touched — output-neutral.
+        del te, cfvs, tgt
+        gc.collect()
         ck_tmp = Path(f"{prefix}.ckpt.tmp.npz")
         np.savez(ck_tmp, shard=shard_idx, n=n_samples,
                  config_sha=np.array(CONFIG_SHA),
