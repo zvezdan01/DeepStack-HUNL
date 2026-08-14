@@ -99,3 +99,39 @@ Tier 3 for all genealogy conventions; Tier 4 fossils recorded as such.
 
 See UNRESOLVED.md (unchanged core unknowns; [100,100), offline CFR+
 semantics, master seed, serialization all still open).
+
+---
+
+## BIT-EXACT READINESS (INTERIM, 2026-08-14 ~23:15 UTC)
+
+| component | status | basis |
+|---|---|---|
+| pot sampler (intervals) | STRONGLY INFERRED | Tier-2 supplementary wording (incl. [6000,19950]); first bin: singleton-100 reading corroborated by 3 independent Tier-4 codebases (DeepHoldem min=max=100 confirmed in code this session); [100,200) alternative stays open |
+| range generator algorithm | KNOWN (algorithmically) | Tier-2 supplement R(S,p); released Leduc code semantics (randomized odd split) |
+| range generator ordering/tie-breaking | UNKNOWN | no artifact |
+| RNG | STRONGLY INFERRED (family), UNKNOWN (instance) | MT19937 ACPC rng.c monoculture proven across CPRG ecosystem (byte-identical 4×); no DeepStack-specific proof |
+| seed (master) | UNKNOWN | no artifact; CPRG culture dumps seeds into outputs (open-pure-cfr, ACPC logs) — E-artifact would likely contain it |
+| worker seed derivation | UNKNOWN (3 Tier-3 fingerprint patterns recorded) | open-pure-cfr base+1234+4*thread+i; TensorCFR offset+generation*size; ACPC explicit CLI |
+| board sampler | STRONGLY INFERRED (family) | ACPC dealCards inheritance proven in PureCFR offline solver; Leduc rejection sampler in released code |
+| hand ordering (1326) | UNKNOWN | Waugh hand-isomorphism cloned as candidate library, unproven |
+| target solver (game rules/actions) | KNOWN | F/C/P/A, 1000 iterations (Tier 2) |
+| CFR+ update semantics (offline) | UNKNOWN (fork R-1) | Schmid-thesis standard CFR+ (alternating/linear) vs released-Leduc hybrid (simultaneous/uniform); dissertation PDF egress-blocked, quotes via owner notes |
+| averaging | UNKNOWN | same fork |
+| skip/omit (offline) | UNKNOWN (HYPOTHESIS omit=500) | no first-party offline statement |
+| CFV normalization | KNOWN | /pot (Tier 2) |
+| output layout / serialization | UNKNOWN | never released; Leduc .inputs/.targets/.mask is the only Tier-3 pattern |
+| parallel worker allocation | UNKNOWN | 6144 cores / MP2 / PBS inference only (256 nodes unproven) |
+
+**Can we currently construct a bit-exact DeepStack HUNL DataGenerator? NO**
+(algorithm-exact YES — our certified pilot generator is exactly that).
+Bit-exactness is blocked by: RNG instance + master seed + worker seed
+derivation + draw ordering + hand ordering/tie-breaking + offline CFR+
+semantics + serialization. A single Tier-1 A–E artifact (job script, raw
+sample, or seed config) would collapse several unknowns at once — and the
+CPRG "seeds live in outputs" culture makes E-artifacts the most promising
+target. The highest-value BLOCKED leads (require egress outside this
+container): Zenodo DOI 10.5281/zenodo.10796885 (ACPC 2014 2pn logs —
+compute Nyx/Hyperborean pot histograms at flop/turn roots vs the bins),
+Schmid dissertation PDF (dspace.cuni.cz bitstream 140094808), Burch PhD
+PDF, arXiv v1–v3 e-print TeX diff of the [100,100) line, Wayback CDX of
+poker.cs.ualberta.ca and computerpokercompetition.org/downloads.

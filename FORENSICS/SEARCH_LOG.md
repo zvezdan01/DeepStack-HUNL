@@ -68,3 +68,19 @@ limits, not as artifact non-existence.
 [23:0x] DeepStack-Leduc issues #5 (random situation solving, 2017-12) and
     #3 (Texas Hold'em, 2017-08) -> NEG: no maintainer replies visible in
     threads. Issue inventory pages 1-2 recorded (24 issue numbers, rest PRs).
+[23:0x] issue #33 -> NEG no maintainer reply. computerpokercompetition.org
+    -> EGRESS_BLOCKED. cdn.aaai.org (Refining Subgames PDF) -> BLOCKED.
+[23:1x] Nyx via WebSearch -> Tier2 snippets: 2nd place ACPC 2014 HUNL TBR;
+    card abstraction for base strategy (Schmid 2015/Johanson 2013 methods),
+    fine-grained endgame without card abstraction ("Refining Subgames",
+    AAAI). Schmid quote on modeling random moves (opponent exploitation).
+[23:1x] kdub0/acpc_hand_converter -> POS convention: ACPC agent log naming
+    `<agent>_2pn_<year>` (hyperborian_2pn_2014, act1_2pn_2016) => Zenodo
+    2014 archive should contain nyx_2pn_2014 files.
+[23:1x] "19950" code search -> only reimplementation repos (godmoves/
+    DeeperStack cloned: datagen pot via tools:get_pot_size (18000-max DH
+    line), resolving bet_sizing {0.5,1}; the ½-pot claim is a RESOLVING
+    config there, not datagen — supports owner's note 21). noambrown/
+    poker_solver + AI-Decision/DecisionHoldem noted for later mining.
+[23:1x] PyStack -> Tier4 own params (suggested cfr_iters=800/skip=500,
+    2M river+0.5M other situations on 1000 CPU nodes) — NOT original.
