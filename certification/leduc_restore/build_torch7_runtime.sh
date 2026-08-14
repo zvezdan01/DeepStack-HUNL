@@ -49,6 +49,7 @@ $NICE make -j2 install >>/tmp/build_torch7.log 2>&1
 echo "== validation =="
 export LUA_PATH="$PREFIX/share/lua/5.1/?.lua;$PREFIX/share/lua/5.1/?/init.lua;;"
 export LUA_CPATH="$PREFIX/lib/lua/5.1/?.so;;"
+export LD_LIBRARY_PATH="$PREFIX/lib:$LD_LIBRARY_PATH"
 "$PREFIX/bin/luajit" -e '
 require "torch"
 torch.manualSeed(42)
