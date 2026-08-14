@@ -26,7 +26,7 @@ def driver_alive():
     for pid in os.listdir("/proc"):
         if not pid.isdigit(): continue
         try:
-            if "run_pilot.sh" in open(f"/proc/{pid}/cmdline").read(): return True
+            if "run_pilot" in open(f"/proc/{pid}/cmdline").read(): return True
         except Exception: pass
     return False
 

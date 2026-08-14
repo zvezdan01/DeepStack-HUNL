@@ -1,4 +1,4 @@
-reference run A: 3 shards uninterrupted (774s)
+reference run A: 3 shards uninterrupted (701s)
 shard 1 SIGKILLed mid-solve (after sample 2 started, no manifest on disk)
 shard 2 staged as mid-write partial (2 final arrays + 1 tmp, no manifest)
 shard 0: COMPLETE, SHA verified -> skip
