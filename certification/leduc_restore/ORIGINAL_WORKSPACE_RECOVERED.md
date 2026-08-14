@@ -44,3 +44,10 @@ this session against anchors RECORDED IN THIS REPO before the loss.
    CANCELLED — the original certified artifact is back.
 4. The archives are committed to this repository so no future container
    reclaim can take the golden engine again.
+
+## Addendum — ACPC archives (owner-uploaded, same day)
+
+| archive | embedded commit | finding |
+|---|---|---|
+| `acpc-python-client_b5079a21.zip` | `b5079a214c66…` | bundled `game.c` == recorded oracle anchor `85b5325d…`; `evalHandTables` == `9b8bb8e1…` — a THIRD independent provenance source for the ACPC oracle |
+| `acpc-server_80908609.zip` | `80908609d982…` | 2019 upstream; `lib/game.c` = `ca1f8ac7…` (newer revision, ≠ oracle anchor) — archived for reference, NOT used as an oracle |
