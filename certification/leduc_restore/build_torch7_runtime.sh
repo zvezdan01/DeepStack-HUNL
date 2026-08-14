@@ -21,32 +21,29 @@ make install PREFIX="$PREFIX" >>/tmp/build_luajit.log 2>&1
 ln -sf "$PREFIX"/bin/luajit-2.1* "$PREFIX/bin/luajit" 2>/dev/null || true
 "$PREFIX/bin/luajit" -v
 
+CMVARS=(-DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE=Release
+  -DCMAKE_C_FLAGS="-O2 -ffp-contract=off"
+  -DCMAKE_CXX_FLAGS="-O2 -ffp-contract=off"
+  -DLUA_INCDIR="$PREFIX/include/luajit-2.1" -DLUA_LIBDIR="$PREFIX/lib"
+  -DLUADIR="share/lua/5.1" -DLIBDIR="lib/lua/5.1"
+  -DLUALIB=luajit-5.1 -DLUA="$PREFIX/bin/luajit" -DWITH_LUAJIT21=ON)
+
 echo "== paths =="
 cd /workspace/torch/paths
 mkdir -p build && cd build
-$NICE cmake .. -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_C_FLAGS="-O2 -ffp-contract=off" \
-  -DLUA_INCDIR="$PREFIX/include/luajit-2.1" -DLUA_LIBDIR="$PREFIX/lib" \
-  -DLUALIB=luajit-5.1 -DLUA=luajit >/tmp/build_paths.log 2>&1
+$NICE cmake .. "${CMVARS[@]}" >/tmp/build_paths.log 2>&1
 $NICE make -j2 install >>/tmp/build_paths.log 2>&1
 
 echo "== cwrap =="
 cd /workspace/torch/cwrap
 mkdir -p build && cd build
-$NICE cmake .. -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE=Release \
-  -DLUA_INCDIR="$PREFIX/include/luajit-2.1" -DLUA_LIBDIR="$PREFIX/lib" \
-  -DLUALIB=luajit-5.1 -DLUA=luajit >/tmp/build_cwrap.log 2>&1
+$NICE cmake .. "${CMVARS[@]}" >/tmp/build_cwrap.log 2>&1
 $NICE make -j2 install >>/tmp/build_cwrap.log 2>&1
 
 echo "== torch7 @ 814ea4a =="
 cd /workspace/torch/torch7
 mkdir -p build && cd build
-$NICE cmake .. -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_C_FLAGS="-O2 -ffp-contract=off" \
-  -DCMAKE_CXX_FLAGS="-O2 -ffp-contract=off" \
-  -DLUA_INCDIR="$PREFIX/include/luajit-2.1" -DLUA_LIBDIR="$PREFIX/lib" \
-  -DLUALIB=luajit-5.1 -DLUA=luajit -DWITH_LUAJIT21=ON \
-  >/tmp/build_torch7.log 2>&1
+$NICE cmake .. "${CMVARS[@]}" >/tmp/build_torch7.log 2>&1
 $NICE make -j2 install >>/tmp/build_torch7.log 2>&1
 
 echo "== validation =="
