@@ -15,3 +15,4 @@ shard 7 sample 14/20 pot 2547 board (8, 11, 20, 24) [180.6 min]
 shard 7 sample 15/20 pot 5278 board (8, 11, 20, 24) [188.1 min]
 shard 7 sample 16/20 pot 763 board (8, 11, 20, 24) [199.8 min]
 shard 7 sample 17/20 pot 393 board (8, 11, 20, 24) [217.7 min]
+shard 7 RESUMED from checkpoint at row 17/20 (draws 46626)
