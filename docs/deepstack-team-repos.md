@@ -408,6 +408,55 @@ Top autoři obsahují **`DeepMind Technologies Ltd` (765 commitů)** a
 
 ---
 
+### ⭐⭐ Nález T12 (P0) — Morrill sám potvrzuje autorství match interface (povyšuje T8)
+
+`dmorrill10/dmorrill10.github.io` (261 commitů, 2011-12-30 → 2026-08-13; ostatní autoři
+v historii jsou tvůrci Jekyll šablony, ne spolupracovníci). Z `index.md`, doslova:
+
+> *„I'm a coauthor of [DeepStack], **I created the match interface** you can see in
+> [these exhibition match videos](https://www.youtube.com/@deepstackai1330), and before
+> DeepStack, I created [Cepheus]'s [public match interface](http://poker-play.srv.ualberta.ca/)
+> as well."*
+>
+> *„As an undergraduate, I worked with the Computer Poker Research Group to create an
+> [**open-source web interface to play against poker bots**](https://github.com/dmorrill10/acpc_poker_gui_client)
+> and to develop the 1st-place 3-player Kuhn poker entry in the 2014 Annual Computer
+> Poker Competition."*
+
+> **T8 povýšen z „silně podloženo, neprokázáno" na POTVRZENO first-party výrokem.**
+> Morrill uvádí, že vytvořil match interface DeepStacku, a jako open-source webové
+> rozhraní pro hru proti botům explicitně odkazuje **právě `acpc_poker_gui_client`**.
+> Funkční shoda z T8 (fold/check po timeoutu ↔ devět rukou, kdy se DeepStack odpojil)
+> tím dostává autorské potvrzení.
+
+**Nové UAlberta hostnames** — dosud v huntu neznámé, odlišné od `poker.cs.ualberta.ca`:
+
+| Host | Účel |
+|---|---|
+| `poker.srv.ualberta.ca` | Cepheus |
+| `poker-play.srv.ualberta.ca` | **veřejné match interface Cephea** (Morrillovo dílo) |
+
+> Pro Wayback enumeraci z neblokované sítě jsou to **dva nové cíle** vedle
+> `poker.cs.ualberta.ca` a `webdocs.cs.ualberta.ca/~burch/`.
+> Dále: `youtube.com/@deepstackai1330` — exhibition match videa.
+
+**Morrillova akademická časová osa** (relevantní pro dataci ACPC infrastruktury):
+
+| Období | |
+|---|---|
+| 2008–2013 | B.Sc. UAlberta — **jako student vytvořil ACPC web interface** |
+| 2014–2016 | M.Sc., školitel Bowling — *„Using Regret Estimation to Solve Games Compactly"* |
+| 2016–2022 | Ph.D., školitelé **Michael Bowling** + **Amy Greenwald** (Brown University) |
+| dnes | senior research scientist, Sony AI (GT Sophy) |
+
+**Nová jména** z jeho publikací (mimo DeepStack tým): Amy Greenwald (Brown),
+Montaser Mohammedalamen, Alexander Sieusahai, Yash Satsangi, Thomas J. Walsh,
+Daniel Hernandez, Peter R. Wurman, Peter Stone (Sony AI).
+
+`lifrordi/webpage` — 2 commity, 2026-03-30/31, jen Schmid. Nový, bez historie.
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
