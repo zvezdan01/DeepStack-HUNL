@@ -304,6 +304,48 @@ Grep přes všechny commit zprávy a těla na `svn|trunk|uoapoker|cprg|internal`
 
 ---
 
+### ⭐ Nález T8 (P1) — `acpc_poker_gui_client` a human study: silná shoda funkcí
+
+614 commitů, **2011-10-13 → 2016-12-01**, autor Dustin Morrill
+(`dmorrill10@gmail.com` + `morrill@ualberta.ca`). **26 remote větví** včetně
+`exhibition`, `exhibitionOnlyPolling`, `humanVsHuman`, `websockets`, `sidekiq`,
+`v0.0`, `v1.0`, `v1.2`, `webpack`.
+
+**Vývoj v srpnu 2016 — tři měsíce před studií** (studie: 2016-11-07 → 2016-12-16, ledger #35):
+
+| Datum | Commit |
+|---|---|
+| 2016-08-22 | Allow other matches to be **hidden from users** with a configuration option |
+| 2016-08-21 | Escape user and match names properly |
+| **2016-08-18** | **Allow a configuration option to fold or check after a timeout instead of leaving the match** |
+| 2016-08-15 | Allow **pauses between hands** with a configuration option |
+| 2016-08-13 | Replace god with daemon-overlord |
+
+Porovnej s `DeepStack_vs_IFP_pros/.../README.txt`:
+
+> *„DeepStack **disconnected on nine hands** against two participants, **causing it to
+> check/fold** against them for the rest of the hand."*
+
+> **To je přesně ta funkce z 2016-08-18.** Dále sedí: skrývání ostatních zápasů před
+> účastníky (hráli izolovaně), escapování jmen (účastníci měli jména typu
+> `bachmann.juergen.1`), pauzy mezi rukama, a `timer` komponenta odpovídající poli
+> *„Seconds to Act … includes any network lag, and delay from the browser interface"*.
+
+**Commity během studie samotné** (2016-11-30, 2016-12-01) jsou naopak Webpack refactoring,
+který aplikaci **rozbil** — *„Welcome page shows but does not work properly"*,
+*„Still broken though"*.
+
+> **Čtení:** studie běžela na **srpnovém stavu** (poslední stabilní před 2016-11-07),
+> zatímco Morrill mezitím na masteru refaktoroval. Nikdo si uprostřed sběru dat
+> nerozbije produkci.
+>
+> **Klasifikace:** funkční shoda je silná a časově konzistentní, ale **není to důkaz**,
+> že tento konkrétní repozitář byl nasazený deployment. Studie mohla běžet z jiné větve,
+> forku nebo interní kopie. Posouvám T3 z „pravděpodobně" na **„silně podloženo,
+> neprokázáno"**.
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
