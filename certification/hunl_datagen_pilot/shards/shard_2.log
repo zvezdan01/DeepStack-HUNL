@@ -17,3 +17,7 @@ shard 2 sample 14/20 pot 12006 board (7, 14, 29, 36) [237.8 min]
 shard 2 sample 15/20 pot 18170 board (7, 14, 29, 36) [243.5 min]
 shard 2 sample 16/20 pot 12926 board (7, 14, 29, 36) [249.4 min]
 shard 2 sample 17/20 pot 445 board (7, 14, 29, 36) [267.5 min]
+shard 2 sample 18/20 pot 1455 board (7, 14, 29, 36) [279.1 min]
+shard 2 sample 19/20 pot 271 board (7, 14, 29, 36) [296.9 min]
+shard 2 sample 20/20 pot 16860 board (7, 14, 29, 36) [302.8 min]
+{"shard": 2, "seed": 286486349, "samples": 20, "gen_minutes": 302.8}
