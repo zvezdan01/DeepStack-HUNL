@@ -5,3 +5,6 @@ shard 3 sample 3/20 pot 1778 board (4, 8, 18, 39) [63.6 min]
 shard 3 sample 4/20 pot 11588 board (4, 8, 18, 39) [72.3 min]
 shard 3 sample 5/20 pot 1645 board (4, 8, 18, 39) [89.0 min]
 shard 3 RESUMED from checkpoint at row 5/20 (draws 23306)
+shard 3 sample 6/20 pot 100 board (4, 8, 18, 39) [114.8 min]
+shard 3 sample 7/20 pot 1275 board (4, 8, 18, 39) [126.7 min]
+shard 3 sample 8/20 pot 370 board (4, 8, 18, 39) [144.7 min]

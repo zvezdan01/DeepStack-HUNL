@@ -5,3 +5,7 @@ shard 0 sample 4/20 pot 803 board (5, 22, 34, 39) [68.5 min]
 shard 0 RESUMED from checkpoint at row 4/20 (draws 23304)
 shard 0 sample 5/20 pot 100 board (5, 22, 34, 39) [105.3 min]
 shard 0 RESUMED from checkpoint at row 5/20 (draws 23306)
+shard 0 sample 6/20 pot 393 board (5, 22, 34, 39) [123.4 min]
+shard 0 sample 7/20 pot 299 board (5, 22, 34, 39) [141.3 min]
+shard 0 sample 8/20 pot 1523 board (5, 22, 34, 39) [152.9 min]
+shard 0 sample 9/20 pot 18409 board (5, 22, 34, 39) [158.7 min]
