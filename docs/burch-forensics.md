@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v3
+# Neil Burch — forensic ledger v4
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 27 nálezů, 6 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 36 nálezů, 7 analytických vln
 
 ---
 
@@ -658,6 +658,157 @@ Indexace: `bettingIndexOfSubgame = subgameIndex % numBettingSubgames`,
 | **2017-02-13 04:40** | `appendix.tex` v3 | **tie-breaking oprava**; `[100,100)` ponecháno (#16, #17) |
 | 2017-03-03 14:30 | `paper.tex` v3 | finální arXiv verze |
 | 2017-12-17 | thesis PDF | pdfTeX / TeX Live 2016 / **Cygwin** (#12) |
+
+---
+
+## Příloha D — Vlna 7: cluster artefakty a interní repozitář
+
+Nové zdroje: originální `project_acpc_server_v1.0.42.tar.bz2`, `vs_LBR.zip`,
+`DeepStack_vs_IFP_pros.zip`, arXiv 1303.4441 **v4**, arXiv 1810.11542 v1/v2 (JAIR, Burch 1. autor),
+NIPS 2012 supplemental.
+
+### ⭐ Nález #29 (P0) — interní CPRG repozitář má JMÉNO: `project_uoapoker`
+
+Ve více než 400 hlavičkách LBR logů (`vs_LBR/hyperborean14/*.out`, `full_cards/*.out`):
+
+```
+Player args: /home/viliam/cprg/project_uoapoker/trunk/src/c/meta_player.so \
+             /home/viliam/cprg/project_uoapoker/trunk/src/c/acpc14.map
+```
+
+Layout `project_uoapoker/trunk/src/c/` odpovídá `Makefile:45-46` v CFR+ (`cp -r trunk/*`,
+`--exclude=*svn*`).
+
+> Cíl č. 1 ze seznamu zbývajících cílů (§9) má nyní **konkrétní jméno a cestu**.
+> **Atribuce:** `/home/viliam/` je home adresář Viliama Lisého (autor LBR), ne Burchův.
+> Repozitář `project_uoapoker` je ale CPRG-wide, a je to tentýž `trunk`, ze kterého Burch
+> exportoval CFR+. Nezaměňovat operátora běhu s vlastníkem repozitáře.
+
+### ⭐ Nález #30 (P0) — první skutečné MP2 cluster artefakty: PBS job ID + alokace seedů
+
+400 souborů ve tvaru `lbr_<betting>_Hyp14_<r|s><SEED>_<JOBID>.mp2.m.out`.
+
+`vs_LBR/README.txt`:
+> "In all file names the **sSEED or rSEED indicate the SEED used for generating cards** where
+> the 'r' or 's' indicate the side of the cards played by the player."
+
+A každý log to potvrzuje ve své hlavičce: `Using seed 22.` ↔ soubor `..._s22_288772.mp2.m.out`.
+
+| Betting setting | Seedy | Job ID rozsah | Jobů | Seedů/job |
+|---|---|---|---|---|
+| `fcpa` | 0–49 (50) | 288761–288785 | 25 | 2 |
+| `56bets` | 0–49 (50) | 291695–291719 | 25 | 2 |
+| `fc4` | 0–49 (50) | 295063–295087 | 25 | 2 |
+| `2r56bets` | 0–49 (50) | 502916–502940 | 25 | 2 |
+
+Odvozené pravidlo: `jobid = base + ⌊seed / 2⌋`, tedy **2 seedy × 2 strany = 4 zápasy na job**,
+25 sekvenčních `qsub` jobů na nastavení. Job ID jsou prostá sekvenční čísla (ne `NNN[i]`),
+takže **nešlo o PBS job array**, ale o 25 samostatných submitů.
+
+**Alokace seedů: 0…49 sekvenčně — prostý index workeru.** Žádný hash, žádný XOR, žádné
+`seed ^ jobid`.
+
+> **Vztah k A–E:** je to **E-třídní materiál z téhož clusteru** (Calcul Québec MP2), jaký použil
+> turn dataset. **ALE je to LBR evaluace, ne generování dat.** Nesmí se zaměňovat.
+> Hodnota: ukazuje, jaký seed/job idiom tým na MP2 skutečně používal.
+
+### Nález #31 (P1) — DeepStack běhy přes MP2 nešly
+
+Soubory v `deepstack/` a `full_cards/` **nemají** `_<jobid>.mp2.m` sufix a seedy jsou
+**1-based** (1…10, 1…20, 1…30), ne 0-based.
+
+> Dvě různé konvence seedů v jednom projektu: **0-based pro CPU běhy na MP2**,
+> **1-based pro lokální GPU běhy**. DeepStack potřeboval GPU, MP2 je CPU cluster.
+
+### Nález #32 (P1) — `.so` plugin architektura potvrzuje nález #10
+
+Hlavičky logů:
+```
+Loading player: rgbr_nl_cprg.so
+Player args: .../meta_player.so  .../acpc14.map
+Player args: translation_player.so  translation_player.args.CFRplus_holdem_nolimit_FCPA
+```
+
+Tentýž vzorec jako `cfr_player.so` v CFR+ Makefile (`-shared -Wl,--export-dynamic`).
+
+> Potvrzuje #10: `cfr_player.c` byl **plugin hráče** pro tuto evaluační harness, ne generátor.
+
+### Nález #33 (P1) — existoval interní NO-LIMIT CFR+
+
+`translation_player.args.**CFRplus_holdem_nolimit_FCPA**` — agent „Full Cards" (thesis Table 6.1,
+~2 TB, ~14 CPU-let) byl vyroben **no-limit CFR+**.
+
+Veřejný Burchův CFR+ release je v praxi limit-only (`holdem.limit.2p.reverse_blinds.game`),
+byť `game.c` `bettingType` no-limit zná.
+
+> **Nejsilnější nová stopa:** v `project_uoapoker/trunk` existovala **no-limit varianta CFR+**.
+> To je nejbližší známý příbuzný solveru z doby DeepStacku. Hypotéza, nikoli důkaz o DataGeneratoru.
+
+### Nález #28 (P0) — Burchův `rng.c` je byte-identický napříč dvěma nezávislými releasy
+
+| Zdroj | tar owner | zabaleno | `rng.c` mtime |
+|---|---|---|---|
+| `CFR_plus.tar.bz2` | `burch/burch` | 2014-11-18 20:29 | — |
+| `project_acpc_server_v1.0.42` | `aaaicpc/pg227652` | 2017-07-28 22:03 | 2013-01-26 00:07 |
+
+```
+0e4a4d7ac3d310500f1dbd40e5d0d268d31d1dfecf5183314b99abf3aa646661  rng.c   (obojí)
+d16535446b4ce8e360f0125b0124a1e7a1c02abaf0b333460be24142db5b0f17  rng.h   (obojí)
+4352b66e17678c63218766303707d38e8dc5f9275c1e95ed1df60469e38f6796  dealer.c (originál == jblespiau mirror)
+```
+
+> Burchův MT19937 je **zmrazená, neměnná CPRG-wide komponenta**, distribuovaná dvěma nezávislými
+> kanály. Mirror `jblespiau/project_acpc_server` je věrný. **Bit-exact: ANO.**
+
+### Nález #34 (P2) — sada `56bets` plně rekonstruována
+
+Z hlaviček logů: `F, C,` pak 56 potových zlomků `0.05 × 1.15^k` pro k = 0…55
+(0.05, 0.0575, 0.066125, … 82.40537557, 94.76618191), pak `A`.
+Geometrická řada s kvocientem **1.15**.
+
+### Nález #35 (P2) — nezávislé ověření Burchova veřejného tvrzení
+
+`DeepStack_vs_IFP_pros/DeepStack_logs/ACPC/*.log`: **90 074** časově razítkovaných `STATE:` záznamů
+= **45 037 rukou × 2**. Přesně odpovídá Burchovu veřejnému vyjádření z 2017-03-04, že napočítal
+45 037 rukou (ledger v2, položka P2/P3).
+
+Časové okno z unixových razítek: **2016-11-07 12:03:43 UTC → 2016-12-16 22:49:21 UTC**.
+
+### Nález #36 (P3) — CFR-D v4 odstranil `% NB:` blok
+
+`cfrd.tex` v4 (2014-04-21, 49 541 B) vs v3 (2014-01-09, 61 154 B): 1 427 změněných řádků,
+Burchův komentářový blok **pryč**.
+
+> **Provenance:** `% NB:` komentář (#18) existuje **výhradně v arXiv v3** 1303.4441.
+> Kdo pracuje jen s v4 nebo s publikovanou verzí, nedostane ho.
+
+### NEGATIVE — vlna 7
+
+| Zdroj | Výsledek |
+|---|---|
+| arXiv **1810.11542** v1/v2 (`burch19a.tex`, „Revisiting CFR⁺ and Alternating Updates", JAIR, **Burch 1. autor**, e-mail `burchn@google.com`) | v1 má **1** boilerplate komentář, v2 **nula**. Žádné seedy, cluster, implementační infrastruktura. v1→v2 = 542 řádků, čistě editorial/teoretické. **NEGATIVE** |
+| NIPS 2012 supplemental (Gibson, **Burch**, Lanctot, Szafron) | jediný soubor `appendix.pdf`, **žádný kód**. **NEGATIVE** |
+| `DeepStack_vs_IFP_pros` ACPC logy | **žádné `# name/game/hands/seed` hlavičky** — human study se rozdávala živě přes web, ne ACPC dealerem. Match data, ne training data → **není to cíl C** |
+| `project_acpc_server` v1.0.42 — hledání data-generation | nic nad rámec už známého dealer/game/rng stacku |
+
+### Dopad vlny 7 na stav A–E
+
+| Cíl | Před vlnou 7 | Po vlně 7 |
+|---|---|---|
+| **A** | NOT FOUND | beze změny |
+| **B** | NOT FOUND | beze změny; #33 přidává stopu na interní no-limit CFR+ |
+| **C** | NOT FOUND | beze změny (IFP data jsou match, ne training) |
+| **D** | NOT FOUND | **první doložené reálné seedy týmu na MP2**: 0…49 sekvenčně, prostý index workeru (#30). Pro LBR evaluaci, ne pro DataGeneration |
+| **E** | NOT FOUND | **první skutečné MP2 cluster artefakty** (#30): 25 `qsub` jobů/nastavení, 2 seedy/job, sekvenční job ID. Pro LBR evaluaci, ne pro DataGeneration |
+
+### Aktualizace §9 — zbývající cíle
+
+Cíl č. 1 se zpřesňuje na:
+
+> **`project_uoapoker` — interní CPRG SVN repozitář, layout `trunk/src/c/`.**
+> Obsahuje (doloženo z cest a názvů artefaktů): `meta_player.so`, `rgbr_nl_cprg.so`,
+> `translation_player.so`, `acpc14.map`, `cfr_player.c`, a **no-limit CFR+ variantu**
+> (`CFRplus_holdem_nolimit_FCPA`). Toto je jediné místo, kde A/B/C/D/E reálně mohou být.
 
 ---
 
