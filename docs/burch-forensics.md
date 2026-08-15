@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v6
+# Neil Burch — forensic ledger v7
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 43 nálezů, 9 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 44 nálezů, 10 analytických vln
 
 ---
 
@@ -1002,6 +1002,80 @@ Potvrzena konfigurace hry: stack **$20 000**, blindy **$50/$100** — souhlasí 
 („HUNL with 20 000 chip stacks with a 100 chip big blind").
 
 > **Není to cíl C.** Human study data neobsahují nic z trénovacího řetězce.
+
+---
+
+## Příloha G — Vlna 10: exekuční test Burchova RNG řetězce proti reálným datům
+
+LBR logy obsahují **skutečné karty rozdané se známým seedem** na MP2. To umožnilo poprvé
+v celém huntu spustit rekonstrukci Burchova RNG a porovnat ji s produkčními daty.
+
+### Nález #44a (P1) — stejný seed dává identické karty napříč nastaveními
+
+| Seed | `fcpa` | `56bets` | `fc4` | `2r56bets` |
+|---|---|---|---|---|
+| 0 | `2s4d,2h5h\|/7sThQc/2c/As` | `…/7sThQc/2c` | `…/7sThQc/2c/As` | `…/7sThQc` |
+| 22 | `JcQs,6hTd\|/4c5sQd/Ks/Kh` | `…/4c5sQd/Ks` | `…/4c5sQd/Ks/Kh` | `…/4c5sQd/Ks` |
+
+Karty jsou identické, liší se jen kolik jich betting stihl odhalit.
+
+> Potvrzuje: karty se předrozdají ze seedu **před** hrou a nezávisí na betting konfiguraci —
+> stejná struktura jako `dealCards()` v `game.c:656-690`.
+
+### ⭐ Nález #44b (P0, NEGATIVNÍ) — uvolněný kód tyto karty nereprodukuje
+
+Implementoval jsem Burchův řetěz přesně podle zdroje — `rng.c:57` `init_genrand`,
+`rng.c:106` `genrand_int32`, `game.c:644-654` `dealCard`, `game.c:656-690` `dealCards`,
+`game.h:251` `makeCard(r,s) = r*MAX_SUITS+s`, `game.c:103-104` `suitChars="cdhs"`,
+`rankChars="23456789TJQKA"` — a spustil proti seedům 0 a 22.
+
+```
+seed  0   očekáváno  2s4d,2h5h|/7sThQc/2c/As
+          spočteno   5d5c,9hQd|/8dAs8s/4h/6d      NESHODA
+seed 22   očekáváno  JcQs,6hTd|/4c5sQd/Ks/Kh
+          spočteno   Ad6s,9s2c|/6c4cTh/3c/Ac      NESHODA
+```
+
+Následně otestováno **372 kombinací** napříč všemi rozměry, které uvolněný kód a jeho
+přirozené varianty připouštějí:
+
+| Rozměr | Testované hodnoty |
+|---|---|
+| RNG rodina | Burchův MT19937; glibc `srandom/random`; glibc `initstate_r/random_r` se stavem 8/32/64/128/256 B |
+| Stavba balíčku | `s` vnější / `r` vnější |
+| Kódování karty | `r*4+s` / `s*13+r` |
+| Redukce tahu | `% n`, `genrand_int31`, `real2 × n` |
+| Politika výběru | ACPC `deck[i]=deck[n-1]` / skutečný swap |
+| Pořadí rozdání | blokové (p0p0 p1p1), střídavé (p0 p1 p0 p1), board první |
+| Offset streamu | 0, 1, 2 tahy |
+| Režim | inkrementální rozdávání / plné promíchání 52 karet |
+
+**Shod: 0.**
+
+> **PŘÍMÝ NEGATIVNÍ DŮKAZ:** generátor karet, kterým tým na MP2 vyráběl LBR zápasy,
+> **není žádnou cestou přes uvolněný CPRG kód**. Žije v neuvolněném stromě
+> `project_uoapoker/trunk/src/c/` (#29), spolu s `rgbr_nl_cprg.so`.
+>
+> Test není vyčerpávající přes všechny myslitelné implementace — je vyčerpávající přes
+> **uvolněné kódové cesty a jejich přirozené varianty**. To stačí k závěru.
+
+### Proč je to důležité pro cíl D a pro váš DataGenerator
+
+Máme tu doložený případ, kdy jsou známy **všechny** vstupy, které by měly stačit:
+
+- seed (0…49, vytištěný v logu i v názvu souboru),
+- herní definice (stack 20 000, blindy 100/50, 4 kola, 2 hole karty, board 0/3/1/1),
+- Burchův RNG zdrojový kód,
+- reálný výstup k porovnání,
+
+**a přesto data reprodukovat nelze.**
+
+> **Závěr přenositelný na DataGenerator:** i kdyby se našel původní `rngseed` DeepStack
+> DataGeneratoru, **sám o sobě by k bit-exact rekonstrukci nestačil**. CPRG kód z té doby
+> obsahuje generátory, které nejsou odvoditelné z veřejných releasů.
+> „Známe seed" ≠ „umíme reprodukovat data" — a tady je to dokázáno experimentem, ne argumentem.
+
+Skript je v `docs/` neuložen (běžel v scratchpadu); reprodukovatelný z popisu výše.
 
 ---
 
