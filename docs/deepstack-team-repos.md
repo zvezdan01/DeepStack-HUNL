@@ -219,6 +219,91 @@ Dva repozitáře vypadaly jako přímý zásah na cíl E. Nejsou.
 
 ---
 
+## 5c. Commit forensics — třetí kolo
+
+### Nález T4 — kanál se otevřel
+
+GitHub `/search` byl na hodinu `429`, ale **git proxy této session obsluhuje anonymní
+čtení libovolného veřejného GitHub repozitáře** (`git clone`/`fetch`, bez přihlášení,
+mimo rate limit vyhledávání). Tím se poprvé v celém huntu otevřela **commit forensics
+nad cizími repozitáři** — sekce původního zadání, na kterou dosud nebylo dosaženo.
+
+### Nález T5 (P1) — `lifrordi/DeepStack-Leduc` nemá vývojovou historii
+
+```
+da416f9  2017-04-05  Martin Schmid <lifrordi@gmail.com>  -fixed cutorch version in the readme.md …
+bd344ca  2017-04-05  Martin Schmid <lifrordi@gmail.com>  Initial commit
+```
+
+**2 commity, jeden autor, jeden den.** Větve: pouze `master`. Tagy: 0.
+
+> Jediná veřejná implementace DeepStack pipeline byla publikována jako **hotový dump**,
+> ne jako vyvíjený projekt. Vývoj proběhl jinde a jeho historie do veřejného repozitáře
+> nikdy nešla.
+>
+> **Moravčík do něj nikdy nepřispěl** — DeepStack-Leduc je Schmidovo vydání.
+> Zároveň definitivně potvrzuje identitu `lifrordi` = Martin Schmid (`lifrordi@gmail.com`).
+
+### Nález T6 (P2) — `kdub0/hand-isomorphism`: obnoveny smazané větve i soubory
+
+83 commitů, **2013-04-07 → 2014-07-31**.
+
+| Autor | Commitů |
+|---|---|
+| Kevin Waugh `<kevin.waugh@gmail.com>` (jako „Kevin" i „Kevin Waugh") | 82 |
+| Dustin Morrill `<dmorrill10@gmail.com>` | 1 — PR #1, *„Added math library flag for linking on Linux"* |
+
+**Smazané topic větve rekonstruované z merge zpráv** (samotné větve už neexistují):
+`dev`, `set`, `rank_set`, `group_index`, `tabulate`, `test`.
+
+**Obnoveno 13 smazaných souborů** z rodičovských commitů:
+
+| Soubor | Velikost | Verdikt |
+|---|---|---|
+| `src/index_flop-main.c` | **49 B** | prázdný stub `int main(){return 0;}` — **NEGATIVE** |
+| `src/unindex_flop-main.c` | **49 B** | totéž — **NEGATIVE** |
+| `src/rank_set.h` | 8 468 B | pre-refactor API, později složeno do `hand_index.c` |
+| `src/group_index.h` | 1 911 B | pre-refactor API |
+| `src/card_set.*`, `rank_set.c`, `group_index.c`, `test.*`, `*-test.c` | — | vývojové mezistupně |
+
+> Názvy `index_flop-main.c` / `unindex_flop-main.c` sliboval samostatné nástroje pro
+> indexování flopových rukou — což by DeepStack flop network potřeboval.
+> **Jsou to prázdné stuby.** Zaznamenáno jako negativní, aby po nich nikdo nešel znovu.
+>
+> `git fsck --lost-found`: **žádné dangling objekty.**
+
+### Nález T7 (P2, NEGATIVE) — Morrillovy ACPC repozitáře nenesou CPRG SVN historii
+
+| Repo | Commitů | Rozsah |
+|---|---|---|
+| `dmorrill10/project_acpc_server` | 80 | 2012-06-29 → 2017-01-06 |
+| `dmorrill10/acpc_dealer` | 82 | 2012-06-29 → 2020-04-04 |
+
+Autoři obou: Dustin Morrill (`dmorrill10@gmail.com`, `morrill@ualberta.ca`) a
+Jesse Rosenstock (2 commity).
+
+Nejstarší commit: *„Initial commit with dealer, hand evaluator extension, and rake task
+to compile both."* (2012-06-29).
+
+Grep přes všechny commit zprávy a těla na `svn|trunk|uoapoker|cprg|internal`: **prázdno.**
+`git fsck --lost-found`: **žádné dangling objekty.**
+
+> Přestože je `project_acpc_server` označen jako „fork", **nenese historii CPRG SVN.**
+> Vznikl z **uvolněných tarballů**, stejně jako `jblespiau/project_acpc_server` (ledger #3).
+> Cesta k `project_uoapoker` přes veřejné forky tedy **nevede**.
+
+### Potvrzené e-mailové identity
+
+| Osoba | E-mail | Zdroj |
+|---|---|---|
+| Martin Schmid | `lifrordi@gmail.com` | commity DeepStack-Leduc |
+| Kevin Waugh | `kevin.waugh@gmail.com`, `waugh@cs.cmu.edu` | commity + README hand-isomorphism |
+| Dustin Morrill | `dmorrill10@gmail.com`, **`morrill@ualberta.ca`** | commity ACPC repozitářů |
+| Michael Bowling | `mbowling@ualberta.ca`, `bowling@cs.ualberta.ca` | `seq_predict` LICENSE, DeepStack `paper.tex` |
+| Neil Burch | `burchn@google.com` | JAIR `burch19a.tex` (ledger) |
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
