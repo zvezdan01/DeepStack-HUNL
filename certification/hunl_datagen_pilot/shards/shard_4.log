@@ -13,3 +13,5 @@ shard 4 sample 12/20 pot 100 board (8, 14, 16, 45) [202.9 min]
 shard 4 sample 13/20 pot 1124 board (8, 14, 16, 45) [214.6 min]
 shard 4 sample 14/20 pot 5016 board (8, 14, 16, 45) [222.2 min]
 shard 4 RESUMED from checkpoint at row 14/20 (draws 46620)
+shard 4 sample 15/20 pot 219 board (8, 14, 16, 45) [248.1 min]
+shard 4 sample 16/20 pot 389 board (8, 14, 16, 45) [266.1 min]

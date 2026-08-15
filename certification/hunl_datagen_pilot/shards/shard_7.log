@@ -16,3 +16,7 @@ shard 7 sample 15/20 pot 5278 board (8, 11, 20, 24) [188.1 min]
 shard 7 sample 16/20 pot 763 board (8, 11, 20, 24) [199.8 min]
 shard 7 sample 17/20 pot 393 board (8, 11, 20, 24) [217.7 min]
 shard 7 RESUMED from checkpoint at row 17/20 (draws 46626)
+shard 7 sample 18/20 pot 380 board (8, 11, 20, 24) [235.9 min]
+shard 7 sample 19/20 pot 950 board (8, 11, 20, 24) [247.6 min]
+shard 7 sample 20/20 pot 100 board (8, 11, 20, 24) [273.4 min]
+{"shard": 7, "seed": 591119292, "samples": 20, "gen_minutes": 273.4}

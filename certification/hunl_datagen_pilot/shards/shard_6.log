@@ -15,3 +15,6 @@ shard 6 sample 14/20 pot 2490 board (0, 29, 34, 48) [196.5 min]
 shard 6 sample 15/20 pot 5703 board (0, 29, 34, 48) [204.1 min]
 shard 6 sample 16/20 pot 273 board (0, 29, 34, 48) [222.0 min]
 shard 6 RESUMED from checkpoint at row 16/20 (draws 46624)
+shard 6 sample 17/20 pot 1782 board (0, 29, 34, 48) [233.8 min]
+shard 6 sample 18/20 pot 311 board (0, 29, 34, 48) [251.8 min]
+shard 6 sample 19/20 pot 10944 board (0, 29, 34, 48) [257.8 min]
