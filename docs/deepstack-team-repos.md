@@ -346,6 +346,68 @@ který aplikaci **rozbil** — *„Welcome page shows but does not work properly
 
 ---
 
+### ⭐ Nález T9 — jména v Schmidově „game theory dokumentu" (přes commit historii)
+
+README kurzu nejmenuje nikoho (§4). **Commit historie ano.** Naklonováno přes git proxy:
+
+| Repo | Commitů | Rozsah |
+|---|---|---|
+| `lifrordi/algorithmic_game_theory` | 65 | 2025-09-15 → 2026-02-11 |
+| `lifrordi/game_theory_2024` | 39 | 2024-10-15 → 2024-12-30 |
+| `lifrordi/game_theory_2023` | 12 | 2023-10-07 → 2024-02-03 |
+
+**Autoři:**
+
+| Osoba | E-mail | Commitů | Role |
+|---|---|---|---|
+| **Radovan Haluška** | `radovan.haluska1@gmail.com` | **94** | hlavní autor materiálů; PhD student na UK, jeho diplomku *„Analyzing the State-of-the-Art AI in the Game of Hearthstone"* vedl **Mgr. Martin Schmid, Ph.D.** |
+| **`schmid-equilibre`** | **`schmid@equilibretechnologies.com`** | 7 | **druhý účet Martina Schmida**, vázaný na EquiLibre Technologies |
+| Martin Schmid | `lifrordi@gmail.com` | 1 | osobní účet |
+| **Dominik Farhan** | `nikousf@seznam.cz` | 1 | |
+| **Matej Straka** | `strakammm@gmail.com` | 1 | |
+
+> **Odpověď na otázku „kdo se podílel na tom dokumentu":** materiály píše převážně
+> **Radovan Haluška**, Schmidův doktorand, ne Schmid sám. Schmid přispívá z účtu
+> `schmid-equilibre` firemním e-mailem.
+>
+> **Nový lead:** `schmid@equilibretechnologies.com` je firemní doména EquiLibre Technologies —
+> firmy, kde je **Moravčík CSO**. Veřejná GitHub organizace `equilibretechnologies` se ale
+> nenašla (`equilibre-finance` je jiná, DeFi firma).
+
+### Nález T10 (NEGATIVE) — Moravčík a Davis nemají dohledatelnou veřejnou GitHub stopu
+
+**Matej Moravčík** — vyzkoušeno pět strategií, všechny bez výsledku:
+
+| Strategie | Výsledek |
+|---|---|
+| GitHub user search `fullname:"Matej Moravcik"` | 0 |
+| WebSearch na handle (`moravcikm`, `Moravcik`, s diakritikou) | 0 |
+| Commit historie `lifrordi/DeepStack-Leduc` | nikdy nepřispěl (T5) |
+| Commit autoři `google-deepmind/open_spiel` (5 674 commitů) | nepřítomen |
+| EquiLibre Technologies GitHub org | veřejná organizace nenalezena |
+
+**Trevor Davis** — GitHub user search vrací **34 jmenovců**, žádný neodpovídá profilu
+(UAlberta, MSc 2016, game theory). Filtr `location:Alberta` se nepodařilo dokončit
+kvůli 503.
+
+> **Poctivý závěr:** oba pravděpodobně **nemají veřejnou GitHub přítomnost**.
+> Není to selhání hledání — u výzkumníků je to běžné. Vedeno jako NEGATIVE
+> s výhradou u Davise (běžné jméno, filtr nedokončen).
+
+### Nález T11 — OpenSpiel: interní export anonymizuje autory
+
+`google-deepmind/open_spiel`, 5 674 commitů. Z DeepStack týmu je přítomen **jen
+Dustin Morrill** (10 commitů, 2019-11 → 2024-08).
+
+Top autoři obsahují **`DeepMind Technologies Ltd` (765 commitů)** a
+**`open_spiel@google.com` (265)** — to je interní exportní cesta (copybara-style).
+
+> **Důsledek:** příspěvky lidí uvnitř DeepMindu se v historii jako jednotlivci
+> **neobjeví**. Přes OpenSpiel tedy Schmida ani Moravčíka identifikovat nelze,
+> a jejich nepřítomnost v seznamu autorů **není důkazem**, že nepřispěli.
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
