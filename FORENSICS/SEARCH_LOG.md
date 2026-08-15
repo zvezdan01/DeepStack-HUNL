@@ -84,3 +84,8 @@ limits, not as artifact non-existence.
     poker_solver + AI-Decision/DecisionHoldem noted for later mining.
 [23:1x] PyStack -> Tier4 own params (suggested cfr_iters=800/skip=500,
     2M river+0.5M other situations on 1000 CPU nodes) — NOT original.
+[15.8. ~19:4x] OWNER-SUPPLIED first-party testimony: Kevin Waugh e-mail
+    (WAUGH_TESTIMONY.md) -> resolves B-localization (private, non-CPRG),
+    AIVAT L4 localization (CPRG internal, unarchived), FCPA 3/9/27/81BB
+    CONFIRMED, canonical-board indexing CONFIRMED, CPRG MT19937
+    CONFIRMED with explicit DeepStack carve-out.

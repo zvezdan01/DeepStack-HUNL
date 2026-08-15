@@ -30,3 +30,16 @@ resolves it. See also certification/results/HUNL_DATAGEN_PROVENANCE_NOTES.md.
 - serialization format of original samples
 - job allocation across 6,144 cores (256-node PBS inference unproven)
 - original bucket centroids/mapping (for NN input reproduction)
+
+## Resolved/refined by Waugh testimony (2026-08-15, Tier 2)
+- DataGenerator location: RESOLVED — separate private program
+  (Schmid/Moravčík), NOT in CPRG SVN; hunt re-targeted.
+- CPRG-internal RNG: CONFIRMED MT19937 (all internal code);
+  DeepStack-side RNG instance remains UNKNOWN — Torch7 THRandom
+  hypothesis gains standing (DeepStack stack was Torch7/Lua).
+- FCPA integer raise-to chain 3/9/27/81 BB: CONFIRMED (CPRG internal).
+- Canonical board indexing (CPRG no-limit storage): CONFIRMED;
+  private-card canonicalization uncertain.
+- AIVAT implementation location: CPRG internal code (project_uoapoker
+  lineage, unarchived, never git-converted) — L4 public-release
+  likelihood LOW.
