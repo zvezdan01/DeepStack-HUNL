@@ -16,3 +16,6 @@ shard 8 sample 15/20 pot 100 board (5, 31, 39, 43) [205.9 min]
 shard 8 sample 16/20 pot 2293 board (5, 31, 39, 43) [213.5 min]
 shard 8 sample 17/20 pot 338 board (5, 31, 39, 43) [231.5 min]
 shard 8 sample 18/20 pot 4873 board (5, 31, 39, 43) [239.2 min]
+shard 8 sample 19/20 pot 100 board (5, 31, 39, 43) [264.9 min]
+shard 8 sample 20/20 pot 1262 board (5, 31, 39, 43) [276.5 min]
+{"shard": 8, "seed": 764924099, "samples": 20, "gen_minutes": 276.5}
