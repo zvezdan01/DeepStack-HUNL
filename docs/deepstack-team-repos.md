@@ -163,6 +163,62 @@ poděkování by kolaboranty jmenovalo. **Z tohoto prostředí nedostupná** —
 
 ---
 
+## 5b. Vytěženo — druhé kolo
+
+### ⭐ Nález T1 (P1) — Waughova `hand-isomorphism` vs Burchův `card_tools.c`: **dvě nezávislé implementace**
+
+Staženy zdrojáky `kdub0/hand-isomorphism` (`src/hand_index.h`, `hand_index.c` 20 457 B,
+`hand_index-impl.h`, `deck.c/h`) a porovnány s Burchovým `CFR_plus/card_tools.c`.
+
+**Křížová kontrola:** `grep -rn "hand_index\|hand_indexer\|isomorph"` přes celý CFR+ →
+jediné zásahy jsou dva **komentáře** (`card_tools.c:559`, `:648`,
+*„Have we found a new suit that is isomorphic…"*). **Žádná reference na Waughovu knihovnu.**
+
+| | Burch — `card_tools.c` | Waugh — `hand-isomorphism` |
+|---|---|---|
+| Přístup | enumerate-and-weight | index-and-invert |
+| Výstup | násobnost ekvivalentních suit mapování, `0` = nekanonické | hustý bijektivní index + inverze (`hand_unindex`) |
+| Tabulky | žádné, počítá se za běhu | předpočítané v `__attribute__((constructor))`: `equal[]`, `nth_unset[]`, `nCr_ranks[][]`, `nCr_groups[][]`, `rank_set_to_index[]`, `index_to_rank_set[][]`, `suit_permutations[][]` |
+| Stav suit-grup | `uint32_t suitGroups`, jeden bajt na barvu, inkrementálně `updateSuitGroups()` | `hand_indexer_state_t`, per-round |
+| Vícekolovost | implicitní přes `suitGroups` | explicitní `cards_per_round[]`, `hand_index_next_round()` |
+| API | `sortedCardsNumSuitMappings`, `cardsToCanonicalCards(Extended)` | `hand_indexer_init/size/state_init`, `hand_index_all/last/next_round`, `hand_unindex` |
+| Autor, datum | Neil Burch, ≤2014 | Kevin Waugh (`waugh@cs.cmu.edu`), 2013-04-13 |
+
+> **Závěr:** CPRG mělo **dvě nezávislé implementace suit izomorfismu** — Burchovu uvnitř
+> solveru a Waughovu jako samostatnou knihovnu. Nejsou to varianty téhož kódu.
+>
+> **Které z nich by použil DataGenerator?** Supplement říká, že buckety vznikly k-means
+> clusteringem s earth mover's distance nad hand-strength featurami
+> (`Johanson13:Abstraction`, `Ganzfried14:EMD`). Abstrakční pipeline tohoto typu potřebuje
+> **indexer**, ne weight-based enumeraci — tedy spíš Waughova knihovna. **Hypotéza, ne důkaz.**
+
+### Nález T2 (P2, cíl E) — PBS/TORQUE nástroje Dustina Morrilla jsou stuby
+
+Dva repozitáře vypadaly jako přímý zásah na cíl E. Nejsou.
+
+| Repo | Obsah | Verdikt |
+|---|---|---|
+| `dmorrill10/science-environment` | *„Scripts and environment additions to make scientific computing on TORQUE (PBS)/MOAB clusters easier."* MIT, © 2013 Dustin Morrill | **3 soubory**: `defs` (2 řádky — jen `SCIENCE_ENVIRONMENT=$HOME/.science-environment`), `bin/link_bin`, `bin/executables/monitor_files`. Autor sám píše *„This is a work in progress"* |
+| `dmorrill10/pbs_job` | Ruby gem | README je nevyplněná šablona: *„TODO: Write a gem description"*, *„TODO: Write usage instructions here"* |
+
+> **NEGATIVE pro cíl E co do obsahu.** Žádné `qsub` volání, žádné `#PBS` direktivy,
+> žádné `nodes=`/`ppn=`/`walltime`, žádná alokace seedů. Potvrzuje jen, že tým na
+> TORQUE/PBS clusterech pracoval — což už víme z `.mp2.m.out` logů (ledger #30).
+
+### Nález T3 (P2) — další ACPC repozitáře Morrilla (strana 2)
+
+| Repo | Popis | Poznámka |
+|---|---|---|
+| `acpc_poker_gui_client` | Rails aplikace, kterou lidé hrají poker proti ACPC dealeru přes web GUI | **Pravděpodobně** software použitý pro human study — IFP README zmiňuje *„delay from the browser interface"*. **Neprokázáno** |
+| `acpc_match_log` | ACPC match log parsing, C++ | |
+| `project_acpc_server` | fork ACPC serveru | |
+| `acpc_poker_basic_proxy`, `acpc_poker_match_state` | Ruby | |
+| `hand-isomorphism` | **fork z `kdub0`** | potvrzuje, že Morrill Waughovu knihovnu používal |
+| `tree_and_history_traversal` | C++ header-only, průchod stromy se stavovou historií | |
+| `cpp_utilities` | ladicí a paměťové utility C++ | |
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
