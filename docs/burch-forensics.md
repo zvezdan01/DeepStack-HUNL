@@ -1,7 +1,7 @@
 # Neil Burch — forensic ledger v12
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů + K1–K7, 15 vln · #20 opraven ve vlně 14
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů + K1–K9, 16 vln · #20 opraven ve vlně 14
 
 ---
 
@@ -1585,8 +1585,63 @@ konfigurace **čtyři pot příčky + all-in**.
 > `CFRplus_holdem_nolimit_FCPA` je tedy použitelný jen tehdy, když znáte čipovou škálu
 > nezávisle; sám o sobě konfigurace nerozliší.
 
-**Neověřeno:** edge audit z #73 (`pot_raise > all-in : 360`, 3 362 uzlů celkem) vyžaduje
-enumeraci celého stromu, kterou jsem nedělal. Ladder ano, uzlové počty ne.
+### K8 — plná enumerace stromu: #73 ověřen do posledního čísla
+
+Doplněno. Místo reimplementace pravidel jsem **zkompiloval skutečný ACPC `game.c`**
+(z Open Pure CFR) a prošel strom jeho vlastní logikou — `raiseIsValid`, `isValidAction`,
+`doAction`, `currentPlayer`, `stateFinished`. FCPA výběr akcí zrcadlí
+`FcpaActionAbstraction::get_actions` řádek po řádku.
+
+```
+gcc -O2 -o enum_fcpa enum_fcpa.c game.c rng.c net.c -lm
+./enum_fcpa holdem.nolimit.2p.reverse_blinds.game
+```
+
+**200BB (stack 20 000, blindy 100/50):**
+
+| Metrika | wave 15 (#73) | moje enumerace | |
+|---|---|---|---|
+| total nodes | 3 362 | **3 362** | ✓ |
+| terminal | 2 002 | **2 002** | ✓ |
+| choice nodes | 1 360 | **1 360** | ✓ |
+| pot actions | 320 | **320** | ✓ |
+| all-in actions | 680 | **680** | ✓ |
+| `pot_raise < min_raise` | 0 | **0** | ✓ |
+| `pot_raise == all-in` | 0 | **0** | ✓ |
+| `pot_raise > all-in` | 360 | **360** | ✓ |
+
+> **Osm z osmi. Dvě nezávislé enumerace se shodují do posledního čísla.** Nález #73
+> je tím plně ověřen.
+
+**Doplňkový údaj, který #73 neuvádí:** uzlů s platným raise je **680**, a platí
+`320 + 360 = 680` při `pot_eq_allin = 0`. Tedy v každém uzlu, kde lze zvyšovat, je pot raise
+buď nabídnut (320×), nebo je `≥ all-in` a přeskočen (360×). Vnitřně konzistentní.
+V těch 360 uzlech má abstrakce jen **tři** akce (F, C, A), ne čtyři.
+
+### K9 (NOVÉ) — strom je **strukturálně invariantní** vůči 100BB / 200BB
+
+Spuštěno na všech třech konfiguracích:
+
+| Konfigurace | total | terminal | choice | pot | all-in | `>all-in` |
+|---|---|---|---|---|---|---|
+| 200BB — stack 20 000, blindy 100/50 | 3 362 | 2 002 | 1 360 | 320 | 680 | 360 |
+| 100BB — stack 200, blindy 2/1 *(doložená škála, #37)* | **3 362** | **2 002** | **1 360** | **320** | **680** | **360** |
+| 100BB — stack 10 000, blindy 100/50 *(naivní)* | **3 362** | **2 002** | **1 360** | **320** | **680** | **360** |
+
+**Naprosto identické.** Nejen žebřík v jednotkách BB (K7), ale **celá topologie stromu**,
+uzel po uzlu.
+
+Důvod: žebřík je `3, 9, 27, 81` BB a cap padne ve stejné hloubce v obou případech,
+takže tvar stromu vyjde stejně.
+
+> **Zpřesnění závěru K7 a wave 15:** FCPA betting strom nemá mezi 100BB a 200BB
+> **žádnou** rozlišovací sílu — ani ve struktuře, ani v počtech uzlů. Liší se **výhradně
+> absolutní čipové hodnoty na hranách**.
+>
+> Požadavek wave 15 („přepočítat žebřík pro 100BB, než ho použijete proti
+> `CFRplus_holdem_nolimit_FCPA`") byl formálně správný, ale **strukturálně bezpředmětný**:
+> přepočet vrací tentýž strom. Jako fingerprint funguje jen absolutní škála, a tu je nutné
+> znát nezávisle — u Full Cards ji dává převodní faktor ×500 z nálezu #37.
 
 ---
 
