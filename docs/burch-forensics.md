@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v10
+# Neil Burch — forensic ledger v11
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů, 13 analytických vln — průchod zdroji ÚPLNÝ
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů, 14 vln — průchod zdroji ÚPLNÝ · #20 opraven ve vlně 14
 
 ---
 
@@ -271,8 +271,15 @@ rozdělit `|S₁| = ⌊|S|/2⌋` tak, aby *všechny* ruce v S₁ byly *striktně
 | Turn | 1000 | 500 | — |
 | River | 2000 | 1000 | — |
 
-> **Důsledek:** `omit_iters` patří výhradně online solveru a je per-round. Pravidlo
-> „nepřenášet `omit_iters` do offline generátoru" je potvrzené z primárního zdroje.
+> **Důsledek:** `omit_iters` patří výhradně online solveru a je per-round.
+>
+> ⚠️ **OPRAVENO VE VLNĚ 14 — viz `docs/deepstack-leduc-reference.md`, nález L2.**
+> Referenční implementace `lifrordi/DeepStack-Leduc` (Martin Schmid, 2017) má
+> `cfr_iters = 1000` a `cfr_skip_iters = 500`, a **tytéž parametry používá i v offline
+> generování dat** — offline i online tam sdílí jeden solver. Text HUNL supplementu se
+> nemění, ale jediná dochovaná referenční implementace mu odporuje. Tvrzení klesá
+> z „potvrzeno z primárního zdroje" na **„platí pro text supplementu, referenční
+> implementace dělá opak"**.
 
 ---
 
@@ -494,7 +501,7 @@ Makefile: `icc -Ofast -xHost -fp-model fast=2`, `mpicc -DUSE_MPI`, mpich2.
 10. Thesis neobsahuje jedinou zmínku o clusteru, seedu, RNG ani parametrech generování dat pro DeepStack.
 11. `[100, 100)` je v originálním LaTeXu ve všech třech arXiv verzích, včetně post-review v3.
 12. Tie-breaking v R(S,p) byl mezi v2 a v3 opraven z ostré na neostrou nerovnost; zůstává nedourčený.
-13. `omit_iters` je vlastnost online solveru (per-round), offline generátor používal čisté CFR⁺ / 1 000 iterací.
+13. `omit_iters` je vlastnost online solveru (per-round); HUNL supplement popisuje offline generátor jako čisté CFR⁺ / 1 000 iterací. ⚠️ **Referenční Leduc implementace ale skip iterace v offline generování používá — viz L2.**
 14. Burch má první podepsaný technický komentář (`% NB:`) v CFR-D v3, 2014-01-09.
 15. CFR-D nemělo cluster funding; Compute Canada / Calcul Québec se objevuje až u DeepStacku.
 16. Burch nemá veřejný git repozitář s pokerovým kódem; jeho UAlberta VCS byl SVN.
@@ -512,7 +519,7 @@ Makefile: `icc -Ofast -xHost -fp-model fast=2`, `mpicc -DUSE_MPI`, mpich2.
 - ~~DeepStack RNG == `rngSeed ^ subgameIndex`~~
 - ~~DeepStack RNG == MT19937~~ (pro linii přes CFR+ **vyvráceno**, #9)
 - ~~`[100,100)` se má tiše změnit na `[100,200)`~~ (#16 — zdroj to má takhle, oprava je vaše rozhodnutí, ne rekonstrukce)
-- ~~online `omit_iters` platí pro offline generátor~~ (#20 — **vyvráceno**)
+- ~~online `omit_iters` platí pro offline generátor~~ (#20 — vyvráceno *pro text supplementu*; ⚠️ referenční implementace dělá opak, viz L2)
 - ~~CFR+ solver options implikují offline DataGeneration options~~
 - ~~DeepStack-Leduc nebo pozdější mirrory jsou HUNL oracle~~
 - ~~`\NBTODO` definice dělá z DeepStack arXiv source Burchův artefakt~~ (#19)
@@ -1402,7 +1409,7 @@ Tři existující pravidla jsou nyní doložená z primárního zdroje:
 | Pravidlo | Doklad |
 |---|---|
 | `[100,100)` neopravovat na `[100,200)` | #16 — zdroj to má takhle ve všech třech verzích včetně post-review |
-| `omit_iters` nepřenášet do offline generátoru | #20 — dva různé solvery, omission je per-round vlastnost online CFR hybridu |
+| `omit_iters` nepřenášet do offline generátoru | #20 — platí pro text supplementu. ⚠️ **Oslabeno:** referenční Leduc implementace skip iterace v offline generování používá (L2). Rozhodněte vědomě, kterému zdroji dáte přednost |
 | R(S,p) nelze reprodukovat bit-exact | #17 — ani opravená v3 formulace neurčuje tie-breaking mezi remízovými ruce |
 
 Fingerprint sada pro testování budoucích kandidátů na Burchův DataGenerator:
