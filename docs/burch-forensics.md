@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v9
+# Neil Burch — forensic ledger v10
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 52 nálezů, 12 analytických vln — průchod zdroji ÚPLNÝ
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů, 13 analytických vln — průchod zdroji ÚPLNÝ
 
 ---
 
@@ -1311,6 +1311,85 @@ Společná redukce napříč **všemi**: `% n` — modulo bias, nikde neošetře
 
 > **Průchod je úplný.** Všech 65 lokálních zdrojových souborů přečteno. Mimo už zaznamenané
 > nálezy neobsahují nic relevantního k A–E.
+
+---
+
+## Příloha J — Vlna 13: kvantifikace nálezu #49
+
+Nález #49 ukázal *mechanismus*, proč je R(S,p) nedourčené. Tato vlna měří **rozsah**.
+
+### Metoda
+
+Pro náhodně vybrané turn boardy (4 veřejné karty) enumerováno všech
+`C(48,2) = 1128` hole-card kombinací, spočtena síla ruky, pole seřazeno a odsimulována
+rekurze R(S,p) — na každé úrovni řez v `⌊|S|/2⌋`. Označena každá ruka, která leží
+v remízové skupině, kterou nějaký řez protíná; její zařazení do `S₁`/`S₂` tedy
+**není zdrojovým kódem určeno**.
+
+Měřeno dvěma metrikami síly ruky:
+1. **`rank`** — pořadí kombinace, ekvivalent `rankCardset()` (#45)
+2. **hand strength dle supplementu** — *„probability of a hand beating a uniformly selected
+   random hand from the current public state"*, počítáno přesně (racionální aritmetika),
+   s vyloučením blokovaných rukou a remízou za ½
+
+### ⭐⭐ Nález #53 (P0, cíl A) — nedourčeno je prakticky celé generované range
+
+| Board | Ruk | Různých `rank` | Nedourčeno (rank) | Různých HS | Nedourčeno (HS) |
+|---|---|---|---|---|---|
+| `2h9s2cAs` | 1128 | 42 | 1127 | 43 | 1127 |
+| `8dQdAc6d` | 1128 | 105 | 1083 | 133 | 1127 |
+| `Qh3hQcQd` | 1128 | 78 | 1128 | 70 | 1128 |
+| `9c3h5dJh` | 1128 | 90 | 1128 | 91 | 1128 |
+| `3sKc2sJh` | 1128 | 91 | 1128 | 91 | 1128 |
+| `KcJdTs9s` | 1128 | 36 | 1128 | 42 | 1128 |
+| `7c9hTs2h` | 1128 | 88 | 1128 | 89 | 1128 |
+| `Kh8hQcJc` | 1128 | 44 | 1128 | 46 | 1128 |
+| **celkem** | **9 024** | — | **8 978 (99,5 %)** | — | **9 022 (100,0 %)** |
+
+Doplňkově přes 30 turn boardů (metrika `rank`): **99,2 %** nedourčených, medián
+**1128 z 1128**; top-level řez padne dovnitř remízové skupiny v **90 %** případů.
+
+### Proč to vychází takto
+
+Na turn boardu existuje mezi 1128 rukama jen **36–133 různých hodnot síly ruky**.
+Průměrná remízová skupina má tedy ~12 rukou. Rekurze R(S,p) sestupuje ~10 úrovní
+(2¹⁰ = 1024 ≈ 1128), takže na hlubších úrovních jsou skupiny menší než průměrná
+remízová skupina a **prakticky každý řez padne dovnitř remízy**.
+
+Blokery to nezachrání: definice ze supplementu dává jen o pár hodnot víc
+(42→43, 90→91, 44→46) a v jednom případě dokonce **méně** (78→70).
+
+> **Závěr:** pravděpodobnost, kterou R(S,p) přiřadí prakticky **každé** ruce, závisí
+> na pořadí uvnitř remízové skupiny — tedy na chování `qsort` v konkrétní libc (#49),
+> které zdrojový kód nespecifikuje.
+>
+> Nález #17 → #49 → #53 tvoří uzavřený řetěz:
+> **spec je nedourčená → implementace je nedourčená → nedourčenost se týká celého výstupu**,
+> ne okrajového případu.
+
+### Výhrada — jediné čtení, které by to zachránilo
+
+Měření předpokládá, že R(S,p) pracuje **nad seřazeným polem a řeže na pozici**
+`⌊|S|/2⌋` — což je doslovné čtení supplementu (`$|S_1| = \left\lfloor|S|/2\right\rfloor$`).
+
+Kdyby implementace místo toho seskupovala podle **různých hodnot síly** a řezala na
+nejbližší hranici skupiny, byla by deterministická — ale porušila by podmínku
+`|S₁| = ⌊|S|/2⌋` přesně tak, jak je napsaná. **Který z těch dvou zápisů odpovídá
+skutečnému kódu, se z dostupných zdrojů rozhodnout nedá.**
+
+### Dopad na cíl A a na rekonstrukci
+
+Toto je nezávislé posílení nálezu #44 (experiment se seedem):
+
+| | Co by bylo potřeba navíc |
+|---|---|
+| Znát `rngseed` | nestačí (#44 — ani u známého seedu se karty nereprodukovaly) |
+| Získat originální zdroják R(S,p) | **stále nestačí** (#53 — tie ordering ve zdroji není) |
+| Reprodukovat bit-exact | nutná i shodná libc a její `qsort` režim na generujících strojích |
+
+> Pro váš DataGenerator to znamená: **bit-exact shoda s originálem není dosažitelný cíl**,
+> a to prokazatelně, ne z opatrnosti. Rozumný cíl je distribuční ekvivalence —
+> stejná specifikace, vlastní deterministické a zdokumentované tie-breaking pravidlo.
 
 ---
 
