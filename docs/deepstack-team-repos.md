@@ -457,6 +457,42 @@ Daniel Hernandez, Peter R. Wurman, Peter Stone (Sony AI).
 
 ---
 
+### Nález T13 — Trevor Davis: uzavřeno jako NEGATIVE
+
+Jediný jmenovec s kanadskou lokací je **`ThreeSevenths`** (Ontario, 32 repozitářů).
+Profil: firma **Santé Suite Inc** (zdravotnický software), web `trevordavis.me`,
+repozitáře výhradně C#/.NET — SQLite, Maui, Win32 PInvoke, FHIR, ASP.NET.
+**Nulová zmínka o game theory, pokeru, CFR, regretu nebo University of Alberta.**
+
+> **Není to DeepStack Trevor Davis.** Filtr `location:Canada` vrátil právě jeho jednoho,
+> takže kanadští kandidáti jsou vyčerpáni. **Uzavřeno jako NEGATIVE.**
+
+### Nález T14 — Matej Moravčík: uzavřeno jako NEGATIVE (sedm strategií)
+
+| # | Strategie | Výsledek |
+|---|---|---|
+| 1 | `fullname:"Matej Moravcik"` | 0 |
+| 2 | `fullname:"Matej Moravčík"` (s diakritikou) | 0 |
+| 3 | volný dotaz `Moravcik` | **70 účtů**, prošlo prvních 10 — Michal, Jiří, Matus, Ondřej, Roman, Jakub, Erik, Jozef, Franco, Roman. **Žádný Matej s AI/poker profilem** |
+| 4 | WebSearch na handle i firmu | 0 |
+| 5 | commit historie `lifrordi/DeepStack-Leduc` | nikdy nepřispěl |
+| 6 | commit autoři `google-deepmind/open_spiel` (5 674) | nepřítomen |
+| 7 | GitHub org `equilibretechnologies` | veřejná org neexistuje |
+
+> **Hlavní autor DeepStacku nemá veřejnou GitHub přítomnost.** Doložený závěr,
+> ne nedokončené hledání.
+
+### Nález T15 — drobnosti z posledního kola
+
+| Repo | Commitů | Poznámka |
+|---|---|---|
+| `bowlingmh/seq_predict` | 15 (2016-06 → 2017-05) | Bowling; **druhý e-mail `bowling_m_h@yahoo.com`** vedle `bowling@cs.ualberta.ca` |
+| `dmorrill10/hr_edl_experiments` | 133 (2020-08 → 2021-06) | Morrill + 5 commitů přes `open_spiel@google.com` export. **Post-DeepStack**, postaveno nad OpenSpiel |
+| `kdub0/kdub0.github.io` | 2 (2025-01-04) | Waughův web, nový, bez obsahové historie |
+| `lifrordi/webpage` | 2 (2026-03-30/31) | Schmidův web, nový |
+
+---
+
 ## 6. Doporučené další kroky
 
 1. **`kdub0/hand-isomorphism` naklonovat a projít** — jediný P1 artefakt, který je
