@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v8
+# Neil Burch — forensic ledger v9
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 48 nálezů, 11 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 52 nálezů, 12 analytických vln — průchod zdroji ÚPLNÝ
 
 ---
 
@@ -1175,6 +1175,142 @@ Kombinace s cestami z LBR logů (`/home/viliam/cprg/project_uoapoker/trunk/...`,
 > Na rozdíl od `rng.c`/`rng.h` (#28, byte-identické napříč balíky) je **hand evaluator
 > ve dvou generacích**. Kdo staví Burch-faithful hand strength, musí vybrat správnou —
 > pro solver/CFR+ linii je to CFR+ verze.
+
+---
+
+## Příloha I — Vlna 12: úplný průchod, `card_tools.c` a mechanismus nereprodukovatelnosti R(S,p)
+
+Prošlo se **všech 65** lokálních zdrojových/textových souborů. Plošný sken fingerprintů
+(`DataGenerat`, `range_generat`, `hand_strength`, `root_cfv`, `19950`, `6144`, `MP2`, `qsub`,
+`#PBS`, `walltime`, `ppn=`, `uoapoker`, …) vrátil jen zásahy v už analyzovaných souborech
+plus tři false positives: `qsub` = LaTeX `\sqsubset`, `inputs`/`mask` = komentář k hash funkci
+v `util.c:241-433`, `random` ve `validate_submission.pl:509` = prozaická zmínka.
+
+### ⭐⭐ Nález #49 (P0, cíl A) — `getHandList()` a mechanismus, proč R(S,p) nelze bit-exact zrekonstruovat
+
+`card_tools.h` definuje strukturu, kterou range generator přesně potřebuje:
+
+```c
+typedef struct {
+  int rawIndex;      /* ( card[0] * deckSize + card[1] ) * deckSize ... */
+  int canonIndex;    /* raw index of canonical version of hand */
+  int rank;
+  int8_t weight;
+  uint8_t cards[ MAX_HOLE_CARDS ];
+} Hand;
+```
+
+`card_tools.c:117-171` `getHandList()` — *„given the current board cards, generate all possible
+hole cards, **sorts the hands by rank**"*:
+
+1. enumeruje všechny hole-card kombinace přes `firstCardset`/`nextCardset`
+2. `rank = rankCardset( hand )` — síla ruky v `[0, 12116)` (#45)
+3. `weight = sortedCardsNumSuitMappings(...)` — suit-izomorfní násobnost, `0` = nekanonická
+4. `canonIndex` z `cardsToCanonicalCards(...)`
+5. **`qsort( hands, numHands, sizeof( hands[0] ), compareHandByRank )`**
+
+A komparátor — `card_tools.c:112-115`:
+```c
+static int compareHandByRank( const void *a, const void *b )
+{
+  return ( (Hand *)a )->rank - ( (Hand *)b )->rank;
+}
+```
+
+**Čistý rozdíl ranků. Žádné sekundární kritérium, žádný tie-break.**
+
+#### Proč to uzavírá nález #17
+
+DeepStack R(S,p) dělí `S` na `S₁`, `S₂` s `|S₁| = ⌊|S|/2⌋` tak, aby ruce v `S₁` měly
+*hand strength no greater than* ruce v `S₂` (#17). Při remízách řez **prochází skupinou
+stejně silných rukou** — a která z nich padne nalevo, určuje pořadí po `qsort`.
+
+Jenže `compareHandByRank` remízy nerozlišuje, takže pořadí uvnitř remízové skupiny
+**není v kódu určeno**. `qsort()` navíc není standardem C garantován jako stabilní; glibc
+používá merge sort (stabilní), když dokáže alokovat pomocný buffer, a quicksort (nestabilní),
+když ne.
+
+> **Mechanistické vysvětlení nereprodukovatelnosti:** i s originálním zdrojovým kódem by
+> pořadí remízových rukou záviselo na implementaci a verzi libc na strojích, které data
+> generovala, případně na tom, zda `qsort` v daném běhu sáhl po mergesortu nebo po
+> quicksortu. **Ze zdroje samotného ho odvodit nelze.**
+>
+> Tím se nález #17 posouvá z „specifikace je nedourčená" na
+> **„nedourčená je i implementace, a to ze strukturálního důvodu"**.
+
+#### Ostrý kontrast v témže souboru
+
+`evalShowdown_2c` remízy řeší **korektně a pořadí-nezávisle** — `card_tools.c:307-310`:
+```c
+    /* hand i is first in a group of ties; find the last hand in the group */
+    for( j = i + 1;
+	 ( j < numHands ) && ( hands[ j ].rank == hands[ i ].rank );
+	 j++ );
+```
+Seskupuje podle **rovnosti ranku**, ne podle indexu. Výsledek je tedy na pořadí uvnitř
+remízové skupiny imunní.
+
+> Burchův vlastní kód tedy remízy ošetřuje tam, kde na nich záleží (showdown), a nechává je
+> neurčené tam, kde by na nich záležel až split na půlky (`getHandList`). To je konzistentní —
+> `getHandList` nebyl psán pro dělení na poloviny.
+
+### Nález #50 (P1, cíl A/C) — per-hand CFV primitiva v terminálních uzlech
+
+`card_tools.c` obsahuje čtyři funkce, které berou **range soupeře** a vracejí **vektor hodnot
+po rukou**:
+
+| Funkce | Řádek | Význam |
+|---|---|---|
+| `evalFold_1c` / `evalFold_2c` | 175 / 247 | hodnoty při foldu; `foldValue = -spent[p]` nebo `spent[p^1]` |
+| `evalShowdown_1c` / `evalShowdown_2c` | 199 / 283 | hodnoty při showdownu; `sdValue = spent[p] == spent[p^1]` |
+
+`evalShowdown_2c` implementuje O(n) rozklad výhra/remíza/prohra s korekcí na blokery
+(`sumIncludingCard[]` po kartách), vstup `oppProbs[numHands]`, výstup `retVal[numHands]`.
+
+> **To je tvarem přesně to, co DeepStack potřebuje jako trénovací cíl** — jenže
+> **v terminálních uzlech**, ne v kořenech subgames. Nález #6 (žádný CFV export
+> v kořenech subgames) tím zůstává v platnosti; tohle je vnitřní primitiva solveru,
+> ne exportní rozhraní.
+
+### Nález #51 (P2, cíl D) — čtvrtý seedovací idiom a společná redukce
+
+`example_player.c:50-52`:
+```c
+  /* Initialize the player's random number state using time */
+  gettimeofday( &tv, NULL );
+  init_genrand( &rng, tv.tv_usec );
+```
+a použití — `:165` `p = genrand_real2( &rng );`, `:177`
+`action.size = min + genrand_int32( &rng ) % ( max - min + 1 );`
+
+**Úplný katalog CPRG seedovacích idiomů** (rozšíření #42):
+
+| # | Idiom | Kde | Determinismus |
+|---|---|---|---|
+| 1 | `rngSeed ^ subgameIndex` → glibc `random_r`, stav 32 B | `CFR_plus/storage.c:1001` | ano |
+| 2 | `genrand_int32( &match->rng )` z MT19937 streamu | `bm_server.c:1358` | ano |
+| 3 | sekvenční index 0…49 předaný přímo | LBR na MP2 | ano |
+| 4 | `init_genrand( tv.tv_usec )` | `example_player.c:52` | **ne** |
+
+Společná redukce napříč **všemi**: `% n` — modulo bias, nikde neošetřený
+(`game.c:767`, `storage.c:893`, `example_player.c:177`).
+
+### Nález #52 (NEGATIVE) — zbytek balíků neobsahuje nic k A–E
+
+| Soubor | Velikost | Obsah |
+|---|---|---|
+| `validate_submission.pl` | 19 005 B | validace ACPC submission; jediný „random" je prozaická zmínka na `:509` |
+| `all_in_expectation.c` | 5 082 B | výpočet all-in EV z match logu; bez RNG |
+| `bm_widget.c` | 5 176 B | UI widget benchmark serveru |
+| `net.c` / `net.h` | 4 539 / 1 690 B | socket I/O |
+| `example_player.c` | 4 842 B | ukázkový hráč (viz #51) |
+| `sum_values.pl` | 706 B | sčítání hodnot z logů |
+| `betting_tools.c` | 9 252 B | konstrukce betting tree; bez RNG |
+| `util.c` | 18 108 B | hash + časovače; „pseudorandom" jen v komentáři |
+| `recompress.c` | 20 657 B | přeuspořádání komprimovaných dat pro random access; bez RNG |
+
+> **Průchod je úplný.** Všech 65 lokálních zdrojových souborů přečteno. Mimo už zaznamenané
+> nálezy neobsahují nic relevantního k A–E.
 
 ---
 
