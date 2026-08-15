@@ -1,7 +1,7 @@
 # Neil Burch — forensic ledger v12
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů + K1–K6, 15 vln · #20 opraven ve vlně 14
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů + K1–K7, 15 vln · #20 opraven ve vlně 14
 
 ---
 
@@ -1523,6 +1523,70 @@ do ACPC větve.
 > (jeden soubor, tři balíky, identický bajt po bajtu), zatímco herní logika a evaluátor
 > **se větví**. To je konzistentní obrázek: Burchův RNG byl infrastruktura, kterou nikdo
 > nesahal.
+
+### K7 (NOVÉ) — FCPA žebřík: ověření 200BB a dopočet 100BB, který wave 15 nechala otevřený
+
+**Ověření #72** — `action_abstraction.cpp:114-129`, doslova:
+```c
+int amount_to_call = state.maxSpent - state.spent[ player ];
+pot += amount_to_call;
+/* Raise size is total amount of chips committed over all rounds after making the raise. */
+int pot_raise_size = pot + ( state.spent[ player ] + amount_to_call );
+if( pot_raise_size < max_raise_size ) { ... actions[].size = pot_raise_size; }
+/* Now add all-in */
+actions[ num_actions ].size = max_raise_size;
+```
+✓ Celočíselná aritmetika, pot raise se přidá jen když `< max_raise_size`, all-in vždy.
+
+**Ověření #73** — nezávisle jsem implementoval tutéž aritmetiku a odsimuloval opakovaný
+pot-raise pro stack 20 000, blindy 100/50:
+
+```
+300 → 900 → 2700 → 8100 → 20000        ✓ SHODA s #73
+```
+
+**Dopočet 100BB — a háček, který wave 15 přehlédla.** Wave 15 správně varuje, že žebřík
+`…→20000` není automaticky fingerprint pro „Full Cards", a žádá přepočet pro 100BB.
+**Neurčuje ale čipovou škálu** — a ta z „100BB" neplyne.
+
+Z nálezu #37 (vlna 8) ji lze určit nezávisle: agregace LBR výsledků potřebovala převod
+chips→mbb **×500** pro Full Cards, zatímco pro 200BB hru **×10**.
+Protože `mbb/g = chips/BB × 1000`, je faktor `1000/BB`:
+
+| Faktor | ⇒ BB | ⇒ stack |
+|---|---|---|
+| ×10 | 100 | 20 000 |
+| **×500** | **2** | **200** |
+
+> **Hra „Full Cards" má tedy BB = 2 a stack = 200 čipů**, ne stack 10 000 s blindy 100/50.
+
+Žebříky pro obě čtení:
+
+| Konfigurace | Žebřík |
+|---|---|
+| 200BB, stack 20 000, blindy 100/50 | `300 → 900 → 2700 → 8100 → 20000` |
+| **100BB, stack 200, blindy 2/1** (doloženo #37) | **`6 → 18 → 54 → 162 → 200`** |
+| 100BB, stack 10 000, blindy 100/50 (naivní čtení) | `300 → 900 → 2700 → 8100 → 10000` |
+
+**Zásadní pozorování — v jednotkách big blindu jsou oba žebříky totožné:**
+
+| | rung 1 | 2 | 3 | 4 | cap |
+|---|---|---|---|---|---|
+| 200BB | 3 BB | 9 BB | 27 BB | 81 BB | 200 BB |
+| 100BB | 3 BB | 9 BB | 27 BB | 81 BB | 100 BB |
+
+FCPA žebřík je **geometrický s kvocientem 3 v jednotkách BB** (`3, 9, 27, 81`), uříznutý
+stackem. Další příčka by byla 243 BB, tedy nad cap v obou případech — proto mají obě
+konfigurace **čtyři pot příčky + all-in**.
+
+> **Důsledek pro fingerprinting:** varování wave 15 bylo namístě, ale závěr je silnější,
+> než čekali. Žebřík **nemá téměř žádnou rozlišovací sílu** mezi 100BB a 200BB — struktura
+> je identická, liší se jen absolutní čipová škála. Jako fingerprint proti
+> `CFRplus_holdem_nolimit_FCPA` je tedy použitelný jen tehdy, když znáte čipovou škálu
+> nezávisle; sám o sobě konfigurace nerozliší.
+
+**Neověřeno:** edge audit z #73 (`pot_raise > all-in : 360`, 3 362 uzlů celkem) vyžaduje
+enumeraci celého stromu, kterou jsem nedělal. Ladder ano, uzlové počty ne.
 
 ---
 
