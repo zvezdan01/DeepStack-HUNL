@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v5
+# Neil Burch — forensic ledger v6
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 41 nálezů, 8 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 43 nálezů, 9 analytických vln
 
 ---
 
@@ -905,6 +905,103 @@ footer mají (1 011 řádků).
 | `project_uoapoker` / `uoapoker` / `rgbr_nl_cprg` — WebSearch | **žádná veřejná stopa** |
 | `project_uoapoker` — GitHub code search | vyžaduje přihlášení, z tohoto prostředí nedostupné → **unsearched** |
 | LBR logy — hledání dalších cest, hostnames, PBS proměnných, verzí, chybových výpisů | mimo `/home/viliam/cprg/project_uoapoker/trunk/src/c/` (400×) a tři `.so` **nic dalšího** |
+
+---
+
+## Příloha F — Vlna 9: CPRG schéma odvození seedů (master → worker)
+
+### ⭐⭐ Nález #42 (P0, cíl D) — kanonické CPRG odvození per-match seedů z master seedu
+
+Nalezeno v `project_acpc_server/bm_server.c` (benchmark server, copyright CPRG 2011),
+dosud neanalyzovaném souboru originálního ACPC balíku.
+
+**Deklarace** — `bm_server.c:103-106`:
+```c
+  rng_state_t rng;
+  uint32_t rngSeed;
+  int useRngForSeed; /* 0: use rngSeed as seed for each dealer run
+			1: use genrand_int32( match->rng ) */
+```
+
+**Inicializace** — `bm_server.c:775-789`:
+```c
+  match->rngSeed = rngSeed;
+  if( rngSeed ) {
+    init_genrand( &match->rng, rngSeed );
+    if( match->numRuns == 1 ) {
+      match->useRngForSeed = 0;
+    } else {
+      match->useRngForSeed = 1;
+    }
+  } else {
+    init_genrand( &match->rng, genrand_int32( &serv->rng ) );
+  }
+```
+
+**Odvození seedu pro každý běh dealera** — `bm_server.c:1356-1359`:
+```c
+  job = runMatchJob( conf, serv, best,
+		     bestMatch->useRngForSeed
+		     ? genrand_int32( &bestMatch->rng )
+		     : bestMatch->rngSeed );
+```
+
+**Master seed serveru** — `bm_server.c:1399`: `init_genrand( &serv->rng, time( NULL ) );`
+
+**Předání dealeru** — `bm_server.c:1016`: `snprintf( rngString, ..., "%"PRIu32, rngSeed )`
+→ pozičně do `dealer.c:1139` → `init_genrand( &rng, seed )` → `dealCard()`.
+
+**Dokumentace v `bm_run_matches.c:53-60`:**
+> "`<seed>` is a seed used to **generate the random seeds** that determine the cards in each match"
+>
+> "To run N duplicate heads-up matches, do one run of N matches with a given seed, then run
+> a second set of N matches with the **same seed but the order of the players reversed**"
+
+### Rekonstruovaný řetěz
+
+```
+serv->rng     ← init_genrand( time(NULL) )                     // nedeterministický fallback
+match->rng    ← init_genrand( rngSeed )                        // uživatelský master seed
+                nebo init_genrand( genrand_int32(&serv->rng) ) // když rngSeed == 0
+
+useRngForSeed = (numRuns == 1) ? 0 : 1
+
+seed_běhu     = useRngForSeed ? genrand_int32( &match->rng )    // TAH Z MT19937 STREAMU
+                              : match->rngSeed                 // konstanta (duplicate režim)
+
+→ dealer argv[optind+3] → init_genrand( &rng, seed ) → dealCard()
+```
+
+> **Odpověď na otázku „CPRG worker seed allocation":** je to **postupný tah z MT19937 streamu**
+> seedovaného master seedem — **ne** `seed ^ index`, **ne** `seed + index`, **ne** sekvenční index.
+>
+> Režim `useRngForSeed == 0` (jeden běh) dává duplicate poker: tentýž seed, prohozená sedadla —
+> **přesně vzorec `_s`/`_r` v LBR lozích (#30)**.
+
+### Tři doložené CPRG seed idiomy — úplný výčet z primárních zdrojů
+
+| # | Idiom | Kde | RNG | Účel |
+|---|---|---|---|---|
+| 1 | `rngSeed ^ subgameIndex` | `CFR_plus/storage.c:1001` | glibc `random_r`, `RNG_STATELEN 32` (TYPE_1) | vzorkování boardů per subgame |
+| 2 | `genrand_int32( &match->rng )` z master streamu | `project_acpc_server/bm_server.c:1358` | MT19937 (Burchův `rng.c`) | seed per zápas |
+| 3 | prostý sekvenční index 0…49 předaný přímo | `vs_LBR/*.out`, MP2 | MT19937 v dealeru | LBR evaluace, submit smyčka |
+
+> **Tohle je uzavřený výčet.** Prostor Burchových/CPRG seedovacích idiomů je nyní vytěžen
+> z primárních zdrojů a každý je bit-exactly specifikovaný.
+> **Žádný z nich není prokázán pro DeepStack DataGenerator** — ale otázka se posunula
+> z „nevíme" na „je to jeden z těchto tří, a tady je každý přesně".
+
+### Nález #43 (NEGATIVE) — IFP PokerStars logy neobsahují interní data DeepStacku
+
+`DeepStack_logs/PokerStars/{full_info,DeepStack_view,participant_view}` + `ACPC/` —
+pouze přeformátovaná historie rukou. **Žádné ranges, žádné counterfactual values,
+žádné seedy.** README potvrzuje, že PokerStars formát je syntetický převod, čísla rukou
+generovaná 1…N.
+
+Potvrzena konfigurace hry: stack **$20 000**, blindy **$50/$100** — souhlasí s thesis §6.1.1
+(„HUNL with 20 000 chip stacks with a 100 chip big blind").
+
+> **Není to cíl C.** Human study data neobsahují nic z trénovacího řetězce.
 
 ---
 
