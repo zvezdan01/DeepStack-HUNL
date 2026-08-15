@@ -2,3 +2,6 @@ shard 2 sample 1/20 pot 1672 board (1, 12, 13, 20) [17.6 min]
 shard 2 sample 2/20 pot 100 board (1, 12, 13, 20) [55.4 min]
 shard 2 sample 3/20 pot 3488 board (1, 12, 13, 20) [67.0 min]
 shard 2 RESUMED from checkpoint at row 3/20 (draws 23302)
+shard 2 sample 4/20 pot 5467 board (1, 12, 13, 20) [78.3 min]
+shard 2 sample 5/20 pot 765 board (1, 12, 13, 20) [96.1 min]
+shard 2 RESUMED from checkpoint at row 5/20 (draws 23306)
