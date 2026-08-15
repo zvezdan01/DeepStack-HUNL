@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v7
+# Neil Burch — forensic ledger v8
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 44 nálezů, 10 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 48 nálezů, 11 analytických vln
 
 ---
 
@@ -1076,6 +1076,105 @@ Máme tu doložený případ, kdy jsou známy **všechny** vstupy, které by mě
 > „Známe seed" ≠ „umíme reprodukovat data" — a tady je to dokázáno experimentem, ne argumentem.
 
 Skript je v `docs/` neuložen (běžel v scratchpadu); reprodukovatelný z popisu výše.
+
+---
+
+## Příloha H — Vlna 11: hand evaluator, `game.c` diff a CPRG identifikátory
+
+### ⭐ Nález #45 (P1, relevantní k cíli A) — CPRG hand evaluator a prostor síly ruky
+
+`game.c` existuje ve dvou verzích. Diff ACPC (39 850 B, mtime 2013-08-01) vs CFR+ (42 898 B)
+= 212 řádků a odhaluje, co Burch pro solver přidal:
+
+**1. `rankCardset()`** — kompletní 7-card evaluator, `cfrplus/game.c:107-224`. V ACPC verzi
+**chybí**. Používá tabulky `oneSuitVal[8192]`, `anySuitVal[8192]`, `topBit[8192]`,
+`quadsVal[13]`, `tripsVal[13]`, `pairsVal[13]`, `twoPairOtherVal[13]`, `tripsOtherVal[8192]`,
+`pairOtherVal[8192]`.
+
+**2. Parametrizace kódování karty:** `makeCard(r,s)` → `makeCard(r,s,game->numSuits)`,
+totéž `rankOfCard`/`suitOfCard`. ACPC verze má natvrdo `MAX_SUITS`, CFR+ podle hry
+(kvůli Leduc/Kuhn/Rhode Island/royal). **Pro plný holdem jsou identické** (numSuits = 4).
+
+**Prostor síly ruky** — z hlavičky `evalHandTables`:
+
+| Třída | Počet | Offset |
+|---|---|---|
+| high card | 1 287 | 0 |
+| pair | 3 718 | 1 287 |
+| two pair | 3 601 | 5 005 |
+| trips | 1 014 | 8 606 |
+| straight | 13 | 9 620 |
+| flush | 1 287 | 9 633 |
+| full house | 1 014 | 10 920 |
+| quads | 169 | 11 934 |
+| straight flush | 13 | 12 103 |
+
+Celkem **12 116 rozlišitelných hodnot ruky**; `rankCardset()` vrací hodnotu v `[0, 12116)`.
+Konstanty `HANDCLASS_SINGLE_CARD 0`, `HANDCLASS_PAIR 1287`, `HANDCLASS_TWO_PAIR 5005`,
+`HANDCLASS_TRIPS 8606`, `HANDCLASS_STRAIGHT 9620`, `HANDCLASS_FLUSH 9633`,
+`HANDCLASS_FULL_HOUSE 10920`.
+
+> **Vztah k cíli A:** DeepStack range generator R(S,p) dělí ruce podle *hand strength*
+> („probability of a hand beating a uniformly selected random hand from the current public
+> state"). Kdyby ho psal Burch, primitivem by byl **tenhle** evaluator — je to jediný
+> hand-strength stroj, který ve svém uvolněném kódu má.
+> **Není to důkaz**, že ho DataGenerator použil. Je to jediný doložený kandidát.
+
+### Nález #46 (P2) — Burchův CPRG username a konvence home adresářů
+
+`bm_server.config` (v tarballu od 2012-02-16), poslední řádek:
+```
+# Users authorized to run jobs on the benchmark (user name pass)
+user neil test
+```
+
+Kombinace s cestami z LBR logů (`/home/viliam/cprg/project_uoapoker/trunk/...`, #29) ukazuje,
+že **CPRG home adresáře používaly křestní jména**.
+
+| Identifikátor | Kontext |
+|---|---|
+| `neil` | benchmark server login (`bm_server.config`) |
+| `burch` | UNIX owner tarballu `CFR_plus.tar.bz2` |
+| `viliam` | home adresář v LBR cestách |
+| `aaaicpc` (uid **10424679**, gid `pg227652` = **26238**) | účet, který balil ACPC v1.0.42 |
+
+> **Oprava směru pátrání:** pro `project_uoapoker` je pravděpodobná historická cesta
+> `/home/neil/cprg/project_uoapoker/trunk/…`, ne `/home/nburch/` ani `/home/burch/`.
+> Pro webové home adresáře zůstává doložený prefix `~burch` (ledger v2).
+
+### Nález #47 (P2) — provozní parametry CPRG benchmark serveru
+
+`bm_server.config`, plná konfigurace:
+
+| Parametr | Hodnota |
+|---|---|
+| `port` | 54000 |
+| `startupTimeoutSecs` | 100 |
+| `responseTimeoutSecs` | 600 |
+| `handTimeoutSecs` | 21000 |
+| `avgHandTimeSecs` | **7** |
+| `maxMatchRuns` | 10 |
+| `maxRunningJobs` | 1 |
+| `matchHands` | **5000** |
+| Hry | `holdem.limit.2p.reverse_blinds`, `holdem.nolimit.2p.reverse_blinds`, `holdem.limit.3p` |
+
+> `matchHands 5000` a `avgHandTimeSecs 7` jsou reálné ACPC provozní hodnoty. Pro srovnání:
+> LBR běhy na MP2 měly 1 000 rukou/zápas, `full_cards` 50 000 (#40).
+
+### Nález #48 (P3) — `evalHandTables` má dvě generace
+
+| Balík | Velikost | SHA256 |
+|---|---|---|
+| ACPC v1.0.42 | 217 644 B | `9b8bb8e1c73503d55073757d0434380a69c40431713448c3d578f1a8dca7c3e4` |
+| CFR+ | 214 384 B | `53248e54bafb8fbc67830230baf4ad92abaf1e95425c0326e14e7e7a82ef8425` |
+
+**Nejsou identické.** ACPC verze začíná komentářem s offsety tříd a obsahuje navíc
+`bySuit[]`; CFR+ verze začíná rovnou `static const uint16_t oneSuitVal[8192]` a přidává
+`topBit[8192]`, `tripsOtherVal[8192]`, `twoPairOtherVal[13]`.
+
+> Na rozdíl od `rng.c`/`rng.h` (#28, byte-identické napříč balíky) je **hand evaluator
+> ve dvou generacích**. Kdo staví Burch-faithful hand strength, musí vybrat správnou —
+> pro solver/CFR+ linii je to CFR+ verze.
 
 ---
 
