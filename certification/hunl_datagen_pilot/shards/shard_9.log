@@ -17,3 +17,5 @@ shard 9 sample 16/20 pot 5671 board (20, 23, 37, 43) [256.6 min]
 shard 9 sample 17/20 pot 100 board (20, 23, 37, 43) [282.3 min]
 shard 9 sample 18/20 pot 100 board (20, 23, 37, 43) [307.9 min]
 shard 9 sample 19/20 pot 2972 board (20, 23, 37, 43) [315.4 min]
+shard 9 sample 20/20 pot 658 board (20, 23, 37, 43) [333.2 min]
+{"shard": 9, "seed": 3896026620, "samples": 20, "gen_minutes": 333.2}

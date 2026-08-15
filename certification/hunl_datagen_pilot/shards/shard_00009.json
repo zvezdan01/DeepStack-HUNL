@@ -1,0 +1,63 @@
+{
+  "schema": "HUNL_TURN_DATASET_V1",
+  "shard": 9,
+  "seed": 3896026620,
+  "samples": 20,
+  "sha256": {
+    "boards": "8deeefd4e3873fc843da9269ad0e97f27b6dcda3f13beb640c84b493c7ca8850",
+    "pots": "205bb60fc5cfb1c54ba4f56869668f40dfcc25db37c6976c734755bae78d6adb",
+    "ranges": "8dc5396cefef93a910aba0a076ad7ca03f91c5f812f479db204ddd14365bbdb4",
+    "targets": "5c048ffa8806c1884a75c6f182c0a07a7c2bc41fc53a2c40807aa22ac21bfc8b",
+    "masks": "34ea551ebfa24653fe1d1add0929b1b73c80aa33033d4772bb9585eb055e6c35"
+  },
+  "config_sha": "fedc07b6be6e7b640c8ae99b5648181061486c4f4ec7bb2062e412e6242fcaf0",
+  "config": {
+    "schema": "HUNL_TURN_DATASET_V1",
+    "master_seed": 20260814,
+    "batch": 10,
+    "action_set": "{F,C,P,A} all depths (VERIFIED)",
+    "cfr_iters": 1000,
+    "cfr_omit": "500 (INFERRED)",
+    "pot_intervals": [
+      [
+        100,
+        100
+      ],
+      [
+        200,
+        399
+      ],
+      [
+        400,
+        1999
+      ],
+      [
+        2000,
+        5999
+      ],
+      [
+        6000,
+        19950
+      ]
+    ],
+    "target_scaling": "root_cfvs / pot_half (pot divisor INFERRED)",
+    "strength_metric": "all-in-equity vs uniform (PROJECT CANONICAL)",
+    "board_sampler": "THRandom rejection (PROJECT CANONICAL)",
+    "pot_rng": "cat=random_range(0,4), val=random_range(lo,hi) (PROJECT CANONICAL)",
+    "odd_split": "randomized (spec C2 author-code verdict)",
+    "engine_sha": "34a50560a30cbff156e979b59af6c00e39f7f1a9",
+    "spec": "f81d08c",
+    "hand_ordering": "frozen 1326 lex (hunl/cards.py)"
+  },
+  "engine_sha": "34a50560a30cbff156e979b59af6c00e39f7f1a9",
+  "generator_sha": "5a85ff26d3e89dfc894abefc421caba1f8b3ce33",
+  "spec": "f81d08c",
+  "rng_ledger": {
+    "board_draws": 9,
+    "board_rejects": 1,
+    "range_draws": 46584,
+    "pot_draws": 40
+  },
+  "total_draws": 46633,
+  "gen_minutes": 333.2
+}
