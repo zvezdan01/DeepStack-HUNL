@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v4
+# Neil Burch — forensic ledger v5
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 36 nálezů, 7 analytických vln
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 41 nálezů, 8 analytických vln
 
 ---
 
@@ -809,6 +809,102 @@ Cíl č. 1 se zpřesňuje na:
 > Obsahuje (doloženo z cest a názvů artefaktů): `meta_player.so`, `rgbr_nl_cprg.so`,
 > `translation_player.so`, `acpc14.map`, `cfr_player.c`, a **no-limit CFR+ variantu**
 > (`CFRplus_holdem_nolimit_FCPA`). Toto je jediné místo, kde A/B/C/D/E reálně mohou být.
+
+---
+
+## Příloha E — Vlna 8: reprodukce publikované LBR tabulky z raw dat
+
+Archiv `vs_LBR.zip` obsahuje kromě 628 logů i **agregační skript týmu** — `vs_LBR/aggregate3.sh`
+(406 B, mtime 2017-02-09). To umožnilo publikovaná čísla nezávisle přepočítat.
+
+### ⭐ Nález #37 (P0) — celá publikovaná LBR tabulka se reprodukuje z uvolněných dat
+
+Spuštěn původní `aggregate3.sh` (párování `_s`/`_r` = duplicate poker, průměr dvojice,
+pak `mean ± 1.96·SE`) nad raw logy. Převod jednotek ověřen: **×10** pro hru se stackem
+20 000 / BB 100, **×500** pro `full_cards` (stack 100 BB / BB 2).
+
+| Agent | Setting | Přepočet z raw | Publikováno (`tab-localbr`) | Shoda |
+|---|---|---|---|---|
+| Hyperborean 2014 | `fc4` | 720.58 ± 55.53 | 721 ± 56 | ✓ |
+| Hyperborean 2014 | `fcpa` | 3851.51 ± 140.77 | 3852 ± 141 | ✓ |
+| Hyperborean 2014 | `56bets` | 4675.29 ± 152.36 | 4675 ± 152 | ✓ |
+| Hyperborean 2014 | `2r56bets` | 983.37 ± 94.95 | 983 ± 95 | ✓ |
+| DeepStack | `fc4` | −427.77 ± 87.21 | −428 ± 87 | ✓ |
+| DeepStack | `fcpa` | −382.89 ± 219.12 | −383 ± 219 | ✓ |
+| DeepStack | `56bets` | −775.17 ± 255.40 | −775 ± 255 | ✓ |
+| DeepStack | `2r56bets` | −602.08 ± 214.79 | −602 ± 214 | ~ (viz #39) |
+| Full Cards [100BB] | `fc4` | −424.00 ± 37.00 | −424 ± 37 | ✓ |
+| Full Cards [100BB] | `fcpa` | −536.00 ± 87.00 | −536 ± 87 | ✓ |
+| Full Cards [100BB] | `56bets` | 2402.50 ± 86.50 | 2403 ± 87 | ✓ |
+| Full Cards [100BB] | `2r56bets` | 1008.00 ± 68.00 | 1008 ± 68 | ✓ |
+| DeepStack | `dsMORE` | −405.86 ± 218.13 | −406 ± 218 (Table „first level actions") | ✓ |
+
+> **Toto je první bit-reprodukovatelná verifikace publikovaného DeepStack výsledku v celém huntu.**
+> Uvolněná primární data jsou úplná a autentická; metodika agregace je přesně ta publikovaná.
+
+### ⭐ Nález #38 (P0) — uvolněný archiv obsahuje VÍC dat, než bylo publikováno
+
+Varianta `dsFCPA` má v archivu **30 seedů**, ale publikovaná hodnota odpovídá **seedům 1–20**:
+
+| Podmnožina | N | Přepočet ×10 | Publikováno |
+|---|---|---|---|
+| seedy 1–10 | 5 000 | −507.25 ± 292.88 | — |
+| **seedy 1–20** | **10 000** | **−478.69 ± 215.99** | **−479 ± 216** ✓ |
+| seedy 1–30 (vše) | 15 000 | −467.19 ± 178.76 | — |
+
+> Shoda na desetinu mbb potvrzuje, že paper použil prvních 20 seedů. Archiv obsahuje
+> **10 seedů navíc**, dogenerovaných po odeslání. Užší CI (178.76 vs 216) znamená, že
+> plná data dávají o něco **méně** záporný odhad než publikovaná hodnota.
+
+### Nález #39 (P2) — jediná nesrovnalost v celé tabulce
+
+`DeepStack / 2r56bets`: střední hodnota sedí přesně (−602.08 → −602), ale **CI vychází 214.79,
+publikováno 214** — zaokrouhlení nahoru by dalo 215. Ostatních 12 buněk sedí na zaokrouhlení
+bez výjimky.
+
+Kontext: v arXiv **v2** byla tato buňka v zakomentované tabulce ještě
+`-615 $\pm$ 210`; ve v3 je `-602 $\pm$ 214`. Cela tedy byla mezi verzemi přepočítána.
+Rozdíl 0,79 mbb je pravděpodobně stopa po mírně jiném datovém řezu, ne chyba.
+**Zaznamenáno jako pozorování, ne jako obvinění.**
+
+### Nález #40 (P1) — formát RESULTS footeru a rozsahy zápasů
+
+```
+RAW BR STATS: n=1000, sum=371187.000000, sum_sq=10898118463.000000,
+              vr_sum=331003.806414, vr_sum_sq=7810334116.799194
+BR STATS: 371.187000(203.314823), 331.003806(171.997908)
+RESULTS
+1)Player: -371187
+2)BR: 371187
+```
+
+Distribuce délek souborů → rozsahy zápasů:
+
+| Řádků | Souborů | Zápas | Kdo |
+|---|---|---|---|
+| 50 013 | 8 | **50 000 rukou** | `full_cards` (levný table lookup) |
+| 1 013 | 400 | 1 000 rukou | Hyperborean14 na MP2 |
+| 1 011 | 32 | 1 000 rukou | `deepstack` (fc4, fcpa seedy 5–10) |
+| 1 006 | 8 | 1 000 rukou, **bez RESULTS footeru** | `lbr_fcpa_ds_{r,s}{1..4}` |
+| 511 | 180 | 500 rukou | `deepstack` (drahé settingy) |
+
+### Nález #41 (P3) — osm běhů bez RESULTS footeru
+
+`deepstack/lbr_fcpa_ds_{r,s}{1,2,3,4}.out` — přesně 1 006 řádků, 1 000 rukou, ale **chybí
+`RAW BR STATS` / `BR STATS` / `RESULTS` blok**, který mají ostatní. Seedy 5–10 téhož nastavení
+footer mají (1 011 řádků).
+
+> Prvních 8 běhů `fcpa_ds` proběhlo jinou verzí harness nebo bylo useknuto. Agregační skript
+> footer nepoužívá (čte jen řádky rukou), takže to výsledky neovlivnilo — což reprodukce #37
+> potvrzuje.
+
+### NEGATIVE — vlna 8
+
+| Cíl | Výsledek |
+|---|---|
+| `project_uoapoker` / `uoapoker` / `rgbr_nl_cprg` — WebSearch | **žádná veřejná stopa** |
+| `project_uoapoker` — GitHub code search | vyžaduje přihlášení, z tohoto prostředí nedostupné → **unsearched** |
+| LBR logy — hledání dalších cest, hostnames, PBS proměnných, verzí, chybových výpisů | mimo `/home/viliam/cprg/project_uoapoker/trunk/src/c/` (400×) a tři `.so` **nic dalšího** |
 
 ---
 
