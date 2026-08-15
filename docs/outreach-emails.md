@@ -14,6 +14,29 @@ Dva kompletní dopisy, k překopírování. Doplňte pole `[…]`.
 do kvantitativního obchodování — větu o tom hned v úvodu (Schmid a Moravčík vedou
 EquiLibre Technologies; zamlčené a později zjištěné to zavře dveře natrvalo).
 
+### K úvodnímu odstavci — proč je konkrétní
+
+Oba dopisy otevírají uznáním jejich práce. **Není to zdvořilostní fráze a nesmí se
+na obecnou chválu přepsat** — výzkumník ji pozná okamžitě a působí opačně.
+
+Odkazuje se výhradně na věci, které jsme při rekonstrukci **skutečně použili**
+a které jsou v ledgeru doložené:
+
+| Komu | Na co se odkazuje | Doloženo |
+|---|---|---|
+| Burch | `CFR_plus/README` dokumentuje reálný cluster běh (200 uzlů, 24 vláken, scaling, checkpointy) | ledger §5 |
+| Burch | Disertace, kap. 5–6: dekompozice, na které stojí celý depth-limited přístup | ledger #11 |
+| Schmid | `DeepStack-Leduc` s LuaDoc stromem, vzorky `train.inputs/.targets/.mask` a natrénovaným modelem | `deepstack-leduc-reference.md` |
+| Schmid | Možnost číst supplement proti běžícímu kódu | tamtéž |
+
+**Účel je v obou dopisech uveden pravdivě a bez přikrášlení**, včetně toho, že cílem není
+bit-exact kopie. To je záměr: přiznaná mez sděluje, že jsme věc pochopili, a chrání
+před dojmem, že chceme jejich data obejít.
+
+> **Nepište, že jde o „research", pokud jde o komerční projekt.** Kdyby to vyšlo najevo
+> později, znehodnotí to i všechno ostatní, co jste napsal. Placeholder je schválně
+> formulovaný tak, aby vás k tomu nesvedl.
+
 ---
 
 ## E-mail 1 — Neil Burch
@@ -25,17 +48,30 @@ EquiLibre Technologies; zamlčené a později zjištěné to zavře dveře natrv
 
 Dear Dr. Burch,
 
-I'm [jméno], and I'm reimplementing the DeepStack counterfactual-value data generation
-from the published description, [jednou větou: k čemu — např. "as the training pipeline for
-a research project on depth-limited solving"]. [Pokud je relevantní: "I should say up front
-that this work sits in [oblast], which overlaps with what some of your former colleagues now
-do commercially — I mention it so it doesn't come as a surprise later."]
+I've spent the past weeks working through your CFR+ release and your thesis, and I wanted
+to say first that the care in what you published has been the reason this work was possible
+at all. The `CFR_plus` README documents the actual cluster invocation — the node count, the
+thread count, the scaling parameters, the checkpoint layout — which is far more than most
+papers give you, and it let me reconstruct how Cepheus was actually run rather than guess.
+The decomposition results in Chapters 5 and 6 are what the whole depth-limited approach
+rests on, and reading the thesis alongside the code made the reasoning legible in a way the
+Science paper alone does not.
+
+**Why I'm writing.** I'm [jméno], and I'm reimplementing the DeepStack counterfactual-value
+data generation from the published description, [jednou větou, pravdivě: k čemu to bude —
+např. "as the training pipeline for a research project on depth-limited solving in
+imperfect-information games", nebo "as part of a commercial system in [oblast]"]. The goal
+isn't to reproduce your data bit-for-bit — I've established that isn't attainable, for
+reasons I'll come back to — but to build something whose *distribution* matches what the
+supplement describes, and to be honest in documentation about where I had to make my own
+choices. [Pokud relevantní: "I should say up front that this sits in [oblast], which overlaps
+with what some of your former colleagues now do commercially. I'd rather mention it now than
+have it come as a surprise."]
 
 I'm not asking for code, data, or anything under obligation. Two implementation decisions
-are simply not recoverable from the paper or the supplement, and I think you may be the
-only person who remembers them — your thesis preface says you provided the initial
-experimental framework and generated one of the data sets used to train the evaluation
-function.
+are simply not recoverable from the paper or the supplement, and I think you may be the only
+person who remembers them — your thesis preface says you provided the initial experimental
+framework and generated one of the data sets used to train the evaluation function.
 
 **What I've already worked out, so you don't have to explain it:** I have the released
 CFR+ solver, the ACPC server, and DeepStack-Leduc; I've verified that the public CFR+
@@ -105,14 +141,25 @@ Thank you for your time.
 
 Dear Dr. Schmid,
 
-I'm [jméno], and I'm reimplementing the DeepStack counterfactual-value data generation from
-the published description, [jednou větou: k čemu]. [Pokud relevantní: věta o překryvu
-s EquiLibre.]
+I want to start by saying that `DeepStack-Leduc` is the reason this project got off the
+ground. Releasing a complete, runnable version of the pipeline — with the LuaDoc tree, the
+sample training data, and the trained model alongside it — is something almost nobody does,
+and it turns the supplement from a description into something you can actually read against
+working code. Having `range_generator.lua` and `data_generation.lua` side by side with the
+paper answered more questions than weeks of reading could have.
 
-I'm not asking for code or data. I've been working from `DeepStack-Leduc`, which is the
-only public implementation of the pipeline, and there are several places where it clearly
-differs from what the HUNL supplement describes. You're the person who would know whether
-those differences are Leduc simplifications or whether the HUNL original did the same thing.
+**Why I'm writing.** I'm [jméno], and I'm reimplementing the DeepStack counterfactual-value
+data generation from the published description, [jednou větou, pravdivě: k čemu to bude].
+I'm not trying to reproduce the original data bit-for-bit — I've satisfied myself that isn't
+attainable — but to build something whose distribution matches the specification, and to
+document honestly where the specification runs out and I had to choose. [Pokud relevantní:
+"I should also say up front that this work sits in [oblast], which overlaps with what
+EquiLibre does. I'd rather raise that myself than have it surface later."]
+
+I'm not asking for code or data. Working from `DeepStack-Leduc`, there are several places
+where it clearly differs from what the HUNL supplement describes, and you're the person who
+would know whether those are Leduc simplifications or whether the HUNL original did the
+same thing.
 
 **What I've already established from your repository, so you don't have to restate it:**
 `range_generator.lua` samples `p₁` as `mass * torch.rand()` and recurses to size 1;
