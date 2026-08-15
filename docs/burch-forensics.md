@@ -1,7 +1,7 @@
-# Neil Burch — forensic ledger v11
+# Neil Burch — forensic ledger v12
 
 **DeepStack HUNL DataGenerator provenance**
-Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů, 14 vln — průchod zdroji ÚPLNÝ · #20 opraven ve vlně 14
+Datum: 2026-08-15 · Rozsah: výhradně Neil Burch · 53 nálezů + K1–K6, 15 vln · #20 opraven ve vlně 14
 
 ---
 
@@ -1397,6 +1397,132 @@ Toto je nezávislé posílení nálezu #44 (experiment se seedem):
 > Pro váš DataGenerator to znamená: **bit-exact shoda s originálem není dosažitelný cíl**,
 > a to prokazatelně, ne z opatrnosti. Rozumný cíl je distribuční ekvivalence —
 > stejná specifikace, vlastní deterministické a zdokumentované tie-breaking pravidlo.
+
+---
+
+## Příloha K — Vlna 15: Open Pure CFR (integrace externího handoffu + nezávislé ověření)
+
+Externí handoff `claude_handoff_open_pure_cfr_wave15.md` přinesl nálezy #67–#75 z analýzy
+zipu `open-pure-cfr-master`. **Nepřebírám je — ověřil jsem je z primárního zdroje**
+naklonováním `rggibson/open-pure-cfr` (35 commitů, plná historie, což zip nemá).
+
+> **Poznámka k číslování:** externí handoff mluví o „nálezech #1–#66"; tento ledger jich má
+> 53. Jde o dvě různé číselné řady. Nálezy níže vedu jako **K1–K6**, aby nedošlo ke kolizi.
+
+### K1 — Ověření wave 15: všechny claimy potvrzeny
+
+| Claim wave 15 | Ověření z primárního zdroje | Výsledek |
+|---|---|---|
+| default seedy `6, 12, 1983, 28` | `parameters.cpp:26-29` | ✓ |
+| `seeds[i] = rng_seeds[i] + 1234 + 4*thread_num + i` | `pure_cfr.cpp:100` | ✓ |
+| `init_by_array( &rng, seeds, NUM_RNG_SEEDS )` | `pure_cfr.cpp:102` | ✓ |
+| `--rng=TIME` → `time(NULL) + 4*NUM_RNG_SEEDS + 1` (= `time+17` pro všechny čtyři) | `parameters.cpp:119` | ✓ |
+| `rng.c` = `0e4a4d7a…`, `rng.h` = `d1653544…` (shodné s Burchovým CFR+) | sha256 | ✓ |
+| `game.c` = `083ff9d9…`, `game.h` = `c24d161b…` | sha256 | ✓ |
+
+**Seed→cards orákulum (#70) přepočítáno nezávisle.** Wave 15 zkompilovala vendorované C;
+já jsem implementoval `init_by_array` (`rng.c:76-100`) + `dealCards` v Pythonu:
+
+| Konfigurace | Efektivní seedy | Výsledek | |
+|---|---|---|---|
+| base `6:12:1983:28`, thread 0 | `1240:1247:3219:1265` | `7s8c,Ac4c\|/7c3dQc/5h/3h` | ✓ SHODA |
+| thread 1 | `1244:1251:3223:1269` | `TdKs,8h8d\|/2h8s3s/Ah/5s` | ✓ SHODA |
+| thread 2 | `1248:1255:3227:1273` | `Kh2c,7h4s\|/Jd3dTc/Qd/Js` | ✓ SHODA |
+| base `0:0:0:0`, thread 0 | `1234:1235:1236:1237` | `Td8c,6h7h\|/ThJc5c/Js/5h` | ✓ SHODA |
+
+> **Dvě nezávislé implementace se shodují na všech čtyřech případech.** Orákulum je
+> spolehlivé a použitelné jako fingerprint.
+
+### K2 — Ověření #71: vzájemné potvrzení s nálezem #44b
+
+Wave 15 zkompilovala vendorovaný ACPC kód se single-seed cestou a dostala:
+
+```
+seed  0 → 5d5c,9hQd | /8dAs8s/4h/6d
+seed 22 → Ad6s,9s2c | /6c4cTh/3c/Ac
+```
+
+**To jsou přesně hodnoty, které vyprodukovala moje Pythonová rekonstrukce ve vlně 10**
+(příloha G, nález #44b) — nezávisle, jiným jazykem, jiným postupem.
+
+Ground truth z MP2 LBR logů zůstává:
+```
+seed  0 → 2s4d,2h5h | /7sThQc/2c/As
+seed 22 → JcQs,6hTd | /4c5sQd/Ks/Kh
+```
+
+> **Nález #44b je tím potvrzen podruhé, nezávisle.** Veřejná ACPC/Open Pure CFR rozdávací
+> linie **nevysvětluje** dealer z `project_uoapoker` na MP2.
+
+### K3 — Ke „korekci" nálezu #9: doplnění, ne oprava
+
+Wave 15 uvádí jako *„important correction to the old ledger"*, že tvrzení
+*„CPRG/DeepStack lineage did not use MT19937"* není oprávněné, protože MT19937 je
+v Open Pure CFR živý.
+
+**Věcně souhlasím — a je to cenný protipříklad.** Formulace v tomto ledgeru ale takto
+globální nikdy nebyla; byla vždy vázaná na CFR+:
+
+| Místo | Znění |
+|---|---|
+| Nález #9 | „MT19937 je **v CFR+** nedosažitelný mrtvý kód" |
+| §8 fakt 4 | „MT19937 je **v CFR+** nedosažitelný mrtvý kód" |
+| §8 zákazy | „~~DeepStack RNG == MT19937~~ (**pro linii přes CFR+** vyvráceno)" |
+
+> **Závěr:** text ledgeru se nemění, ale **doplňuji explicitní protipříklad**, aby se
+> nález #9 nedal přečíst šířeji, než platí:
+>
+> **MT19937 je mrtvý kód v Burchově CFR+ solveru, ale živý a nosný v paralelní
+> CPRG no-limit linii Open Pure CFR.** Tvrzení „CPRG MT19937 nepoužívalo" by bylo nepravdivé.
+
+### K4 (NOVÉ — wave 15 to nemá) — autorství a rozsahová výhrada
+
+`git clone` dal historii, kterou zip neobsahuje:
+
+```
+35 commitů, 2013-06-27 → 2017-03-03, tag v1.0
+jediný autor: Richard Gibson <richard.g.gibson@gmail.com>
+```
+
+> **Richard Gibson NENÍ autor DeepStacku.** Je to člen CPRG a doktorand UAlberty
+> (jeho disertace: `poker.cs.ualberta.ca/publications/gibson.phd.pdf`).
+>
+> **Rozsahová výhrada, kterou wave 15 neuvádí:** Open Pure CFR je **CPRG linie, ale mimo
+> DeepStack tým**. Jeho seedovací idiom je tedy evidence o zvyklostech skupiny, **ne**
+> o implementaci kohokoliv z desítky autorů DeepStacku. Při vážení nálezu K5 to je podstatné.
+
+### K5 — Pátý CPRG seedovací idiom, doplněný do katalogu
+
+| # | Idiom | Kde | Autor |
+|---|---|---|---|
+| 1 | `rngSeed ^ subgameIndex` → glibc `random_r`, stav 32 B | `CFR_plus/storage.c:1001` | Burch |
+| 2 | `genrand_int32(&match->rng)` z MT19937 streamu | `bm_server.c:1358` | CPRG/Burch |
+| 3 | sekvenční index 0…49 přímo | LBR na MP2 | CPRG |
+| 4 | `init_genrand(tv.tv_usec)` | `example_player.c:52` | CPRG |
+| **5** | **`base[i] + 1234 + 4*thread + i` → `init_by_array()`** | `pure_cfr.cpp:100-102` | **Gibson (mimo DeepStack tým)** |
+
+> **Žádný z pěti není prokázán jako RNG původního DeepStack HUNL DataGeneratoru.**
+> Prostor idiomů se rozšířil, ne zúžil.
+
+### K6 (NOVÉ) — `game.c` má tři generace, `evalHandTables` dvě
+
+| Balík | `game.c` SHA256 |
+|---|---|
+| ACPC server v1.0.42 | `85b5325dd54e043fdb22548d4e1bfe4ed40b820a87f75f252d93875688b5c7cc` |
+| Burch CFR+ | `89fea891d8d6e031b803c96761c9b939cd372799a26c4eec82536f549c923d84` |
+| Open Pure CFR | `083ff9d9cc91a4b99870d635c9911e6527c44182513bae9ada5b770e8905b1e2` |
+
+**Tři různé verze.** Naproti tomu `rng.c`/`rng.h` jsou **byte-identické napříč všemi třemi**
+(nález #28 rozšířen o třetí balík).
+
+`evalHandTables` v Open Pure CFR = `9b8bb8e1…` = **ACPC generace**, ne CFR+ generace
+(`53248e54…`). **Potvrzuje nález #48** o dvou generacích evaluátoru a řadí Open Pure CFR
+do ACPC větve.
+
+> **Vzorec napříč celou CPRG kódovou základnou:** RNG je **zmrazená sdílená komponenta**
+> (jeden soubor, tři balíky, identický bajt po bajtu), zatímco herní logika a evaluátor
+> **se větví**. To je konzistentní obrázek: Burchův RNG byl infrastruktura, kterou nikdo
+> nesahal.
 
 ---
 
