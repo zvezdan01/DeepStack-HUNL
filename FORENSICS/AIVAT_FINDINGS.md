@@ -149,3 +149,32 @@ Strongest available test (no author code needed):
 - seedy 1..30 (fcpa_dsFCPA), 1..20/1..10 dle konfigurace; s/r = strana
   karet (duplicate matches). N=50k rukou u CPRG agentů, 10-15k u DS.
 - LBR configy: ACTIONS_R2/R3 = F,C,1,A (pot=„1"); preflop/flop C.
+
+---
+
+## UPDATE 2026-08-16 — arXiv TeX zdrojáky (owner-uploaded, Priorita 1)
+
+### Artefakty (archivovány v certification/leduc_restore/archives/)
+DeepStack v1/v2/v3 e-printy + AIVAT 1612.06915v2 e-print (TeX zdroje).
+
+### Nálezy
+1. **`[100,100)` je VERBATIM autorský TeX** ve všech třech verzích
+   (`$\{[100, 100),$ …`) — není to sazební artefakt; hypotéza H3
+   (přepis z interního configu) zůstává nejpravděpodobnější; nikdy
+   neopraveno.
+2. **appendix.tex v1 == v2 BYTE-IDENTICKÝ (diff 0 řádků)**; v2→v3 =
+   476 řádků diffu (Science revize). Table S3 (resolving config,
+   preflop 1000/980) **identická v1 i v3** — arXiv i Science se
+   shodují; outlier s jinými čísly je tedy Schmidova disertace
+   (viz PROVENANCE_NOTES §6).
+3. **Zakomentovaná full-precision per-player tabulka v TeX** (31 řádků,
+   12+ platných číslic): naše rekonstrukce z originálních CSV sedí na
+   **26/29 hráčů s |d|<5e-9** při z-CI formuli (1.96·pstdev/√n) —
+   drafty používaly z-CI, publikovaná tabulka t-CI (obě formule jsme
+   rekonstruovali přesně). 3 odchylky = draft-éra artefakty: Qin/Takeda
+   (disconnect handy — draft měl zjevně starší per-hand hodnoty těchto
+   rukou; finální release == CSV přesně) + 1 parsovací kandidát
+   (Schwab CI sloupec).
+4. **AIVAT vat.tex = kompletní rovnice** (k_H(z) korekce, base values,
+   chance/action termy) → L0 paper-equation oracle ODEMČEN; plná
+   transkripce do implementační specifikace = další krok.

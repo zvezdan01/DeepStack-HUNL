@@ -1,0 +1,178 @@
+\begin{thebibliography}{10}
+
+\bibitem{Tesauro95}
+G.~Tesauro, {\it Communications of the ACM\/} {\bf 38}, 58 (1995).
+
+\bibitem{SchaefferEtAl96}
+J.~Schaeffer, R.~Lake, P.~Lu, M.~Bryant, {\it AI Magazine\/} {\bf 17}, 21
+  (1996).
+
+\bibitem{CampbellEtAl02}
+M.~Campbell, A.~J. {Hoane Jr.}, F.~Hsu, {\it Artificial Intelligence\/} {\bf
+  134}, 57 (2002).
+
+\bibitem{Ferucci12}
+D.~Ferrucci, {\it IBM Journal of Research and Development\/} {\bf 56}, 1:1
+  (2012).
+
+\bibitem{Mnih15:DQN}
+V.~Mnih, {\it et~al.\/}, {\it Nature\/} {\bf 518}, 529 (2015).
+
+\bibitem{Silver16:AlphaGo}
+D.~Silver, {\it et~al.\/}, {\it Nature\/} {\bf 529}, 484 (2016).
+
+\bibitem{Samuel:AlphaBeta}
+A.~L. Samuel, {\it IBM Journal of Research and Development\/} {\bf 3}, 210
+  (1959).
+
+\bibitem{Kocsis06:UCT}
+L.~Kocsis, C.~Szepesv{\'{a}}ri, {\it Proceedings of the Seventeenth European
+  Conference on Machine Learning\/} (2006), pp. 282--293.
+
+\bibitem{Bronowski73}
+J.~Bronowski, The ascent of man, Documentary (1973). Episode 13.
+
+\bibitem{Wired08}
+J.~Rehmeyer, N.~Fox, R.~Rico, {\it Wired\/} {\bf 16.12}, 186 (2008).
+
+\bibitem{Bowling15:Cepheus}
+M.~Bowling, N.~Burch, M.~Johanson, O.~Tammelin, {\it Science\/} {\bf 347}, 145
+  (2015).
+
+\bibitem{allis1994}
+V.~L. Allis, Searching for solutions in games and artificial intelligence,
+  Ph.D. thesis, University of Limburg (1994).
+
+\bibitem{Johanson13:Sizes}
+M.~Johanson, Measuring the size of large no-limit poker games, {\it Technical
+  Report TR13-01\/}, Department of Computing Science, University of Alberta
+  (2013).
+
+\bibitem{ZinkevichEtAl07}
+M.~Zinkevich, M.~Johanson, M.~Bowling, C.~Piccione, {\it Advances in Neural
+  Information Processing Systems 20\/} (2008), pp. 905--912.
+
+\bibitem{GilpinEtAl07}
+A.~Gilpin, S.~Hoda, J.~Pe{\~n}a, T.~Sandholm, {\it Proceedings of the Third
+  International Workshop On Internet And Network Economics\/} (2007), pp.
+  57--69.
+
+\bibitem{Ganzfried15:Endgame}
+S.~Ganzfried, T.~Sandholm, {\it Proceedings of the Fourteenth International
+  Conference on Autonomous Agents and Multi-Agent Systems\/} (2015), pp.
+  37--45.
+
+\bibitem{cprg:cfrd}
+N.~Burch, M.~Johanson, M.~Bowling, {\it Proceedings of the Twenty-Eighth
+  Conference on Artificial Intelligence\/} (2014), pp. 602--608.
+
+\bibitem{Moravcik16:Subgames}
+M.~Moravcik, M.~Schmid, K.~Ha, M.~Hlad{\'{\i}}k, S.~J. Gaukrodger, {\it
+  Proceedings of the Thirtieth Conference on Artificial Intelligence\/} (2016),
+  pp. 572--578.
+
+\bibitem{Wood15:PokerFuse-Claudico}
+J.~Wood, {D}oug {P}olk and team beat {C}laudico to win \$100,000 from
+  {M}icrosoft \& {T}he {R}ivers {C}asino, \textit{Pokerfuse,}
+  http://pokerfuse.com/news/media-and-software/26854-doug-polk-and-team-beat-claudico-win-100000-microsoft/
+  (2015).
+
+\bibitem{Lisy16:LocalBR}
+V.~Lis\'{y}, M.~Bowling, {\it CoRR\/} {\bf abs/1612.07547} (2016).
+
+\bibitem{Nash50:equilibrium}
+J.~F. Nash, {\it Proceedings of the National Academy of Sciences\/} {\bf 36},
+  48 (1950).
+
+\bibitem{SOM}
+See Supplementary Materials.
+
+\bibitem{Gilpin08:Tartanian}
+A.~Gilpin, T.~Sandholm, T.~B. S{\o}rensen, {\it Proceedings of the Seventh
+  International Conference on Autonomous Agents and Multi-Agent Systems\/}
+  (2008), pp. 911--918.
+
+\bibitem{Schnizlein09:Translation}
+D.~Schnizlein, M.~Bowling, D.~Szafron, {\it Proceedings of the Twenty-First
+  International Joint Conference on Artificial Intelligence\/} (2009), pp.
+  278--284.
+
+\bibitem{Krizhevsky12:ImageNet}
+A.~Krizhevsky, I.~Sutskever, G.~E. Hinton, {\it Advances in Neural Information
+  Processing Systems 25\/} (2012), pp. 1106--1114.
+
+\bibitem{Hinton12:Speech}
+G.~Hinton, {\it et~al.\/}, {\it IEEE Signal Processing Magazine\/} {\bf 29}, 82
+  (2012).
+
+\bibitem{Oord16:WaveNet}
+A.~van~den Oord, {\it et~al.\/}, {\it CoRR\/} {\bf abs/1609.03499} (2016).
+
+\bibitem{He15:PReLU}
+K.~He, X.~Zhang, S.~Ren, J.~Sun, {\it CoRR\/} {\bf abs/1502.01852} (2015).
+
+\bibitem{Shi00:Rhode}
+J.~Shi, M.~L. Littman, {\it Proceedings of the Second International Conference
+  on Computers and Games\/} (2000), pp. 333--345.
+
+\bibitem{Gilpin07:Abstraction}
+A.~Gilpin, T.~Sandholm, T.~B. S{\o}rensen, {\it Proceedings of the
+  Twenty-Second Conference on Artificial Intelligence\/} (2007), pp. 50--57.
+
+\bibitem{Johanson13:Abstraction}
+M.~Johanson, N.~Burch, R.~Valenzano, M.~Bowling, {\it Proceedings of the
+  Twelfth International Conference on Autonomous Agents and Multi-Agent
+  Systems\/} (2013), pp. 271--278.
+
+\bibitem{kingma2014adam}
+D.~P. Kingma, J.~Ba, {\it Proceedings of the Third International Conference on
+  Learning Representations\/} (2014).
+
+\bibitem{huber1964}
+P.~J. Huber, {\it Annals of Mathematical Statistics\/} {\bf 35}, 73 (1964).
+
+\bibitem{IFP}
+{I}nternational {F}ederation of {P}oker. {h}ttp://pokerfed.org/about/ (Accessed
+  January 1, 2017).
+
+\bibitem{Burch16:AIVAT}
+N.~Burch, M.~Schmid, M.~Moravcik, M.~Bowling, {\it CoRR\/} {\bf abs/1612.06915}
+  (2016).
+
+\bibitem{BillingsEtAl03}
+D.~Billings, {\it et~al.\/}, {\it Proceedings of the Eighteenth International
+  Joint Conference on Artificial Intelligence\/} (2003), pp. 661--668.
+
+\bibitem{Sandholm12}
+T.~Sandholm, {\it AI Magazine\/} {\bf 31}, 13 (2010).
+
+\bibitem{Lisy16:cfr-security}
+V.~Lisy, T.~Davis, M.~Bowling, {\it Proceedings of the Thirtieth Conference on
+  Artificial Intelligence\/} (2016), pp. 544--550.
+
+\bibitem{ChenBowling12}
+K.~Chen, M.~Bowling, {\it Advances in Neural Information Processing Systems
+  25\/} (2012), pp. 2078--2086.
+
+\bibitem{ZinkevichLittman06}
+M.~Zinkevich, M.~Littman, {\it Journal of the International Computer Games
+  Association\/} {\bf 29}, 166 (2006). News item.
+
+\bibitem{DustinGUISource}
+D.~Morrill, Annual computer poker competition poker {GUI} client,
+  https://github.com/dmorrill10/acpc\_poker\_gui\_client/tree/v1.2 (2012).
+
+\bibitem{Tammelin15:CFR+}
+O.~Tammelin, N.~Burch, M.~Johanson, M.~Bowling, {\it Proceedings of the
+  Twenty-Fourth International Joint Conference on Artificial Intelligence\/}
+  (2015), pp. 645--652.
+
+\bibitem{collobert2011torch7}
+R.~Collobert, K.~Kavukcuoglu, C.~Farabet, {\it BigLearn, NIPS Workshop\/}
+  (2011).
+
+\bibitem{Ganzfried14:EMD}
+S.~Ganzfried, T.~Sandholm, {\it Proceedings of the Twenty-Eighth Conference on
+  Artificial Intelligence\/} (2014), pp. 682--690.
+
+\end{thebibliography}
