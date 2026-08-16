@@ -1,0 +1,19 @@
+0a PASS: hunl/ tree byte-identical to Golden Baseline v1 34a5056
+0b PASS: certification/oracles SHA256SUMS 52/52 OK
+0c PASS: restored ACPC game.c matches recorded anchor 85b5325dd54e043f…
+thrandom_cert: PASS — THRANDOM RESTORATION CERT: PASS — restored datagen/th_random.py is BIT_EXACT vs untouched torch7 C, the frozen pre-loss anchors, and untouched Tammelin C (1s) (1s)
+g1_2_3: PASS — G1.2 + G1.3 RESULT: PASS (total 821s) (821s)
+g1_tree: FAIL rc=1 (0s) — see REANCHOR_g1_tree.log
+    tail:   File "/usr/lib/python3.11/subprocess.py", line 571, in run;     raise CalledProcessError(retcode, process.args,; subprocess.CalledProcessError: Command '['cc', '-O2', '-o', '/tmp/reanchor_g1_tree/betting_oracle', '/home/user/quant-trade/certification/hunl_g1/betting_oracle.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/rng.c', '-I', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer']' returned non-zero exit status 1.
+g1_1: PASS — G1.1 RESULT: PASS — evaluator + card layer BIT_EXACT vs untouched author oracle (47s)
+g1_turn_engine: FAIL rc=1 (1s) — see REANCHOR_g1_turn_engine.log
+    tail:   File "/usr/lib/python3.11/subprocess.py", line 571, in run;     raise CalledProcessError(retcode, process.args,; subprocess.CalledProcessError: Command '['cc', '-O2', '-o', '/tmp/claude-0/-home-user-quant-trade/ab297466-f300-5fe2-aeba-419112c121c8/scratchpad/g1_turn_engine/betting_oracle', '/home/user/quant-trade/certification/hunl_g1/betting_oracle.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/rng.c', '-I', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer']' returned non-zero exit status 1.
+g1_turn: PARTIAL (documented boundary) — 0 section PASSes, stopped at the lost-golden-engine shim (6s)
+3 PASS: determinism double-solve (2 fresh processes, datagen config 1000/500, CFVs+BR+strategy) SHA 483a90a375c39a575d471195fb42ca96… byte-identical (2159s)
+NOT_RE_RUNNABLE_IN_CONTAINER: Leduc golden-engine pytest (36 tests) — oracle lost with the DS workspace; last certified in the pre-loss container (frozen results committed), NOT re-certified here
+NOT_RE_RUNNABLE_IN_CONTAINER: ds_scripts comparators (8 scripts, ~25k trace tensors) — oracle lost with the DS workspace; last certified in the pre-loss container (frozen results committed), NOT re-certified here
+NOT_RE_RUNNABLE_IN_CONTAINER: G1.7/G1.8 river-resolver gates (golden Lookahead) — oracle lost with the DS workspace; last certified in the pre-loss container (frozen results committed), NOT re-certified here
+NOT_RE_RUNNABLE_IN_CONTAINER: CFR-D gadget re-solves (golden CFRDGadget) — oracle lost with the DS workspace; last certified in the pre-loss container (frozen results committed), NOT re-certified here
+NOT_RE_RUNNABLE_IN_CONTAINER: turn->river transition section of run_g1_turn.py — oracle lost with the DS workspace; last certified in the pre-loss container (frozen results committed), NOT re-certified here
+
+FRESH-CONTAINER RE-ANCHOR: FAIL — {'integrity': 'PASS', 'thrandom': 'PASS', 'g1_2_3': 'PASS', 'g1_tree': 'FAIL', 'g1_1': 'PASS', 'g1_turn_engine': 'FAIL', 'g1_turn': 'PARTIAL', 'determinism': 'PASS'} (50.6 min)
