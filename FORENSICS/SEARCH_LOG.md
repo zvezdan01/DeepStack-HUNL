@@ -89,3 +89,22 @@ limits, not as artifact non-existence.
     AIVAT L4 localization (CPRG internal, unarchived), FCPA 3/9/27/81BB
     CONFIRMED, canonical-board indexing CONFIRMED, CPRG MT19937
     CONFIRMED with explicit DeepStack carve-out.
+[16.8.] BIT-TESTY SVĚDECTVÍ + hlubší sweep:
+  - FCPA chain test PASS 3/3 (tree+ACPC oracle+closed form) — viz
+    JOHANSON_TESTIMONY.md a latest_audit/FCPA_CHAIN_TESTIMONY_TEST.txt.
+  - hand-isomorphism: self-test PASS; kanonické velikosti 169/1755/
+    16432/134459 + hand-index tabulka; **cross-test vs certifikovaný
+    evaluátor: 200/200 izomorfních 5-card boardů permutačně IDENTICKÉ
+    rank vektory (265 200 porovnání)**. Historie: psáno 2013, PR #1 od
+    dmorrill10 (CPRG) 2014 — přímý CPRG dotyk s veřejnou knihovnou.
+  - card_tools.c (Tammelin CFR+/Cepheus linie, TŘETÍ STRANA V REPU):
+    obsahuje kanonickou suit-mapping indexaci (canonIndex, "smallest
+    suit values") = kandidát č. 2 Johansonova svědectví JE v repu.
+  - Cepheus: žádný oficiální github mirror; solver = Tammelin CFR+
+    (BSD) dle CPRG stránky — máme vendorovaný.
+  - NOVÉ KLONY: ericgjackson/slumbot2019 (run_rgbr, rgbr.cpp — RGBR
+    fingerprint v ACPC ekosystému, Tier 3-4); krukah/robopoker
+    (crates/arena/src/aivat.rs — komunitní AIVAT implementace, Tier 4 —
+    kandidát na adaptaci pro test proti našemu 45k L3 oracle).
+  - Johanson MSc 2007 (starší indexace): URL lokalizovány, egress-
+    blokovány (kandidát na owner upload).
