@@ -14,7 +14,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.optimize import linprog
-from scipy.sparse import lil_matrix
+from scipy.sparse import csr_matrix, hstack as sp_hstack, lil_matrix
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -108,11 +108,14 @@ def solve_turn_lp(board4, pot_half, support1, support2, r1, r2, cfg):
                 walk(c, s1_by_hand, nxt, w)
 
     walk(tree, {h: 0 for h in support1}, {h: 0 for h in support2}, 1.0)
-    A = A.toarray()
+    # keep everything sparse: the dense (n_seq0 x n_seq1) payoff matrix and
+    # dense flow constraints exceed container memory for deep small-pot
+    # trees; HiGHS accepts sparse A_ub/A_eq and solves the identical LP
+    A = A.tocsr()
 
     def flow(player):
         rows = 1 + len(infosets[player])
-        E = np.zeros((rows, n_seq[player]))
+        E = lil_matrix((rows, n_seq[player]))
         e = np.zeros(rows)
         E[0, 0] = 1.0
         e[0] = 1.0
@@ -120,14 +123,16 @@ def solve_turn_lp(board4, pot_half, support1, support2, r1, r2, cfg):
             E[1 + k, parent_seq] = -1.0
             for ai in range(len(node.children)):
                 E[1 + k, seqs[player][(hand, id(node), ai)]] = 1.0
-        return E, e
+        return E.tocsr(), e
 
     E, e = flow(0)
     F, f = flow(1)
     nx, npv = n_seq[0], F.shape[0]
     c = np.concatenate([np.zeros(nx), -f])
-    res = linprog(c, A_ub=np.hstack([-A.T, F.T]), b_ub=np.zeros(A.shape[1]),
-                  A_eq=np.hstack([E, np.zeros((E.shape[0], npv))]), b_eq=e,
+    A_ub = sp_hstack([(-A.T).tocsr(), F.T.tocsr()], format="csr")
+    A_eq = sp_hstack([E, csr_matrix((E.shape[0], npv))], format="csr")
+    res = linprog(c, A_ub=A_ub, b_ub=np.zeros(A.shape[1]),
+                  A_eq=A_eq, b_eq=e,
                   bounds=[(0, None)] * nx + [(None, None)] * npv,
                   method="highs")
     assert res.status == 0, res.message
