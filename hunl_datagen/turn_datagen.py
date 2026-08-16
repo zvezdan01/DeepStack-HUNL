@@ -236,6 +236,9 @@ def generate_shard(shard_idx: int, n_samples: int, out_dir: Path) -> dict:
             te = TurnEngine(board, pot, cfg=DGCFG)
             cfvs = te.resolve_first_node(r1[i].astype(np.float64),
                                          r2[i].astype(np.float64))
+            del te
+            import gc
+            gc.collect()   # bound worker RSS (OOM guard; numerics untouched)
             tgt = (cfvs / float(pot)).astype(np.float32)
             assert np.isfinite(tgt).all()
             assert (np.abs(tgt) <= DGCFG.stack / pot + 1e-6).all()
