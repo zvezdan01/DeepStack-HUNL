@@ -48,7 +48,7 @@ per-street betting, timing, start time, notes`.
 
 | level | definition | status |
 |---|---|---|
-| L0 paper-equation | AIVAT equations spec | PARTIAL — decomposition + sign conventions CONFIRMED from release README; full per-term equations still to be transcribed from arXiv 1612.06915 (egress-blocked here; snippets + owner materials) |
+| L0 paper-equation | AIVAT equations spec | **DONE** — plná transkripce z prvoautorského vat.tex (owner-uploaded arXiv v2 tarball) do `FORENSICS/AIVAT_L0_SPEC.md`: partition 𝓗 (3 vlastnosti), k_H(z), partition 𝓦 + base value, eqn:vat, u_h(a)=−w_H(a) z MCCFR self-play, 8M-infoset HUNL abstrakce, poziční 50/50 korekce, důkaz nestrannosti; ⚠ OPEN jen produkční parametry (abstrakce, MCCFR seed) |
 | L1 synthetic deterministic hand | build-your-own fixture | AVAILABLE (given L0 spec) — not yet built |
 | L2 original-paper numeric | published aggregates | **ACHIEVED** — 44,852 / 491.50→"492" / 485.74→"486" / σ levels, from original data |
 | L3 original hand/log | per-hand original values + official ACPC logs | **ACHIEVED (artifact in hand)** — 45,037 per-hand AIVAT/corrections + official ACPC logs; CSV↔ACPC-log linkage check pending |
