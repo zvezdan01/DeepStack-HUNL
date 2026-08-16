@@ -1,11 +1,8 @@
-# „Mike" (CPRG) — first-party svědectví (e-mail vlastníkovi, 2026-08-16)
+# Michael Johanson (CPRG) — first-party svědectví (e-mail vlastníkovi, 2026-08-16)
 
-Evidence class: **Tier 2 / CONFIRMED (first-party recollection)**. Autor se
-podepisuje „Mike"; z kontextu (CPRG, PhD dokončen před spuštěním
-DeepStacku, odchod týmu do DeepMind 2017, odkaz na „Dr. Bowlinga jako
-posledního člena na univerzitě") jde velmi pravděpodobně o Michaela
-Johansona [INFERENCE — identita neověřena artefaktem]. Paměťové výroky
-(„nejsem si jistý", „nevím") značeny.
+Evidence class: **Tier 2 / CONFIRMED (first-party recollection)**. Autor: **Michael Johanson** — identita potvrzena vlastníkem (adresát
+korespondence), 2026-08-16. Paměťové výroky („nejsem si jistý",
+„nevím") značeny.
 
 ## Výroky
 
