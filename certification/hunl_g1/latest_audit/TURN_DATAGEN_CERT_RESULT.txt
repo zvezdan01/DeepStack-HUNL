@@ -1,0 +1,25 @@
+== 1. shard manifests + anchors + RNG ledger ==
+1 PASS: 12 shards x 20 samples; every manifest SHA verified; RNG ledger reconciles exactly (4+rej board, 22,540+752 range, 40 pot draws per shard); per-shard runtime min/med/max = 262/283/333 min
+dataset combined SHA-256 anchor: 274188d482bd089ff9affdcf2f5161fd52491ad18bb96774619de114e219df9f
+== 2. full-shard replay (fresh process, byte-identity) ==
+2 PASS: shard 0 fully regenerated in a fresh process — all five arrays byte-identical (BYTE_EXACT)
+== 3. row-level inversion audit (byte-exact target replay) ==
+  row 27 (shard 1, row 7, pot 1102): target replay BYTE-IDENTICAL [12 min]
+  row 44 (shard 2, row 4, pot 765): target replay BYTE-IDENTICAL [24 min]
+  row 48 (shard 2, row 8, pot 246): target replay BYTE-IDENTICAL [49 min]
+  row 62 (shard 3, row 2, pot 1778): target replay BYTE-IDENTICAL [61 min]
+  row 67 (shard 3, row 7, pot 370): target replay BYTE-IDENTICAL [79 min]
+  row 131 (shard 6, row 11, pot 962): target replay BYTE-IDENTICAL [91 min]
+  row 179 (shard 8, row 19, pot 1262): target replay BYTE-IDENTICAL [103 min]
+  row 234 (shard 11, row 14, pot 7702): target replay BYTE-IDENTICAL [108 min]
+3 PASS: 8 rows byte-exact (108 min)
+== 4. independent oracles ==
+  A forced-check/all-in oracle row 0: |d| 1.26e-15 of pot
+  A forced-check/all-in oracle row 10: |d| 9.95e-16 of pot
+  C LP small-support (datagen menus, 1000/500) board [15, 28, 41, 49] pot 13137: |d| 0.000% pot
+  C LP small-support (datagen menus, 1000/500) board [11, 32, 38, 49] pot 248: |d| 0.000% pot
+4 PASS (25 min)
+== 5. statistical QA over the pilot ==
+5 PASS: 240 samples; board-card chi2 383.3 (df 51); pot categories [45, 44, 58, 48, 45] (uniform 20% each, n=240); pot min/max 100/19753; range sums in (0.999,1.001); blocked zero; 0 duplicates; max |t| at 99.9% of stack/pot bound; max zero-sum residual 8.95e-09 (f32 targets); consecutive-pot corr -0.033; mean support 1128 hands
+
+DATAGEN CERT CORE: PASS (133.4 min)
