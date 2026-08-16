@@ -1,0 +1,19 @@
+== 1. ACPC replay of turn trees vs untouched game.c ==
+
+--- stderr ---
+In file included from /home/user/quant-trade/certification/hunl_g1/betting_oracle.c:20:
+/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.h:10:10: fatal error: net.h: No such file or directory
+   10 | #include "net.h"
+      |          ^~~~~~~
+compilation terminated.
+In file included from /workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.c:12:
+/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.h:10:10: fatal error: net.h: No such file or directory
+   10 | #include "net.h"
+      |          ^~~~~~~
+compilation terminated.
+Traceback (most recent call last):
+  File "/home/user/quant-trade/certification/hunl_g1/run_g1_turn_engine.py", line 98, in <module>
+    subprocess.run(["cc", "-O2", "-o", str(oracle_bin),
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['cc', '-O2', '-o', '/tmp/claude-0/-home-user-quant-trade/ab297466-f300-5fe2-aeba-419112c121c8/scratchpad/g1_turn_engine/betting_oracle', '/home/user/quant-trade/certification/hunl_g1/betting_oracle.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/game.c', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/rng.c', '-I', '/workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer']' returned non-zero exit status 1.

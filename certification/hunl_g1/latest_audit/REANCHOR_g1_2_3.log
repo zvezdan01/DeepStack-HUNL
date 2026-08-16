@@ -1,0 +1,21 @@
+== G1.2 blockers ==
+independent recount: all 1,758,276 ordered pairs match (1s)
+structure: symmetric, diag=1 (self-overlap), row sums 101 (=51+51-1 incl. self)
+case tests: self-overlap / one-card overlap / disjoint / board blocking OK
+k=3: all 22,100 boards -> possible hands == C(49,2)=1176 (0s)
+k=4: all 270,725 boards -> possible hands == C(48,2)=1128 (0s)
+k=5: all 2,598,960 boards -> possible hands == C(47,2)=1081 (5s)
+preflop possible hands == 1326
+API-path sample: 10,000 boards per cardinality via possible_hands_mask OK
+G1.2 blocker SHA-256 anchor: 8c7f9f9e68187a60615fe085e9ca29b22aefb63cbd81c18ea9ec6926451cd494 (in-process rebuild + fresh subprocess identical)
+G1.2 PASS
+
+== G1.3 exact river showdown ==
+corpus: 2,000 seeded rivers fully certified (2000 x 1326^2 = 3,516,552,000 entries; legal 2,140,380,000; 12000 slow row recounts) in 60s
+corpus SHA-256 anchor (M+legal+ranks stream, seed 20260813): 34af9da10c5edde3571e8059b0baaa9dcce4f54b8539380b27855c2278822ac4
+terminal CFV identity (1,000 range pairs on 200 boards): max |r1.u1 + r2.u2| f64 = 2.26e-16 (<1e-12), f32 = 1.01e-07 (<1e-4) in 6s
+exhaustive river audit: all 2,598,960 boards...
+exhaustive audit PASS: 2,598,960 boards x 1326 ranks (3,446,220,960 entries), every board 1081 live hands, class cross-foot == 21 x canonical 7-card counts, in 747s
+full-river rank-stream SHA-256 anchor (lexicographic boards): 4bb00373c775b20141a24845cd2a02d16e9b516fddef9005769db27415e83ef6
+
+G1.2 + G1.3 RESULT: PASS (total 821s)
