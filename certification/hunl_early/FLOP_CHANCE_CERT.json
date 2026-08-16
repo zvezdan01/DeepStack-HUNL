@@ -1,0 +1,22 @@
+{
+  "schema": "HUNL_FLOP_CHANCE_CERT_V1",
+  "flop_boards_exhausted": 22100,
+  "representative_flops_full_pair_matrix": 6,
+  "legal_ordered_pairs_checked": 7627536,
+  "scalar_pair_recounts": 300,
+  "constants": {
+    "turn_public_candidates": 49,
+    "flop_legal_hands": 1176,
+    "turn_legal_hands": 1128,
+    "legal_turns_per_hand": 47,
+    "legal_turns_per_disjoint_pair": 45,
+    "chance_factor": "1/45"
+  },
+  "identities": [
+    "1176*47=49*1128=55272",
+    "pair mass=45/45"
+  ],
+  "divergences": 0,
+  "status": "COMBINATORIAL_EXACT (not private-source bit-exact)",
+  "fingerprint_sha256": "29e80b4f0e45309abd4dc03a1982936cf6e4d67652df7269792201d7bab69ca5"
+}

@@ -42,6 +42,28 @@ class HunlConfig:
     river_cfr_iters: int = 2000               # Table 4 (not used by the tree)
     river_cfr_omit: int = 1000                # Table 4 (not used by the tree)
 
+    # Table 4, pre-flop row (VERIFIED, DeepStack supplement p.22):
+    # first {F,C,1/2P,P,A}, second {F,C,1/2P,P,2P,A}, remaining {F,C,P,A}.
+    preflop_menus: tuple[tuple[Fraction, ...], ...] = (
+        (Fraction(1, 2), Fraction(1)),
+        (Fraction(1, 2), Fraction(1), Fraction(2)),
+        (Fraction(1),),
+    )
+    preflop_allin: bool = True
+    preflop_cfr_iters: int = 1000
+    preflop_cfr_omit: int = 980
+
+    # Table 4, flop row: first {F,C,1/2P,P,A}, second and remaining
+    # {F,C,P,A}.  The lookahead stops at the turn boundary (turn NN).
+    flop_menus: tuple[tuple[Fraction, ...], ...] = (
+        (Fraction(1, 2), Fraction(1)),
+        (Fraction(1),),
+        (Fraction(1),),
+    )
+    flop_allin: bool = True
+    flop_cfr_iters: int = 1000
+    flop_cfr_omit: int = 500
+
     # Table 4, turn row (VERIFIED, spec f81d08c): lookahead-global action
     # depths — first {F,C,1/2P,P,A}, second {F,C,P,A}, remaining {F,C,P,A}
     # (the "remaining" menu also governs river betting inside a turn
@@ -55,8 +77,25 @@ class HunlConfig:
     turn_cfr_iters: int = 1000                # Table 4 turn schedule
     turn_cfr_omit: int = 500
 
+    def menu_for_street(self, street: str, depth: int) -> tuple[Fraction, ...]:
+        """Table-4 fraction menu for one resolving street.
+
+        `depth` is the lookahead action depth.  For pre-flop/flop, the
+        lookahead ends at the next-street boundary, so this is also the
+        current-round action depth.  Turn uses its existing global-depth
+        convention across the turn->river exact-to-end lookahead.
+        """
+        menus = {
+            "preflop": self.preflop_menus,
+            "flop": self.flop_menus,
+            "turn": self.turn_menus,
+            "river": self.river_menus,
+        }[street]
+        return menus[min(depth, len(menus) - 1)]
+
     def menu_for_depth(self, depth: int) -> tuple[Fraction, ...]:
-        return self.river_menus[min(depth, len(self.river_menus) - 1)]
+        # Backward-compatible river helper used by the frozen river tree.
+        return self.menu_for_street("river", depth)
 
     @property
     def big_blind(self) -> int:

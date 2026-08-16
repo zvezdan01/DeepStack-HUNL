@@ -101,6 +101,26 @@ Verdikt: **bitová rovina je mrtvá pro kohokoli** (ztracené seedy,
 cluster konfigurace a Torch verze; detailně `FINDINGS.md`); funkční
 rovina je uzavřená na ~90–95 % s kotvami na prvoautorské artefakty.
 
+## 5b. Rané streety (preflop/flop) — Phase 1 integrována
+
+Z paralelní pracovní linie (owner-dodaný `huhlgoldencoreearlystreetsv1.zip`,
+postavený nad naším core exportem aa04c5a) integrováno a **nezávisle
+reprodukováno v této session**:
+
+- `hunl/early_street_tree.py` + preflop/flop wrappery + `flop_chance.py`;
+  `hunl/config.py` rozšířen aditivně o Table-4 preflop/flop menu.
+- **Gate A** (sparse betting vs nedotčené game.c): 1 711 stavů, 1 673 akcí,
+  0 divergencí — fingerprint `32188d0c…` reprodukován bajtově shodně.
+- **Gate B** (flop→turn chance algebra): 22 100 flopů vyčerpáno, 45/45
+  unseen turn karet na legální pár, 0 divergencí — fingerprint `29e80b4f…`
+  reprodukován bajtově shodně.
+- **Frozen-core regrese**: river manifesty 7/7 pot-half SHA shodné
+  s golden, turn node count (6333, 2320, 3998, 15) shodný — zmrazené
+  turn/river jádro NEZMĚNĚNO.
+- `FORENSICS/DEEPSTACK_CPRG_LINEAGE_CORRECTION_2026-08-16.md`: pravidlo
+  značení lineage (DeepStack-primary / poker-rule oracle / CPRG
+  cross-check / PROJECT CANONICAL) — převzato jako projektový standard.
+
 ## 6. AIVAT mise
 
 - L0 rovnice: **kompletní transkripce** z vat.tex → `AIVAT_L0_SPEC.md`

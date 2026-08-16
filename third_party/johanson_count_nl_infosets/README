@@ -1,0 +1,32 @@
+This package contains Michael Johanson's implementation of a game-state 
+(infoset, action, etc) counting program for large no-limit poker games,
+such as the no-limit Texas hold'em games played in the
+Annual Computer Poker Competition.  It contains the source code for two
+programs:
+
+ * count_nl_infosets
+ * count_limit_infosets
+
+This implementation is written in C and was tested in a Unix environment.  
+It depends on the GNU Multiple Precision Arithmetic Library for support
+for large integers, since the counts of large no-limit games quickly
+surpass the maximum size of unsigned 64-bit integers.
+
+We have released this software under a BSD license, the details of which
+can be found in the accompanying LICENSE file.
+
+A technical report describing the algorithm and presenting the sizes of
+the no-limit games played in the Annual Computer Poker Competition
+can be found online at any of the following locations:
+
+http://www.cs.ualberta.ca/~johanson/publications/poker/2013-techreport-nl-size/2013-techreport-nl-size.html
+http://webdocs.cs.ualberta.ca/~games/poker/
+
+When run, count_nl_infosets and count_limit_infosets will print out the size
+of the game in betting sequences (without cards), infosets,
+game states, canonical infosets, canonical infoset-actions, and so on,
+for both Royal Hold'em (Ten-Ace in four suits, for a 20 card deck)
+and Texas Hold'em.
+
+Please feel free to email Michael Johanson with any questions or
+comments: johanson@ualberta.ca

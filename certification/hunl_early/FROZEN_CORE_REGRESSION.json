@@ -1,0 +1,20 @@
+{
+  "schema": "HUNL_FROZEN_CORE_REGRESSION_V1",
+  "old_equals_new": true,
+  "river": {
+    "100": "7f2e3f0894155e054ed26ce5a923e51490acb8fbbe1ac2d13db16e493f3b2b7c",
+    "200": "12b143bd9905d9ff3826fc49c430d4f8cc65ec35b99cfefe5aebd443526727b8",
+    "300": "5b50d25b946dd9bdafdb54b5dca5e2c0d6dbf7445cc1e81498c7e761336aced7",
+    "900": "835fa57af8b956d119ce37bf1be5eaf39983869a009197b4c95d11407900a362",
+    "2700": "75b9ad349fb664b1e1751d8765fb29a1b2f032220f4af6a5e39cf6104f366d20",
+    "8100": "3ee81a0e7a81f2c01b176764c6b0859784f7135e3abf07efc825375bc063836b",
+    "19999": "dd4c16cdf2394a78358364d0ac17377ad1d1cb66a4dd8de1fe7150b4cc89d5e1"
+  },
+  "turn_count": [
+    6333,
+    2320,
+    3998,
+    15
+  ],
+  "turn_sha": "cdb302a45f60440c3f14a35d8ded584395ad9dbbdad7d9be92b182053d44e5e1"
+}
