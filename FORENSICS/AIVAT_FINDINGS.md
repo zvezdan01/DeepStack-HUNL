@@ -178,3 +178,22 @@ DeepStack v1/v2/v3 e-printy + AIVAT 1612.06915v2 e-print (TeX zdroje).
 4. **AIVAT vat.tex = kompletní rovnice** (k_H(z) korekce, base values,
    chance/action termy) → L0 paper-equation oracle ODEMČEN; plná
    transkripce do implementační specifikace = další krok.
+
+## UPDATE 2026-08-16b — Priorita 2 dokumenty (owner-uploaded)
+
+1. **isomorphism13.pdf (Waugh)**: Table 1 potvrzuje first-party naše
+   vypočtené velikosti — Perfect: flop 1,286,792 / turn 55,190,538 /
+   river 2,428,287,420 ✓ (anchor povýšen ze search-snippet na dokument
+   v držení).
+2. **Refining Subgames (AAAI-16, Moravčík et al.)**: Nyx = 2. místo
+   ACPC 2014; endgame experimenty 10,000 iterací CFR+; max-margin
+   101.49±7.09 vs re-solving 8.79±… (exploitability zlepšení) — Tier-2
+   kontext Nyx→DeepStack re-solving linie.
+3. **Johanson PhD 2016**: PŘESNÁ AIVAT GENEALOGIE — Imaginary
+   Observations (kap. 7; idea Bowling, formalizace ICML-08 linie);
+   „All Cards" estimátor = předchůdce sloupce **All Hands Chips**
+   z AIVAT release; IO-DIVAT kombinace (kap. 8: per-match Mean/StdDev
+   tabulky 2007/2008 Man-vs-Machine — desítky numerických oracle bodů);
+   kombinace AC+EF+BC-DIVAT. Autorské příspěvky explicitně rozděleny.
+   => L0 řetěz AIVAT je nyní kompletně dokumentován first-party:
+   IO (2008) + DIVAT (Billings&Kan 2006) → AIVAT (2016, vat.tex rovnice).
