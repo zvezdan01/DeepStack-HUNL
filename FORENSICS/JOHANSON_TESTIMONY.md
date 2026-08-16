@@ -101,5 +101,22 @@ short all-in výjimka (stack−faced < min_bet ⇒ all-in legální); všechny c
 částky min_bet…stack−faced legální (neabstrahované); call přechází do dalšího kola.
 
 Hranice: NENÍ to FCPA orákulum ani DataGenerator — certifikuje jen bazální NL
-legalitu/přechody. Navazující krok: diferenciální test proti našemu betting enginu
-(`johanson_rules_diff` — první interaktivní verze timeoutovala, nutný dávkový přepis).
+legalitu/přechody.
+
+### Diferenciální test: autorská pravidla vs nedotčené ACPC game.c — PASS
+
+`FORENSICS/SCRIPTS/johanson_rules_diff.py` (dávkový design; první interaktivní
+verze deadlockovala na blokové bufferaci stdout orákula). Python model počítá
+okna raise VÝHRADNĚ z autorových formulí reportu (min increment = max(BB, faced
+increment); short all-in výjimka; max raise-to = stack; fold ⇔ faced>0; call
+vždy) a na náhodných legálních HUNL sekvencích (50/100, stack 20000, reverse
+blinds, seed 20260816) je konfrontuje s `betting_oracle.c` nad nedotčeným
+restaurovaným `game.c`:
+
+- 600 her, 2 646 rozhodovacích stavů, 16 971 kontrol (R okna + Q sondy
+  f/c/hranice min−1/min/max/max+1), 0 neshod, 0 sync neshod.
+- **Závěr: Johansonova betting sémantika z count_nl_infosets je na vzorkovaném
+  prostoru IDENTICKÁ s DS-era ACPC game.c (anchor 85b5325d)** — včetně short
+  all-in výjimky, resetu min-raise na maxSpent+BB po přechodu kola a inicializace
+  min-raise-to = 2×BB. Bazální NL legalita našeho enginu je tak kryta dvěma
+  nezávislými prvoautorskými orákuly současně.
