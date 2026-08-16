@@ -121,6 +121,38 @@ reprodukováno v této session**:
   značení lineage (DeepStack-primary / poker-rule oracle / CPRG
   cross-check / PROJECT CANONICAL) — převzato jako projektový standard.
 
+## 5c. Flop lookahead + value kontrakt + datagen korekce V2 (integrováno)
+
+Druhá iterace paralelní linie (`huhlgoldencorefloplookaheadv2.zip`) —
+integrována po místní re-verifikaci:
+
+- **Datagen Source Correction V2** (`certification/hunl_datagen_v2/`):
+  (1) hand-strength metrika opravena na doslovnou definici supplementu
+  (P[výhra proti uniformnímu soupeři v AKTUÁLNÍM public stavu], strict
+  wins/1035, žádný future runout) — stará all-in equity metrika NENÍ
+  monotónně ekvivalentní (58 714 znaménkových rozdílů párů); (2) floor
+  split `|S1|=⌊|S|/2⌋` bez randomizace lichého středu (primární text má
+  přednost před released Leduc kódem); (3) `[100,100)` fail-closed
+  v AUTHOR_STRICT režimu; tie-break uvnitř tříd stejné síly označen
+  PROJECT_CANONICAL (1 039/1 127 hranic má tie). Author rankCardset
+  6-card orákulum: 10 608/10 608 shod. Cert
+  `HUNL_AUTHOR_RANGE_V2_CERT.json` reprodukován **byte-identical**
+  (SHA `cbf89130…`). Pilot V1 zůstává zachován jako LEGACY
+  RECONSTRUCTION (jen pro reprodukci historického pilotu).
+- **Phase 2 (value network kontrakt)**: architektura 7×500 PReLU,
+  zero-sum korekce, bucket kontrakty — AUTHOR-EXPLICIT/RELEASED-CODE-
+  ANCHORED; chybějící originální 1000-bucket mapa a váhy FAIL-CLOSED.
+- **Phase 3 (flop lookahead)**: exaktní flop all-in terminál (int16
+  numerátor matice — SHA `35f8f8a2…` **bajtově shodná napříč
+  prostředími**), integrace do FlopLookaheadEngine.
+- Všechny 4 certy `hunl_value/` u nás PASS a jsou **in-container
+  deterministické** (2. běh byte-identical); dodané float souhrny
+  z jiného prostředí se liší jen v bitech plovoucí čárky (jiné pořadí
+  redukcí) — strukturální a celočíselné položky identické. Naše čerstvé
+  JSONy = lokální kotvy.
+- Zmrazené jádro nedotčeno (turn/river soubory beze změn; probíhající
+  cert harness dál potvrzuje byte-identity replay).
+
 ## 6. AIVAT mise
 
 - L0 rovnice: **kompletní transkripce** z vat.tex → `AIVAT_L0_SPEC.md`

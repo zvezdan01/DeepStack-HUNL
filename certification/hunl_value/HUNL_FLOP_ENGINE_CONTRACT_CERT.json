@@ -1,0 +1,31 @@
+{
+  "missing_allin_provider_fail_closed": "PASS",
+  "repeat_run_exact": true,
+  "run": {
+    "allin_provider_calls": 12,
+    "allin_terminals": 3,
+    "board3": [
+      0,
+      5,
+      10
+    ],
+    "boundary_pots": [
+      9000,
+      18000
+    ],
+    "decision_nodes": 6,
+    "fold_terminals": 4,
+    "iters": 4,
+    "nodes": 15,
+    "observed_turn_boundary_sha256": "161f67008f3cd3f0187240a4a726eaee57be464e91a9ed08b2753ce34c6cefad",
+    "pot_half": 9000,
+    "root_cfv_sha256": "1241376c4fee7ce1aaa95f9ad7550db31fd9a75d447314ab5b339f27460788b4",
+    "root_strategy_sha256": "c6b3a145887f09443b3dba11f53a02ab8ef9750229c5d0918ff8da4d99cd1dd3",
+    "skip": 2,
+    "turn_boundaries": 2,
+    "weighted_zero_sum_residual_chips": 4.3860745790880173e-07
+  },
+  "schema": "HUNL_FLOP_ENGINE_CONTRACT_V1",
+  "status": "STRUCTURAL_INTEGRATION_CERT; original HUNL buckets/weights/all-in implementation not claimed",
+  "synthetic_dependencies": "TEST_ONLY_NOT_RECONSTRUCTION"
+}

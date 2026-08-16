@@ -1,0 +1,31 @@
+{
+  "allin_terminal_dependency": "EXACT_FLOP_FORCED_RUNOUT_EQUITY",
+  "repeat_run_exact": true,
+  "run": {
+    "allin_terminals": 3,
+    "board3": [
+      0,
+      5,
+      10
+    ],
+    "boundary_pots": [
+      9000,
+      18000
+    ],
+    "decision_nodes": 6,
+    "exact_allin_numerator_sha256": "35f8f8a2cba78cdfc20f78fdd0b628016077834b9a4918af683868db5844633b",
+    "fold_terminals": 4,
+    "iters": 4,
+    "nodes": 15,
+    "observed_turn_boundary_sha256": "e7b0dd7d28c0cdbfd3963ec6105ea38bd0d837f2de2624daac80e309c3688bcb",
+    "pot_half": 9000,
+    "root_cfv_sha256": "86649b0c878ab5c410b1911013e21733fc4d48d3a5fcda0307031d767deca3d2",
+    "root_strategy_sha256": "dd0eb502db1a41b7a2c92b54a90718c0286928e79aa06316dd1dea6497b97309",
+    "skip": 2,
+    "turn_boundaries": 2,
+    "weighted_zero_sum_residual_chips": -3.838351858576061e-09
+  },
+  "schema": "HUNL_FLOP_ENGINE_EXACT_TERMINAL_CERT_V1",
+  "status": "STRUCTURAL_INTEGRATION + EXACT FOLD/ALL-IN TERMINALS; original HUNL 1000-bucket artifact and turn-network weights remain unresolved",
+  "turn_boundary_dependencies": "SYNTHETIC_BUCKETS_AND_NN_TEST_ONLY"
+}

@@ -1,0 +1,121 @@
+{
+  "added": [
+    {
+      "path": "certification/hunl_datagen_v2/HUNL_AUTHOR_RANGE_V2_CERT.json",
+      "sha256": "cbf891303c0550fa679428586f190ef5b46e43f5ca5c6f59a99c8c31ee5f7e35"
+    },
+    {
+      "path": "certification/hunl_datagen_v2/HUNL_DATAGEN_SOURCE_CORRECTION_V2.md",
+      "sha256": "7b7024a0531c7f1e5b523712fafaadde24c5b03c945a4d941542790fdca85758"
+    },
+    {
+      "path": "certification/hunl_datagen_v2/rank6_board_oracle",
+      "sha256": "11cce66a47108443f77c08d165fffa5098a6aa86da4875360570737009539a41"
+    },
+    {
+      "path": "certification/hunl_datagen_v2/rank6_board_oracle.c",
+      "sha256": "c6a2d8bd730dac6128992c4dd04790b92fc1a1dc6c6b36794b81a9b18098e1da"
+    },
+    {
+      "path": "certification/hunl_datagen_v2/run_author_range_v2_cert.py",
+      "sha256": "688a6eaf4e370f6cc3df9e382dd41de34cbad72f75d5b8e44a9b1694e2eda519"
+    },
+    {
+      "path": "certification/hunl_early/betting_oracle",
+      "sha256": "91b5799323e8c4bb7fb18ad6cb887b5becae2bdea8bcb1496ec1f0b8328a83d4"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_BUCKET_ARTIFACT_SEARCH.json",
+      "sha256": "1bc783ca6023aee7cb932a73b654428a11e2d57eb379ba992f6d2e6ebd978e2b"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_FLOP_ALLIN_CERT.json",
+      "sha256": "a7be4baec063cddc1b2c7e5d2ea4931866c450a58dc646a9bd711ca5f845594a"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_FLOP_ENGINE_CONTRACT_CERT.json",
+      "sha256": "745385e8ed4149261da673db680060e10d230bbbfb6f63e17c57ba30a6748c4b"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_FLOP_ENGINE_EXACT_TERMINAL_CERT.json",
+      "sha256": "3b7651a0ef6456e16002ab0f5ae5d7924a0697149cf0cb22a94c3026fa60de8a"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_FLOP_LOOKAHEAD_PHASE3.md",
+      "sha256": "6db6d73442b6b7e2603ac901db58637d01596e4e882aed4d4bf6c2e1e9e040cc"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_VALUE_CONTRACT_CERT.json",
+      "sha256": "b0f06cc9a8649da2d0931b96a1315db4a6e92a3b7cda79fcdcac11f94d3d9c07"
+    },
+    {
+      "path": "certification/hunl_value/HUNL_VALUE_NETWORK_PHASE2.md",
+      "sha256": "b15df5e83b995d262a7c3e4b7bba6d6322ae83dde004172ea6d5b0854623e132"
+    },
+    {
+      "path": "certification/hunl_value/SOURCE_PROVENANCE.json",
+      "sha256": "3c3aac69b70ea4acd14cf8d7d86e0b244b7917e0af6794c27bfc766f5c1fac5e"
+    },
+    {
+      "path": "certification/hunl_value/run_flop_allin_cert.py",
+      "sha256": "9b364dcd6953fc95ba5c593b54d656d3782a8d1df8331ad1d9daad3e185903f3"
+    },
+    {
+      "path": "certification/hunl_value/run_flop_engine_contract_cert.py",
+      "sha256": "91171525e0aa809ddddfc9e44d62fb3f9abad68cc4822985bee0754132caf7e2"
+    },
+    {
+      "path": "certification/hunl_value/run_flop_engine_exact_terminal_cert.py",
+      "sha256": "b09d75b8854cb4e2e8d82ad9d8515d953a6ef65130a22f98b88862ee2f3a723c"
+    },
+    {
+      "path": "certification/hunl_value/run_value_contract_cert.py",
+      "sha256": "70180361ba1782006ae8105fca4d411905a8d78ed0572dd88b985234644cd7f4"
+    },
+    {
+      "path": "hunl/flop_allin.py",
+      "sha256": "0c44d64efbce4d3cf0f1c78945360bf364bdda7349baf5cb9e4803158eb82e32"
+    },
+    {
+      "path": "hunl/flop_engine.py",
+      "sha256": "6b627f444c89b48dbca4381ee39ffc6d14de69c498be8ae878a4987885d9105a"
+    },
+    {
+      "path": "hunl/flop_value_boundary.py",
+      "sha256": "e9b1fe3d0285639ddacc62b28872a50bdf7541ba58b598f495cb5335f87eccfb"
+    },
+    {
+      "path": "hunl/value_bucketing.py",
+      "sha256": "cd5d924ede5bd81b9f14ce5408d2728e60fb387b9693968094f66fbc007df696"
+    },
+    {
+      "path": "hunl/value_network.py",
+      "sha256": "3f90649a7616f6f3dca6864583059cd761cffe9fd1c742a048c088506a25198b"
+    },
+    {
+      "path": "hunl_datagen/author_range_v2.py",
+      "sha256": "79773f92f840f912d7bfd60caf88eb6aaba082c16d8d1ee0e0c810dafa87930d"
+    },
+    {
+      "path": "hunl_datagen/source_contract_v2.py",
+      "sha256": "69ba74e046fdf50e366dcb605598ac486c610ef975323318ca3a17586cfa307c"
+    }
+  ],
+  "base_artifact": "huhl-golden-core-early-streets-v1.zip",
+  "base_artifact_sha256": "66659285ba12085e5ea715672cfc9832b202f59bc231be088880cc3d9a5bb7b6",
+  "changed": [
+    {
+      "base_sha256": "6b90517b230d2b095d7afe95b2f33a9188afb14554728bbf9fd45dc140ed5300",
+      "new_sha256": "1b4ca3edf7cd06992094a0e0274855e812d5f6370ac792d8d7f30da194d942c8",
+      "path": "hunl/__init__.py"
+    },
+    {
+      "base_sha256": "062209bf83969c1eb4caba06d2b8b77137140525ba362de44060e30c6e6e6948",
+      "new_sha256": "2ba67acfb407f1d084cb5a62f7190df3f967bd8c5d8c422fecd5c9e9bace5a70",
+      "path": "hunl_datagen/turn_datagen.py"
+    }
+  ],
+  "removed": [],
+  "schema": "HUNL_FLOP_LOOKAHEAD_V2_DIFF",
+  "unchanged_count": 1171
+}

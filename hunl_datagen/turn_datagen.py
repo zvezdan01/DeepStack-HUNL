@@ -1,4 +1,12 @@
-"""HUNL TURN DATAGENERATOR (pilot certification build).
+"""HUNL TURN DATAGENERATOR (LEGACY RECONSTRUCTION V1 pilot).
+
+IMPORTANT: retained for reproducibility of the existing pilot only. New source-
+constrained work must use author_range_v2/source_contract_v2. The V1 pilot
+contains reconstruction choices that are now known not to be literal HUNL
+source semantics (notably future-runout equity as the sorting metric and a
+randomized odd split inherited from released Leduc). Do not generate new
+production training data from V1.
+
 
 Every parameter is anchored to HUNL_RECONSTRUCTION_SPEC.md v2 (freeze
 f81d08c); targets are produced EXCLUSIVELY by the frozen HUNL Golden

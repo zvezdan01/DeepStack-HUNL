@@ -1,0 +1,65 @@
+{
+  "pot_distribution": {
+    "author_strict_first_interval_fail_closed": true,
+    "literal_integer_counts_other_intervals": [
+      200,
+      1600,
+      4000,
+      13951
+    ],
+    "published_first_interval": "[100,100)",
+    "reconstruction_v1_first_category": [
+      100
+    ],
+    "reconstruction_v1_status": "PROJECT_CANONICAL_NOT_AUTHOR_CONFIRMED"
+  },
+  "published_turn_generation_scale": {
+    "actions": [
+      "fold",
+      "call",
+      "pot",
+      "allin"
+    ],
+    "card_abstraction": false,
+    "cfr_iterations": 1000,
+    "core_years_lower_bound": 175,
+    "cpu_cores": 6144,
+    "situations": 10000000
+  },
+  "range_recursion": {
+    "batch": 4,
+    "blocked_mass_exact_zero": true,
+    "expected_scalar_uniform_draws": 4508,
+    "floor_split": true,
+    "max_range_sum_error": 2.220446049250313e-16,
+    "random_odd_split": false,
+    "recursive_split_boundaries_with_equal_strength_tie": 1039,
+    "rng": "TEST_FIXTURE_ONLY; original HUNL RNG unresolved",
+    "scalar_uniform_draws": 4508,
+    "tie_policy": "PROJECT_CANONICAL frozen hand-id within equal strength; original private convention unresolved",
+    "uniform_vector_calls": 1127
+  },
+  "rank6_author_oracle": {
+    "author_output_stream_sha256": "87736e36eaae52695ab8e8b1e35cc71266291e9d6c55a24df2471cff45635cb4",
+    "boards_checked": 8,
+    "hand_slots_per_board": 1326,
+    "mismatches": 0,
+    "total_slots_checked": 10608
+  },
+  "schema": "HUNL_AUTHOR_RANGE_V2_CERT_V1",
+  "status": "SOURCE-CONSTRAINED RANGE/STATE CONTRACT; private RNG, tie ordering, [100,100) correction and exact offline CFR implementation remain unresolved",
+  "turn_hand_strength": {
+    "board4": [
+      5,
+      22,
+      34,
+      39
+    ],
+    "definition": "P(current six-card holding strictly beats uniform disjoint opponent holding; no future river)",
+    "independent_hand_recounts": 64,
+    "legacy_future_runout_pair_order_sign_differences": 58714,
+    "legal_hands": 1128,
+    "max_abs_error": 0.0,
+    "uniform_legal_opponents_per_fixed_hand": 1035
+  }
+}

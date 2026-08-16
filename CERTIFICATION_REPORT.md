@@ -150,3 +150,32 @@ compiled from untouched source with fortification disabled).
 Per-phase detail: `certification/results/PHASE3_AGT_RAW_ORACLES.md`,
 `PHASE4_5_KUHN_TRACES.md`, `PHASE6_ORIGINAL_CFRPLUS.md`,
 `PHASE7_8_TRIANGULATION.md`; environment freeze in `certification/BASELINE.md`.
+
+---
+
+# 2026-08-16 Addendum — HUNL reconstruction now present
+
+The historical report above predates the later HUNL reconstruction work and
+its statement that the HUNL implementation is absent is no longer current.
+The preserved original report is not rewritten; this addendum records the
+newer certified state.
+
+Current HUNL layers include certified cards/evaluator/blockers/showdown,
+river, turn→river, sparse preflop/flop betting, flop→turn chance algebra,
+and a structural flop lookahead.  See:
+
+- `certification/hunl_early/HUNL_EARLY_STREET_PHASE1.md`
+- `certification/hunl_value/HUNL_VALUE_NETWORK_PHASE2.md`
+- `certification/hunl_value/HUNL_FLOP_LOOKAHEAD_PHASE3.md`
+- `certification/hunl_datagen_v2/HUNL_DATAGEN_SOURCE_CORRECTION_V2.md`
+
+The exact private HUNL 1000-bucket artifact and original trained HUNL network
+weights remain unresolved.  The value-network path fails closed instead of
+inventing them.
+
+A source audit of the turn generator also corrected the future work path:
+new data must not be produced from the legacy V1 pilot sampler.  V2 follows
+the HUNL supplement's current-public-state hand-strength definition and
+`floor(|S|/2)` recursion, while explicitly recording unresolved equal-strength
+tie ordering, private RNG, the `[100,100)` pot anomaly, and exact HUNL offline
+CFR averaging implementation.

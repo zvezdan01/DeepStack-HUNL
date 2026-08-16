@@ -1,0 +1,22 @@
+{
+  "consequence": "HUNL value-network architecture and next-round algebra can be source-constrained; author-exact numerical NN reproduction remains blocked at the bucket/weight artifacts.",
+  "deepstack_primary_text_status": "v1/v2/v3 appendices describe 1000 clusters and method family but do not contain cluster centroids, mappings, weights, or a HUNL bucketer implementation.",
+  "result": "ORIGINAL_HUNL_BUCKET_ARTIFACT_NOT_FOUND",
+  "scanned_roots": [
+    {
+      "files_scanned": 915,
+      "path": "FORENSICS/ARTIFACTS",
+      "result": "No HUNL bucket/centroid/weight/model artifact by filename inventory; only paper figures/logs."
+    },
+    {
+      "files_scanned": 107,
+      "path": "released DeepStack-Leduc reference_lua",
+      "result": "Contains Leduc bucketer and PotBet/final_cpu.model only; these are Leduc artifacts, not HUNL 1000-cluster artifacts."
+    },
+    {
+      "path": "current golden core",
+      "result": "Contains project-generated pilot arrays and newly added value-contract code; no first-party HUNL cluster/weight artifact."
+    }
+  ],
+  "schema": "HUNL_BUCKET_ARTIFACT_SEARCH_V1"
+}

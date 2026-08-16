@@ -12,3 +12,6 @@ third_party/CFR_plus/cfr
 third_party/CFR_plus/cfr_dbg
 third_party/CFR_plus/cfr_nofortify
 third_party/CFR_plus/cfr_o2dbg
+certification/hunl_early/betting_oracle
+certification/hunl_value/betting_oracle
+certification/hunl_datagen_v2/rank6_board_oracle
