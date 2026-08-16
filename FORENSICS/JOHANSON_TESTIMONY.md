@@ -44,3 +44,35 @@ korespondence), 2026-08-16. Paměťové výroky („nejsem si jistý",
 - **CFRPLUS_HOLDEM_NOLIMIT_FCPA** v Adamově dotazu = pravděpodobně
   strategy-file jméno (odpovídá i „Full Cards" agentovi ze Science
   Table S2 — FCPA strategie bez karetní abstrakce, ~2 TB, ~14 CPU-let).
+
+---
+
+## Bitové testy svědectví (2026-08-16, provedeno v této session)
+
+### FCPA řetěz (Waugh) — PASS 3/3
+`FORENSICS/SCRIPTS/fcpa_chain_test.py` (log latest_audit/FCPA_CHAIN_TESTIMONY_TEST.txt):
+1. Certifikovaný turn tree (pot 1 BB): max-raise řetěz = **300/900/2700/8100/20000**
+   celočíselně — 3/9/27/81 BB + all-in cap ✓
+2. Nedotčené ACPC game.c: všech 5 raise akcí legální (replay verbatim) ✓
+3. Uzavřená forma raise-to_{k+1}=3·raise-to_k; při 100BB stacku další krok
+   přesahuje stack ⇒ all-in — přesně Waughův řetěz ✓
+Svědectví povýšeno: recollection → implementation+oracle-verified.
+
+### hand-isomorphism (Johanson: kandidát č. 1) — VERIFIED
+- Knihovna kdub0/hand-isomorphism zkompilována; vlastní check-suite
+  (full preflop, full flop, random turn/river) prošla.
+- Velikosti kanonických tříd spočtené knihovnou:
+  preflop **169**, board{3} **1 755**, board{4} **16 432**, board{5}
+  **134 459**; hand-indexy: flop 1 286 792, turn 55 190 538, river
+  2 428 287 420 — shodné s publikovanou tabulkou Waughova paperu
+  (AAAI-13 workshop; přímý PDF egress-blokován, hodnoty koroborovány
+  search snippetem + interním self-testem).
+- **Cross-anchor na DeepStack**: 169 preflop tříd = přesně dimenze aux
+  sítě ze Science supplementu („169 strategically distinct hands
+  pre-flop") — knihovna reprodukuje first-party číslo.
+
+### Dohledávání chybějících informací
+- Starší CFR-éra indexace: Johansonova MSc thesis (2007, „Robust
+  Strategies…") lokalizována (poker.cs.ualberta.ca + scholaris —
+  OBĚ egress-blokovány; URL zaznamenány pro stroj bez omezení).
+- johanson.ca + cs.cmu.edu PDF — egress-blokovány (zaznamenáno).
