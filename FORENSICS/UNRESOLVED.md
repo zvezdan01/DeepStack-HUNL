@@ -43,3 +43,13 @@ resolves it. See also certification/results/HUNL_DATAGEN_PROVENANCE_NOTES.md.
 - AIVAT implementation location: CPRG internal code (project_uoapoker
   lineage, unarchived, never git-converted) — L4 public-release
   likelihood LOW.
+
+## Doplněno svědectvím „Mike" (CPRG, 2026-08-16, Tier 2)
+- DeepStack = nový repozitář od nuly (2. nezávislé potvrzení) →
+  B-artefakt veřejně prakticky nedosažitelný; formální cesta: dotaz na
+  Dr. Bowlinga (očekáváno „proprietární").
+- CPRG hand indexing: 2 kandidátní systémy (kdub0/hand-isomorphism vs
+  starší CFR-éra indexace) — pro CPRG artefakty; DeepStack 1326
+  ordering zůstává UNKNOWN (od-nuly kód).
+- CFRPLUS_HOLDEM_NOLIMIT_FCPA = pravděpodobně strategy-file jméno
+  (gamedef-agnostický solver).
