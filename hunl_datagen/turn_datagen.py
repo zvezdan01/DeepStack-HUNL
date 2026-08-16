@@ -1,4 +1,12 @@
-"""HUNL TURN DATAGENERATOR (pilot certification build).
+"""HUNL TURN DATAGENERATOR (LEGACY RECONSTRUCTION V1 pilot).
+
+IMPORTANT: retained for reproducibility of the existing pilot only. New source-
+constrained work must use author_range_v2/source_contract_v2. The V1 pilot
+contains reconstruction choices that are now known not to be literal HUNL
+source semantics (notably future-runout equity as the sorting metric and a
+randomized odd split inherited from released Leduc). Do not generate new
+production training data from V1.
+
 
 Every parameter is anchored to HUNL_RECONSTRUCTION_SPEC.md v2 (freeze
 f81d08c); targets are produced EXCLUSIVELY by the frozen HUNL Golden
@@ -66,6 +74,7 @@ Sorting consumes NO RNG (deterministic stable argsort).
 from __future__ import annotations
 
 import dataclasses
+import gc
 import hashlib
 import json
 import os
@@ -198,6 +207,18 @@ def sample_pot(rng: THRandom) -> int:
 
 
 def generate_shard(shard_idx: int, n_samples: int, out_dir: Path) -> dict:
+    """v1.1 checkpointing build (2026-08-14, container-reclaim hardening).
+
+    OUTPUT-NEUTRAL per-sample checkpointing: after every completed sample
+    the full deterministic state (arrays, ledger, exact THRandom state,
+    current-batch board/ranges) is written atomically to
+    `shard_XXXXX.ckpt.npz`; a restart resumes from the last completed
+    sample and MUST produce byte-identical arrays and manifest (modulo
+    the wall-clock field) — certified by run_datagen_ckpt_test.py and by
+    the pilot's full shard-0 replay (which always regenerates from
+    scratch and therefore cross-checks the resumed shards). No RNG draw,
+    no solver call and no numeric path differs from the v1 build.
+    """
     assert n_samples % BATCH == 0
     out_dir.mkdir(parents=True, exist_ok=True)
     prefix = out_dir / f"shard_{shard_idx:05d}"
@@ -215,43 +236,102 @@ def generate_shard(shard_idx: int, n_samples: int, out_dir: Path) -> dict:
     masks = np.zeros((n_samples, HAND_COUNT), dtype=np.uint8)
     ledger = {"board_draws": 0, "board_rejects": 0, "range_draws": 0,
               "pot_draws": 0}
+    ck_path = Path(f"{prefix}.ckpt.npz")
+    start_row = 0
+    board = None
+    r1 = r2 = pmask = None
+    t_prev = 0.0
+    if ck_path.exists():
+        try:
+            z = np.load(ck_path)
+            assert int(z["shard"]) == shard_idx and int(z["n"]) == n_samples
+            assert str(z["config_sha"]) == CONFIG_SHA, "ckpt config drift"
+            boards[:] = z["boards"]
+            pots[:] = z["pots"]
+            ranges[:] = z["ranges"]
+            targets[:] = z["targets"]
+            masks[:] = z["masks"]
+            rng.state = [int(v) for v in z["rng_state"]]
+            rng.left = int(z["rng_left"])
+            rng.next = int(z["rng_next"])
+            rng.draws = int(z["rng_draws"])
+            for k in ledger:
+                ledger[k] = int(z[f"led_{k}"])
+            start_row = int(z["next_row"])
+            t_prev = float(z["gen_seconds"])
+            if start_row % BATCH != 0:
+                board = tuple(int(c) for c in z["cur_board"])
+                r1 = z["cur_r1"].copy()
+                r2 = z["cur_r2"].copy()
+                pmask = possible_hands_mask(board)
+            print(f"shard {shard_idx} RESUMED from checkpoint at row "
+                  f"{start_row}/{n_samples} (draws {rng.draws})", flush=True)
+        except Exception as exc:                      # corrupt/stale ckpt
+            print(f"shard {shard_idx} ckpt REJECTED ({exc!r}) -> fresh",
+                  flush=True)
+            ck_path.unlink(missing_ok=True)
+            rng = CountingTHRandom(seed)
+            for arr in (boards, pots, ranges, targets, masks):
+                arr[:] = 0
+            ledger = dict.fromkeys(ledger, 0)
+            start_row = 0
+            board = None
+            r1 = r2 = pmask = None
+            t_prev = 0.0
     t0 = time.time()
-    for b in range(n_samples // BATCH):
-        d0 = rng.draws
-        board, rej = sample_board(rng)
-        ledger["board_draws"] += rng.draws - d0
-        ledger["board_rejects"] += rej
-        gen.set_board(board)
-        d0 = rng.draws
-        r1 = gen.generate(BATCH, rng)
-        r2 = gen.generate(BATCH, rng)
-        ledger["range_draws"] += rng.draws - d0
-        pmask = possible_hands_mask(board)
-        for i in range(BATCH):
+    for row in range(start_row, n_samples):
+        if row % BATCH == 0 and (row != start_row or board is None):
             d0 = rng.draws
-            pot = sample_pot(rng)
-            ledger["pot_draws"] += rng.draws - d0
-            assert ledger["pot_draws"] % 2 == 0
-            row = b * BATCH + i
-            te = TurnEngine(board, pot, cfg=DGCFG)
-            cfvs = te.resolve_first_node(r1[i].astype(np.float64),
-                                         r2[i].astype(np.float64))
-            del te
-            import gc
-            gc.collect()   # bound worker RSS (OOM guard; numerics untouched)
-            tgt = (cfvs / float(pot)).astype(np.float32)
-            assert np.isfinite(tgt).all()
-            assert (np.abs(tgt) <= DGCFG.stack / pot + 1e-6).all()
-            assert (tgt[:, ~pmask] == 0).all()
-            boards[row] = board
-            pots[row] = pot
-            ranges[row, 0] = r1[i]
-            ranges[row, 1] = r2[i]
-            targets[row] = tgt
-            masks[row] = pmask.astype(np.uint8)
-            print(f"shard {shard_idx} sample {row + 1}/{n_samples} "
-                  f"pot {pot} board {board} "
-                  f"[{(time.time()-t0)/60:.1f} min]", flush=True)
+            board, rej = sample_board(rng)
+            ledger["board_draws"] += rng.draws - d0
+            ledger["board_rejects"] += rej
+            gen.set_board(board)
+            d0 = rng.draws
+            r1 = gen.generate(BATCH, rng)
+            r2 = gen.generate(BATCH, rng)
+            ledger["range_draws"] += rng.draws - d0
+            pmask = possible_hands_mask(board)
+        i = row % BATCH
+        d0 = rng.draws
+        pot = sample_pot(rng)
+        ledger["pot_draws"] += rng.draws - d0
+        assert ledger["pot_draws"] % 2 == 0
+        te = TurnEngine(board, pot, cfg=DGCFG)
+        cfvs = te.resolve_first_node(r1[i].astype(np.float64),
+                                     r2[i].astype(np.float64))
+        tgt = (cfvs / float(pot)).astype(np.float32)
+        assert np.isfinite(tgt).all()
+        assert (np.abs(tgt) <= DGCFG.stack / pot + 1e-6).all()
+        assert (tgt[:, ~pmask] == 0).all()
+        boards[row] = board
+        pots[row] = pot
+        ranges[row, 0] = r1[i]
+        ranges[row, 1] = r2[i]
+        targets[row] = tgt
+        masks[row] = pmask.astype(np.uint8)
+        # v1.1.1: free the engine's node tree + terminal matrices NOW.
+        # TurnNode trees are cyclic (children lists), so without an
+        # explicit collect the ~GB-scale per-sample engines linger until
+        # the cyclic GC threshold and 4 workers OOM a 16 GB container
+        # (observed: oom-kill of shard-3 worker, RSS 4.4 GB, 2026-08-14).
+        # No RNG draw and no numeric path is touched — output-neutral.
+        del te, cfvs, tgt
+        gc.collect()
+        ck_tmp = Path(f"{prefix}.ckpt.tmp.npz")
+        np.savez(ck_tmp, shard=shard_idx, n=n_samples,
+                 config_sha=np.array(CONFIG_SHA),
+                 boards=boards, pots=pots, ranges=ranges, targets=targets,
+                 masks=masks,
+                 rng_state=np.array(rng.state, dtype=np.uint64),
+                 rng_left=rng.left, rng_next=rng.next, rng_draws=rng.draws,
+                 next_row=row + 1, cur_board=np.array(board, dtype=np.uint8),
+                 cur_r1=r1, cur_r2=r2,
+                 gen_seconds=t_prev + (time.time() - t0),
+                 **{f"led_{k}": v for k, v in ledger.items()})
+        os.rename(ck_tmp, ck_path)
+        print(f"shard {shard_idx} sample {row + 1}/{n_samples} "
+              f"pot {pot} board {board} "
+              f"[{(t_prev + time.time()-t0)/60:.1f} min]", flush=True)
 
     shas = {}
     for name, arr in (("boards", boards), ("pots", pots),
@@ -270,9 +350,10 @@ def generate_shard(shard_idx: int, n_samples: int, out_dir: Path) -> dict:
         "config": CONFIG_CANON, "engine_sha": ENGINE_SHA,
         "generator_sha": gen_sha, "spec": SPEC_SHA,
         "rng_ledger": ledger, "total_draws": rng.draws,
-        "gen_minutes": round((time.time() - t0) / 60, 1),
+        "gen_minutes": round((t_prev + time.time() - t0) / 60, 1),
     }
     manifest_path.write_text(json.dumps(manifest, indent=2))
+    ck_path.unlink(missing_ok=True)
     return manifest
 
 

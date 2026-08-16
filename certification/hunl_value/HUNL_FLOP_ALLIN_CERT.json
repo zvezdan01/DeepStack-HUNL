@@ -1,0 +1,22 @@
+{
+  "antisymmetry_exact": true,
+  "board3": [
+    0,
+    5,
+    10
+  ],
+  "cfv_sha256": "35d61b8dcc74fc0d7a01db9df8060096029d3b89cd9f6067f670bca5f990e7b0",
+  "direct_pair_mismatches": 0,
+  "direct_private_pair_recounts": 64,
+  "future_public_cards": 49,
+  "global_unordered_board_completions_enumerated": 1176,
+  "illegal_pair_nonzero_entries": 0,
+  "numerator_dtype": "int16",
+  "numerator_sha256": "35f8f8a2cba78cdfc20f78fdd0b628016077834b9a4918af683868db5844633b",
+  "ordered_runouts_per_disjoint_private_pair": 1980,
+  "schema": "HUNL_FLOP_ALLIN_CERT_V1",
+  "small_support_cfv_max_abs_error_chips": 1.8189894035458565e-12,
+  "small_support_zero_sum_residual_chips": 0.0,
+  "status": "COMBINATORIAL/EVALUATOR-EXACT; no private DeepStack implementation claim",
+  "unordered_final_boards_per_disjoint_private_pair": 990
+}

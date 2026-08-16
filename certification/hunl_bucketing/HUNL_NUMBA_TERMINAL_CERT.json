@@ -1,0 +1,16 @@
+{
+  "benchmark": {
+    "batch": 5,
+    "dense_seconds": 0.15559249299985822,
+    "native_seconds": 0.19110886599992227,
+    "repeats": 200,
+    "speedup": 0.8141563301407561
+  },
+  "boards": 4,
+  "checks": 152,
+  "claim": "algebraically exact, numerically equivalent; different FP reduction order",
+  "max_abs_fold_diff": 1.5916157281026244e-12,
+  "max_abs_showdown_diff": 1.4210854715202004e-12,
+  "schema": "hunl-numba-terminal-cert-v1",
+  "status": "PASS"
+}

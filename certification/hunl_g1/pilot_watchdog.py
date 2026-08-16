@@ -26,7 +26,7 @@ def driver_alive():
     for pid in os.listdir("/proc"):
         if not pid.isdigit(): continue
         try:
-            if "run_pilot.sh" in open(f"/proc/{pid}/cmdline").read(): return True
+            if "run_pilot" in open(f"/proc/{pid}/cmdline").read(): return True
         except Exception: pass
     return False
 
@@ -51,13 +51,8 @@ while True:
         tag = f"shard{shard} pid{pid} cpu+{cpu - p.get('cpu', cpu)}j log{lsize}B/{int((now-lm)/60) if lm else '?'}m"
         (sus if strikes >= 2 else ok).append(tag)
     prev = cur; json.dump(cur, open(STATE, "w"))
-    line = (f"{time.strftime('%H:%M:%S')} {len(w)} workers "
-            f"[{'; '.join(ok)}] drv={drv} {done}/12 shards, replay={replay}")
-    with open("/tmp/pilot_watch.log", "a") as f:
-        f.write(line + "\n")
     if sus:
-        # actionable event: exit so the supervisor wakes up exactly once
-        print(f"SUSPECT (cpu+log frozen >=2 checks): {'; '.join(sus)} | "
-              f"healthy: {'; '.join(ok)} | {done}/12")
-        sys.exit(2)
+        print(f"SUSPECT (cpu+log frozen >=2 checks): {'; '.join(sus)} | healthy: {'; '.join(ok)} | {done}/12")
+    else:
+        print(f"pilot OK: {len(w)} workers [{'; '.join(ok)}] drv={drv} {done}/12 shards, replay={replay}")
     time.sleep(1800)

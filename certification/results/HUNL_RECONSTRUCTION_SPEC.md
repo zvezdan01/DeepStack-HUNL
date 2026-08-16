@@ -63,7 +63,7 @@ blinds, $20,000 stacks per hand).
 | # | Parameter | Value | Source | Status |
 |---|---|---|---|---|
 | D1 | Datagen solver | "1,000 iterations of CFR+" (wording; resolver semantics per S1 — the author Leduc datagen we bit-certified uses RM+/simultaneous/uniform-skip) | P1 p.26 | **VERIFIED** (count) / wording note in §4 |
-| D2 | Datagen omitted iterations | not stated in primaries; author Leduc pipeline & DeepHoldem use 500 | — | **INFERRED** (500) |
+| D2 | Datagen omitted iterations | **skip window AUTHOR-CONFIRMED by Martin Schmid recollection (2026-08-16); exact count not stated**. Author DeepStack-Leduc datagen uses 500. | Schmid email + released Leduc | **PARTIAL VERIFIED** (skip exists); **500 RELEASED-CODE-ANCHORED** |
 | D3 | Datagen action set | **{fold, call, pot-sized bet, all-in}, no card abstraction** (turn targets); flop targets: depth-limited solve with turn net at river boundary | P1 p.26 + P2 p.8 | **VERIFIED** |
 | D4 | Pot sampling | interval from **{[100,100), [200,400), [400,2000), [2000,6000), [6000,19950]}** uniformly, then **uniform integer** within interval (footnote 2: "designed to approximate observed pot sizes from older HUNL programs") | P1 p.25 fn.2 | **VERIFIED as printed** — `[100,100)` bracket anomaly: see conflict C3 |
 | D5 | Range sampling | recursive R(S,p): p1 ~ U(0,p), p2 = p−p1; S1 = ⌊\|S\|/2⌋ **lowest-strength** hands, S2 rest; recurse; hand strength = P(beat uniform random hand at current public state) | P1 p.26 | **VERIFIED** — odd-split detail: conflict C2 |
@@ -133,7 +133,7 @@ for the future LBR/AIVAT harness).
 | C4 | "CFR+" naming for datagen solves | — | datagen: "1,000 iterations of CFR+" (p.26) vs resolver: hybrid (p.22); canonical CFR+ per thesis = RM+ + linear weights + alternating | thesis defines canonical CFR+ | author Leduc datagen code = hybrid semantics | **Hybrid semantics (S1) with 1,000 iterations** — the author's own released datagen implements it; "CFR+" read as colloquial for RM+-based solver. |
 
 ## 5. Remaining INFERRED (3)
-1. **D2** datagen omitted iterations = 500 (author Leduc pipeline +
+1. **D2** exact datagen omitted-iteration count = 500 (skip existence now AUTHOR-CONFIRMED by Schmid; exact count still anchored to author Leduc pipeline +
    DeepHoldem; primaries silent).
 2. Torch7 f32 numeric conventions for HUNL nets/datagen (P1 says "built-in
    Torch7 libraries"; f32 default — matches everything we certified).

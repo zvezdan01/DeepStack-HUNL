@@ -1,0 +1,17 @@
+{
+  "benchmark": {
+    "batch": 8,
+    "dense_seconds": 0.09094557299977168,
+    "fast_seconds": 0.1366659970008186,
+    "repeats": 100,
+    "speedup": 0.6654586729369628
+  },
+  "boards": 4,
+  "claim": "SEMANTIC/NUMERIC equivalence; not BLAS bit identity",
+  "max_abs_fold_diff": 7.389644451905042e-13,
+  "max_abs_showdown_diff": 8.526512829121202e-13,
+  "operator_vector_checks": 152,
+  "output_sha256": "c6115e1f5704b4f890c5cdcfe1b16cc06145bc9e936cf808baa39786d6c3461c",
+  "schema": "hunl-fast-river-terminal-cert-v1",
+  "status": "PASS"
+}

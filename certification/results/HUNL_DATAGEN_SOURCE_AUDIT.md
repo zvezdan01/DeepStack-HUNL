@@ -185,12 +185,13 @@ flop solves). **VERIFIED.**
   read per spec conflict C4 as the hybrid resolver (RM+, simultaneous,
   uniform skip-averaging) — the author's own released Leduc datagen
   implements exactly that, and it is what this project bit-certified.
-- Omitted (burn-in) iterations for DATAGEN solves: **NOT stated in any
-  primary** (Table 4's 500-omitted applies to play-time turn re-solves).
-  `arguments.lua` ships `cfr_skip_iters = 500` and the author Leduc datagen
-  path uses it; DH/DY/DE all use 1000/500. Status: **INFERRED = 500**
-  (spec D2). This is the single most consequential INFERRED value in the
-  datagen pipeline (it directly shapes every target).
+- Omitted (burn-in) iterations for DATAGEN solves: Martin Schmid stated in
+  direct email (2026-08-16) that he thinks **skip iterations were always used**.
+  This closes the former skip-vs-no-skip fork. The email does **not** state the
+  exact count. `arguments.lua` ships `cfr_skip_iters = 500` and the author
+  Leduc datagen path uses it; DH/DY/DE also use 1000/500. Status:
+  **AUTHOR-CONFIRMED skip existence; exact count 500 RELEASED-CODE-ANCHORED**
+  (spec D2).
 
 ### 2.7 Target scaling — fractions of pot
 
@@ -330,7 +331,7 @@ none is silently unified.
 | Turn sample count | **10,000,000** (P1 p.26) | `train_data_count=150000` (self-admitted reduction) | configurable | `train_data_count=1500000` | Primary 10M. Secondaries are scale reductions, not conflicts of record. |
 | Flop samples | 1,000,000, depth-limited with turn net (P1 p.26) | reduced, same structure | same structure | same structure | Primary. |
 | Aux/preflop samples | 10,000,000; targets = average flop-net over all 22,100 flops (P1 p.26) | `aux_data_generation` variant | port of DH | variant present | Primary. |
-| Solver iterations | 1,000 (P1 p.26); omitted **not stated** | 1000 / skip 500 (`arguments.lua:30,32`) | 1000/500 (`arguments.py:41-43`) | 1000/500 (`arguments.lua:31,33`) | 1000 VERIFIED; **500 omitted INFERRED (D2)** — corroborated 3×, still not primary-verified. |
+| Solver iterations | 1,000 (P1 p.26); omitted **not stated** | 1000 / skip 500 (`arguments.lua:30,32`) | 1000/500 (`arguments.py:41-43`) | 1000/500 (`arguments.lua:31,33`) | 1000 VERIFIED; **skip existence AUTHOR-CONFIRMED (Schmid 2026-08-16); exact 500 RELEASED-CODE-ANCHORED (D2)**. |
 | Action set | {F, C, P, A}, no card abstraction (P1 p.26, P2 p.8) | `bet_sizing={1}` ⇒ {F,C,P,A} | same | same | **{F,C,P,A}** unanimous. |
 | Normalization | "fractions of the pot size" | `root_values:mul(1/pot_size)` with `bets={pot,pot}` | same | same | Divide by per-player committed pot (INFERRED convention, unanimous in code). |
 | Root player (turn) | first-to-act postflop = BB = seat0 (ACPC `firstPlayer 2 1 1 1`) | postflop root `current_player = constants.players.P2` (`:124`) — the block-1/actor pairing is permuted relative to the author Leduc pattern (root actor = P1 = block 1) | same as DH (`:118`) | same as DH (`:118`) | Project: root actor = seat0 = BB = **block 1** (ACPC-anchored, G1-certified). DH-family labeling differs — **Conflict X8: do not import any DH-family player-indexing code or data without an explicit seat-mapping audit.** |
@@ -353,7 +354,8 @@ fork); their agreement is ONE independent data point, not three.
   fractions-of-pot scaling; zero-sum correction network-side (not in
   targets); bucketing training-side for HUNL; player order (ACPC);
   10M/1M/10M sample counts.
-- **INFERRED (4):** omitted iterations = 500 (D2); pot = per-player
+- **PARTIAL-AUTHOR / RELEASED-CODE (D2):** skip iterations exist (Schmid 2026-08-16); exact count = 500 remains released-code-anchored.
+- **INFERRED (3):** pot = per-player
   committed as the normalizer and bets value; pot feature = committed /
   20000; board rejection-sampler applied to 4-of-52 (+ Torch7 f32
   conventions, spec §5.2, counted with the spec not here).

@@ -1,0 +1,15 @@
+CFLAGS = -O3 -Wall
+INCLUDE = -I/home/johanson/local/include
+LIBS = -L/home/johanson/local/lib -lgmp -Wl,-rpath,/home/johanson/local/lib
+
+
+all: count_nl_infosets count_limit_infosets
+
+clean:
+	rm count_nl_infosets count_limit_infosets *~
+
+count_nl_infosets: count_nl_infosets.c constants.h constants.c utility.h utility.c
+	gcc $(CFLAGS) $(INCLUDE) $(LIBS) count_nl_infosets.c constants.c utility.c -o count_nl_infosets
+
+count_limit_infosets: count_limit_infosets.c constants.h constants.c utility.h utility.c
+	gcc $(CFLAGS) $(INCLUDE) $(LIBS) count_limit_infosets.c constants.c utility.c -o count_limit_infosets

@@ -1,0 +1,17 @@
+{
+  "boards": 4,
+  "feature_stream_sha256": "58efc3e589cd5d518febd3c30011420dc5a3c20e99b97c6868fdb748252735ba",
+  "hist_bins": 50,
+  "legal_hands_per_board": 1128,
+  "mean_seconds_per_board": 0.1945889722501306,
+  "observations_per_legal_hand": 46,
+  "schema": "hunl-bulk-turn-feature-cert-v1",
+  "seconds_per_board": [
+    0.46825400099987746,
+    0.10395148600036919,
+    0.10180054500051483,
+    0.10434985699976096
+  ],
+  "single_hand_exact_comparisons": 128,
+  "status": "PASS"
+}

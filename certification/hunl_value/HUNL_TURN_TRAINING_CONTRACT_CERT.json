@@ -1,0 +1,29 @@
+{
+  "adam_first_parameter_max_delta": 0.0009997421875596046,
+  "blocked_card_output_max_abs": 0.0,
+  "board": [
+    49,
+    23,
+    35,
+    20
+  ],
+  "card_output_sha256": "8de4a14a3329193edf82d4f0743ba64f4758d41d04138698a332c3a31df672bd",
+  "card_output_zero_sum_residual": 2.1314413170092465e-09,
+  "finite_gradients": true,
+  "gradient_norm": 0.15563158690929413,
+  "input_bucket_mass_p1": 1.0000000551051471,
+  "input_bucket_mass_p2": 0.9999999892369136,
+  "loss": 0.20343953371047974,
+  "pot_half": 16001,
+  "primary_evidence": [
+    "DeepStack paper Fig.3: card ranges -> bucketing -> NN -> zero-sum -> inverse bucketing -> card counterfactual values",
+    "DeepStack paper: output vectors are CFVs for each player and hand",
+    "DeepStack supplement: Adam minimizes average Huber losses over counterfactual value errors",
+    "Released DeepStack-Leduc bucket_conversion.lua: range sums into buckets; bucket values scatter back to cards"
+  ],
+  "schema": "HUNL_TURN_TRAINING_CONTRACT_CERT",
+  "source_status": "SOURCE_CONSISTENT_RECONSTRUCTION_NOT_PRIVATE_TRAINER_BITEXACT",
+  "status": "PASS",
+  "training_locus": "Huber after inverse bucketing in 1326-hand card space; chosen to avoid inventing unpublished card-target->bucket-target reduction.",
+  "unresolved": "Exact private HUNL trainer loss location / target aggregation code was not released."
+}

@@ -1,0 +1,19 @@
+{
+  "artifact_status": "PROJECT_RECONSTRUCTION_NOT_ORIGINAL",
+  "blocked_mapping_error": 0.0,
+  "boards": 4,
+  "bucket_count": 1000,
+  "claim": "Algebra is released-code anchored; mapping centroids are PROJECT_RECONSTRUCTION_NOT_ORIGINAL.",
+  "global_suit_checks": 1340,
+  "global_suit_failures": 0,
+  "mapping_stream_sha256": "b16bf228bc866c2d8d09c11c5d5e1c73f3e0da92463c956bb10df76fa7e95310",
+  "range_mass_max_abs_error": 2.220446049250313e-16,
+  "range_value_duality_max_abs_error": 2.7755575615628914e-16,
+  "schema": "HUNL_BUCKET_ALGEBRA_RECON_V1_CERT",
+  "source_contract": {
+    "bucket_value_to_card": "copy bucket value to every hand assigned to bucket (released DeepStack-Leduc bucket_conversion.lua)",
+    "card_range_to_bucket": "sum masses of all hands assigned to bucket (released DeepStack-Leduc bucket_conversion.lua)",
+    "duality": "<card_range,inverse(bucket_value)> == <bucket_range,bucket_value>"
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,23 @@
+{
+  "board": [
+    37,
+    5,
+    14,
+    28
+  ],
+  "claim": "same game/CFR semantics; terminal reductions algebraically exact; FP summation order differs",
+  "dense_seconds": 5.504375902999527,
+  "dense_zero_sum_residual": 8.526512829121202e-14,
+  "fast_output_sha256": "af3f604306a7fa9b62ebb5089fe84a359730fc01c2fabd8db2bda8ec486f72ad",
+  "fast_replay_seconds": 0.6579691669994645,
+  "fast_seconds": 0.6642540120010381,
+  "fast_zero_sum_residual": 1.0629719326971099e-11,
+  "iterations": 20,
+  "max_abs_root_cfv_dense_vs_fast": 5.275069270282984e-11,
+  "max_abs_root_strategy_dense_vs_fast": 3.574918139293004e-14,
+  "omit": 10,
+  "pot_half": 11717,
+  "schema": "hunl-turn-engine-fast-backend-cert-v1",
+  "speedup": 8.28655273969339,
+  "status": "PASS"
+}

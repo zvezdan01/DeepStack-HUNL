@@ -1,0 +1,31 @@
+== 1/2. exhaustive combinatorics + chance-mass identities ==
+12 representative boards: rivers 48, hands 1128->1081, per-hand 46, cross-foot 51,888, ALL 14,009,760 legal pairs have exactly 44 mutual rivers (+45/46 overlap/diag structure), 2,400 independent loop recounts (1s)
+FULL turn-board space: all 270,725 boards -> 1128 legal hands; per-hand legal rivers = 46 exactly (both hand cards lie in the 48-card remainder); 48x1081 == 1128x46 == 51,888 per board (1s)
+== 3. all-in runout equity: production vs independent reference ==
+3 small-support states (incl. blocker-heavy): max |prod-ref| = 1.09e-15 of pot (<=1e-9)
+full-range all-in: zero-sum <1e-9 pot, blocked exactly 0, 12 per-hand loop recounts vs full opponent range match (3s)
+identities: board-permutation BYTE-EXACT; suit-isomorphism (h<->s) max |d| 1.82e-12; iso multiplicities/blocker/chance counts preserved (2s)
+suit-isomorphic REDUCTION: not certified, NOT used in the Golden path (full card space only) — verification-only checks above
+== 4/5/6. turn->river transition ==
+
+--- stderr ---
+Traceback (most recent call last):
+  File "/home/user/quant-trade/certification/hunl_g1/run_g1_turn.py", line 255, in <module>
+    prod, plog = tr.turn_cfvs(r1, r2)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quant-trade/hunl/turn.py", line 86, in turn_cfvs
+    rs.resolve_first_node(self.board + (int(c),), self.pot_half,
+  File "/home/user/quant-trade/hunl/river_resolver.py", line 188, in resolve_first_node
+    self._build(board5, pot_half)
+  File "/home/user/quant-trade/hunl/river_resolver.py", line 178, in _build
+    self.lookahead_tree = build_lookahead_tree(
+                          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/quant-trade/hunl/river_resolver.py", line 111, in build_lookahead_tree
+    root = convert(src_root)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/user/quant-trade/hunl/river_resolver.py", line 75, in convert
+    node = GoldenNode(
+           ^^^^^^^^^^^
+  File "/home/user/quant-trade/deepstack_leduc/tree.py", line 20, in __init__
+    raise _lost("tree.Node (golden lookahead tree)")
+RuntimeError: golden DeepStack-Leduc engine not available in this container: the certified workspace /workspace/deepstack_leduc_v1.1-bitexact-certified was lost with the 2026-08-14 container reclaim. This shim only satisfies module imports; the tree.Node (golden lookahead tree) runtime path is NOT certified here and must not run.

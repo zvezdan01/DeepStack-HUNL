@@ -1,6 +1,15 @@
-"""HUNL exact turn engine — full-game CFR over the turn tree (turn betting
--> river chance -> river betting -> terminals), full 1326-hand card space,
-no bucketing, no NN, no approximation.
+"""HUNL full-card exact-to-end turn engine for OFFLINE DATAGEN / ORACLES.
+
+This engine traverses turn betting -> river chance -> river betting -> terminals
+in the full 1326-hand card space, with no card abstraction and no NN.  That is
+the required shape for the published DeepStack TURN TRAINING TARGET games
+(F/C/P/A, no card abstraction).
+
+IMPORTANT PROVENANCE BOUNDARY (Schmid follow-up evidence, 2020): the original
+DeepStack PLAY-TIME turn resolver did *not* use this full-card river layer; it
+solved to game end using an unpublished bucketed abstraction for all river
+actions.  Therefore this class is a source-constrained datagen/math oracle, not
+a claim of exact original online-turn implementation.
 
 Solver semantics are the certified DeepStack scheme, transcribed
 operation-for-operation from the certified sources (line references):
@@ -29,14 +38,16 @@ from __future__ import annotations
 import numpy as np
 
 from .blockers import legal_pairs_mask
-from .cards import HAND_COUNT, possible_hands_mask
+from .cards import HAND_CARDS, HAND_COUNT, possible_hands_mask
 from .chance import CHANCE_FACTOR
 from .config import DEFAULT_CONFIG, HunlConfig
-from .river_resolver import hunl_river_config
 from .showdown import showdown_matrix
+from .river_terminal_fast import (
+    NUMBA_AVAILABLE, RiverTerminalFastKernel, _native_arrays,
+    _numba_showdown_batch, _numba_fold_batch,
+)
 from .turn_tree import TurnGameTreeBuilder, TurnNode
 
-from deepstack_leduc.cfrd_gadget import CFRDGadget
 
 EPS = 1e-9
 CAP = 999999.0
@@ -48,13 +59,19 @@ class TurnEngine:
     def __init__(self, board4, pot_half: int,
                  cfg: HunlConfig = DEFAULT_CONFIG,
                  cfr_iters: int | None = None,
-                 cfr_skip_iters: int | None = None) -> None:
+                 cfr_skip_iters: int | None = None,
+                 terminal_backend: str = "dense") -> None:
         self.cfg = cfg
         self.board = tuple(int(c) for c in board4)
         self.pot_half = int(pot_half)
         self.iters = cfr_iters if cfr_iters is not None else cfg.turn_cfr_iters
         self.skip = (cfr_skip_iters if cfr_skip_iters is not None
                      else cfg.turn_cfr_omit)
+        if terminal_backend not in ("dense", "rank_numba"):
+            raise ValueError("terminal_backend must be dense or rank_numba")
+        if terminal_backend == "rank_numba" and not NUMBA_AVAILABLE:
+            raise RuntimeError("rank_numba terminal backend requested but numba is unavailable")
+        self.terminal_backend = terminal_backend
         self.tree = TurnGameTreeBuilder(cfg).build(self.board, self.pot_half)
         self.pm4 = possible_hands_mask(self.board)
         self._index()
@@ -95,12 +112,27 @@ class TurnEngine:
 
     def _build_matrices(self) -> None:
         self.mats: dict[tuple, tuple[np.ndarray, np.ndarray]] = {}
+        self.fast_terminal: dict[tuple, tuple] = {}
         for key in self.terminals_by_board:
-            if len(key) == 5:
+            if len(key) == 5 and self.terminal_backend == "rank_numba":
+                # Keep the full certified dense matrices OUT of the hot path.
+                # The rank/blocker kernel is algebraically the same operator
+                # and is independently regression-tested against them.
+                kernel = RiverTerminalFastKernel.build(key)
+                ranks, gids, offsets, ids = _native_arrays(kernel)
+                self.fast_terminal[key] = (
+                    kernel, ranks, gids, offsets, ids,
+                    kernel.legal_mask.astype(np.bool_),
+                )
+                self.mats[key] = (None, None)
+            elif len(key) == 5:
                 m, legal, _ = showdown_matrix(key)
                 self.mats[key] = (m.astype(np.float64),
                                   legal.astype(np.float64))
             else:
+                # Only the single turn board uses this path; keep the frozen
+                # dense fold oracle here because it is not the performance
+                # bottleneck and preserves the existing golden semantics.
                 self.mats[key] = (None,
                                   legal_pairs_mask(key).astype(np.float64))
 
@@ -135,12 +167,21 @@ class TurnEngine:
             # terminals (batched per board)
             for key, groups in self.terminals_by_board.items():
                 m, fmask = self.mats[key]
+                fast = self.fast_terminal.get(key)
                 sd = groups["showdown"]
                 if sd:
                     R1 = reach[sd, 1]
                     R0 = reach[sd, 0]
-                    U0 = R1 @ m.T
-                    U1 = -(R0 @ m)
+                    if fast is not None:
+                        _kernel, ranks, gids, offsets, ids, legal_mask = fast
+                        U0 = _numba_showdown_batch(
+                            R1, ranks, gids, offsets, ids, legal_mask)
+                        # -(R0 @ M) == R0 @ M.T because M is antisymmetric.
+                        U1 = _numba_showdown_batch(
+                            R0, ranks, gids, offsets, ids, legal_mask)
+                    else:
+                        U0 = R1 @ m.T
+                        U1 = -(R0 @ m)
                     b = np.array([float(min(nodes[i].spent))
                                   for i in sd])[:, None]
                     value[sd, 0] = b * U0
@@ -149,8 +190,15 @@ class TurnEngine:
                 if fl:
                     R1 = reach[fl, 1]
                     R0 = reach[fl, 0]
-                    U0 = R1 @ fmask
-                    U1 = R0 @ fmask
+                    if fast is not None:
+                        _kernel, _ranks, _gids, offsets, ids, legal_mask = fast
+                        U0 = _numba_fold_batch(
+                            R1, offsets, ids, legal_mask, HAND_CARDS.astype(np.int16))
+                        U1 = _numba_fold_batch(
+                            R0, offsets, ids, legal_mask, HAND_CARDS.astype(np.int16))
+                    else:
+                        U0 = R1 @ fmask
+                        U1 = R0 @ fmask
                     for row, i in enumerate(fl):
                         n = nodes[i]
                         b = float(min(n.spent))
@@ -219,6 +267,12 @@ class TurnEngine:
         """CFR-D re-solve: golden gadget, opponent-optimal constraints."""
         r1 = np.asarray(r1, dtype=np.float64)
         assert (r1[~self.pm4] == 0).all()
+        # Lazy imports keep the first-node/offline datagen path independent
+        # of the legacy Leduc BLAS runtime. This does not change resolve()
+        # semantics; it only defers loading CFR-D dependencies until needed.
+        from deepstack_leduc.cfrd_gadget import CFRDGadget
+        from .river_resolver import hunl_river_config
+
         gadget = CFRDGadget(self.board,
                             r1.astype(np.float32),
                             np.asarray(opponent_cfvs, dtype=np.float32),

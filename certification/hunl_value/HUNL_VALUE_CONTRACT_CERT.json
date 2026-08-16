@@ -1,0 +1,43 @@
+{
+  "architecture": {
+    "hidden_layers": 7,
+    "input": 2001,
+    "linear_layers": 8,
+    "output": 2000,
+    "parameter_count_including_7_scalar_prelu": 3506007,
+    "prelu_layers": 7,
+    "width": 500
+  },
+  "bucket_contract": {
+    "board": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "inverse_value_sha256": "13d6bfd75f266ab670b2f5e051ee5858e5bc18e840d3add7d8ca6429c05f11fe",
+    "legal_hands": 1128,
+    "range_mass_max_error": 1.1920928955078125e-07,
+    "range_sha256": "619b9eded1fa8fcb3f215a43063302619d575206808ce1cbe05669f6a4fe7eaa"
+  },
+  "flop_turn_boundary": {
+    "batch": 3,
+    "board3": [
+      0,
+      5,
+      10
+    ],
+    "chance_factor": 0.022222222222222223,
+    "expected_calls": 3,
+    "expected_value_sha256": "71e75375967246f85b631e55681296f906770c4bbd2d414249b6f03b33802dd3",
+    "observed_turn_card_values_sha256": "b1d79fd592b1c29cc94bad9d12700b7d9691bc2311769a39fb9eb68b51b3eb91",
+    "single_iter_reference_exact": true,
+    "skip": 1,
+    "turn_count": 49
+  },
+  "missing_author_bucket_provider": "FAIL_CLOSED_PASS",
+  "zero_sum": {
+    "cases": 19,
+    "max_abs_weighted_game_sum": 1.280568540096283e-09
+  }
+}

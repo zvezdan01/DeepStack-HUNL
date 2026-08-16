@@ -1,0 +1,24 @@
+{
+  "board": [
+    49,
+    23,
+    35,
+    20
+  ],
+  "boundary_ties": 1090,
+  "cfr_iters": 1000,
+  "cfr_skip_iters": 500,
+  "claim": "production-shape reconstructed target; NOT claimed identical to private original DeepStack sample",
+  "expected_utility_residual_chips": -1.4233592082746327e-10,
+  "input_generation_seconds": 0.02237236999826564,
+  "pot_half": 16001,
+  "rng_draws": 2260,
+  "schema": "hunl-turn-datagen-v2-production-anchor-v1",
+  "seed": 2482085641,
+  "solve_seconds": 25.433009174999825,
+  "status": "PASS",
+  "target_max": 1.2314106225967407,
+  "target_min": -0.6424157619476318,
+  "target_sha256": "8710874c407f6895e3562da7d856a4998c70d42d7027da69093651b101eb4c64",
+  "terminal_backend": "rank_numba"
+}

@@ -1,0 +1,22 @@
+{
+  "artifact": "HUNL_TURN_BUCKET_RECONSTRUCTION_V1.npz",
+  "artifact_sha256": "ab6c1fe64e38180b3fefc59b3371de20b31a1dc8ec230757fa0afcfcd53117ee",
+  "centroid_sha256": "f73125fb01686988654a619d5c03ddbe6906db7b25c9fafb166e0571338437a4",
+  "claim": "PROJECT_RECONSTRUCTION_NOT_ORIGINAL",
+  "empty_clusters_final": 0,
+  "feature_generation_seconds": 6.878455089999989,
+  "fit_seconds": 2.5334974779998447,
+  "objective_history": [
+    4869.872823294252,
+    4944.618725568056,
+    4791.037330202758,
+    4743.897147715092,
+    4726.779306296259,
+    4720.99463166669
+  ],
+  "provider_deterministic": true,
+  "schema": "hunl-turn-bucket-reconstruction-v1-cert",
+  "status": "PASS",
+  "suit_assignment_checks": 31,
+  "training_samples": 10240
+}

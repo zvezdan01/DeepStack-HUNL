@@ -1,0 +1,56 @@
+{
+  "author_strict": {
+    "fail_closed": true,
+    "reason": "AUTHOR_STRICT HUNL generation is blocked: published pot category [100,100) has no literal integer; equal-strength hand tie ordering was not published; private HUNL RNG/seed/job schedule was not published; private HUNL serialization/1326 ordering was not published"
+  },
+  "pot_sampler": {
+    "all_values_in_published_or_project_singleton_support": true,
+    "draws_for_10000_samples": 20000,
+    "max": 19943,
+    "min": 100
+  },
+  "production_schedule": {
+    "iterations": 1000,
+    "omit": 500,
+    "status": "HIGH-CONFIDENCE RELEASED-CODE-ANCHORED; HUNL offline omit not separately stated in paper"
+  },
+  "released_code_anchored_inputs": {
+    "batch": 3,
+    "blocked_mass_zero": true,
+    "board": [
+      10,
+      30,
+      8,
+      21
+    ],
+    "boundary_ties": 1067,
+    "input_stream_sha256": "4519a9687476a419e022facd592b97732c18a1ecb66f824043802594aa4c444c",
+    "max_range_sum_error_f32": 5.1325050876016576e-08,
+    "replay_byte_exact": true,
+    "rng_draws": 6772,
+    "seed": 1084079682
+  },
+  "schema": "HUNL_TURN_DATAGEN_V2_CERT_V1",
+  "solver_smoke": {
+    "action_set": [
+      "F",
+      "C",
+      "P",
+      "A"
+    ],
+    "board": [
+      37,
+      5,
+      14,
+      28
+    ],
+    "expected_utility_zero_sum_residual_chips": -4.6838977141305804e-11,
+    "full_replay_byte_exact": true,
+    "iterations": 20,
+    "omit": 10,
+    "pot_half": 11717,
+    "runtime_seconds_first": 1.044044075999409,
+    "targets_f32_sha256": "4652070babd064585dd75040b679e16313bd502c4a7d7ea6bae83474dcafea6c"
+  },
+  "status": "V2 WIRING CERTIFIED; original-private bit identity intentionally not claimed"
+}

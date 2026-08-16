@@ -1,0 +1,210 @@
+{
+  "schema": "HUNL_EARLY_STREET_ORACLE_V1",
+  "preflop": {
+    "total": 226,
+    "decision": 76,
+    "fold": 75,
+    "allin_runout": 38,
+    "next_street": 37,
+    "actions": 225
+  },
+  "distinct_flop_pot_halves": [
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    900,
+    1000,
+    1200,
+    1500,
+    1800,
+    2700,
+    3000,
+    3600,
+    4500,
+    5400,
+    8100,
+    9000,
+    10800,
+    13500,
+    16200
+  ],
+  "flop_counts_by_pot_half": {
+    "100": {
+      "total": 87,
+      "decision": 30,
+      "fold": 28,
+      "allin_runout": 15,
+      "next_street": 14,
+      "actions": 86
+    },
+    "200": {
+      "total": 81,
+      "decision": 28,
+      "fold": 26,
+      "allin_runout": 14,
+      "next_street": 13,
+      "actions": 80
+    },
+    "600": {
+      "total": 63,
+      "decision": 22,
+      "fold": 20,
+      "allin_runout": 11,
+      "next_street": 10,
+      "actions": 62
+    },
+    "1800": {
+      "total": 45,
+      "decision": 16,
+      "fold": 14,
+      "allin_runout": 8,
+      "next_street": 7,
+      "actions": 44
+    },
+    "5400": {
+      "total": 27,
+      "decision": 10,
+      "fold": 8,
+      "allin_runout": 5,
+      "next_street": 4,
+      "actions": 26
+    },
+    "16200": {
+      "total": 9,
+      "decision": 4,
+      "fold": 2,
+      "allin_runout": 2,
+      "next_street": 1,
+      "actions": 8
+    },
+    "300": {
+      "total": 69,
+      "decision": 24,
+      "fold": 22,
+      "allin_runout": 12,
+      "next_street": 11,
+      "actions": 68
+    },
+    "900": {
+      "total": 51,
+      "decision": 18,
+      "fold": 16,
+      "allin_runout": 9,
+      "next_street": 8,
+      "actions": 50
+    },
+    "2700": {
+      "total": 33,
+      "decision": 12,
+      "fold": 10,
+      "allin_runout": 6,
+      "next_street": 5,
+      "actions": 32
+    },
+    "8100": {
+      "total": 15,
+      "decision": 6,
+      "fold": 4,
+      "allin_runout": 3,
+      "next_street": 2,
+      "actions": 14
+    },
+    "500": {
+      "total": 63,
+      "decision": 22,
+      "fold": 20,
+      "allin_runout": 11,
+      "next_street": 10,
+      "actions": 62
+    },
+    "1500": {
+      "total": 45,
+      "decision": 16,
+      "fold": 14,
+      "allin_runout": 8,
+      "next_street": 7,
+      "actions": 44
+    },
+    "4500": {
+      "total": 27,
+      "decision": 10,
+      "fold": 8,
+      "allin_runout": 5,
+      "next_street": 4,
+      "actions": 26
+    },
+    "13500": {
+      "total": 9,
+      "decision": 4,
+      "fold": 2,
+      "allin_runout": 2,
+      "next_street": 1,
+      "actions": 8
+    },
+    "400": {
+      "total": 63,
+      "decision": 22,
+      "fold": 20,
+      "allin_runout": 11,
+      "next_street": 10,
+      "actions": 62
+    },
+    "1200": {
+      "total": 45,
+      "decision": 16,
+      "fold": 14,
+      "allin_runout": 8,
+      "next_street": 7,
+      "actions": 44
+    },
+    "3600": {
+      "total": 27,
+      "decision": 10,
+      "fold": 8,
+      "allin_runout": 5,
+      "next_street": 4,
+      "actions": 26
+    },
+    "10800": {
+      "total": 9,
+      "decision": 4,
+      "fold": 2,
+      "allin_runout": 2,
+      "next_street": 1,
+      "actions": 8
+    },
+    "1000": {
+      "total": 51,
+      "decision": 18,
+      "fold": 16,
+      "allin_runout": 9,
+      "next_street": 8,
+      "actions": 50
+    },
+    "3000": {
+      "total": 33,
+      "decision": 12,
+      "fold": 10,
+      "allin_runout": 6,
+      "next_street": 5,
+      "actions": 32
+    },
+    "9000": {
+      "total": 15,
+      "decision": 6,
+      "fold": 4,
+      "allin_runout": 3,
+      "next_street": 2,
+      "actions": 14
+    }
+  },
+  "oracle_nodes_checked": 1711,
+  "emitted_actions_checked": 1673,
+  "divergences": 0,
+  "authority": "bundled untouched CPRG/ACPC game.c",
+  "sparse_menus": "DeepStack supplement Table 4",
+  "fingerprint_sha256": "32188d0c5d70dd0d87e5c74d261236265a35843f514fb578e2b266d7605e7eae"
+}

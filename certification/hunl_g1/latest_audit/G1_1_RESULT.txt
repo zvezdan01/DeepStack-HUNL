@@ -4,7 +4,7 @@ CFR_plus/evalHandTables    53248e54bafb8fbc67830230baf4ad92abaf1e95425c0326e14e7
 parsed-table canonical digest OK; python tables loaded from: /home/user/quant-trade/third_party/CFR_plus/evalHandTables
 C oracle compiled against untouched /workspace/deepstack_leduc_v1.1-bitexact-certified/reference_lua/ACPCServer/evalHandTables
 == B. full 7-card space ==
-C oracle: 133,784,560 ranks in 2s, sha256 91d8792a3c5f6b9538e8005b39276d069c69e2d68b348024e7ce1f30080a0466
+C oracle: 133,784,560 ranks in 4s, sha256 91d8792a3c5f6b9538e8005b39276d069c69e2d68b348024e7ce1f30080a0466
 Python port: 133,784,560 ranks in 30s, sha256 91d8792a3c5f6b9538e8005b39276d069c69e2d68b348024e7ce1f30080a0466
 B PASS: full-space stream BYTE-IDENTICAL (SHA-256 match)
 == C. class counts vs canonical frequencies ==
