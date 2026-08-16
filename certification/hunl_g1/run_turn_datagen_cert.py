@@ -26,6 +26,7 @@ Run from DS root:
 """
 from __future__ import annotations
 
+import gc
 import hashlib
 import json
 import os
@@ -170,6 +171,8 @@ for r in (0, 10):
     dmax = np.abs(cfvs - ref).max() / pot
     assert dmax < 1e-12, f"forced-check oracle {dmax}"
     log(f"  A forced-check/all-in oracle row {r}: |d| {dmax:.2e} of pot")
+    del te, cfvs, ref
+    gc.collect()
 lp_rng = np.random.default_rng(7)
 for r in (3, 15):
     board = tuple(int(c) for c in d["boards"][r])
@@ -190,6 +193,8 @@ for r in (3, 15):
     assert rel < 0.005, f"LP oracle {rel}"
     log(f"  C LP small-support (datagen menus, 1000/500) board "
         f"{d['boards'][r].tolist()} pot {pot}: |d| {rel*100:.3f}% pot")
+    del te, cfvs
+    gc.collect()
 log(f"4 PASS ({(time.time()-t)/60:.0f} min)")
 
 # ----------------------------------------- 5. statistical QA ---------
