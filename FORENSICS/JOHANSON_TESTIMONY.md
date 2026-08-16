@@ -120,3 +120,38 @@ restaurovaným `game.c`:
   all-in výjimky, resetu min-raise na maxSpent+BB po přechodu kola a inicializace
   min-raise-to = 2×BB. Bazální NL legalita našeho enginu je tak kryta dvěma
   nezávislými prvoautorskými orákuly současně.
+
+### UPDATE 2026-08-16: tar + tech report dodány — nezávislá in-session reprodukce
+
+Vlastník dodal samotný `count_nl_infosets.tar` a tech report PDF
+(„Measuring the Size of Large No-Limit Poker Games", Johanson, 26. 2. 2013,
+16 stran). SHA-256 obou PŘESNĚ sedí na kulatý-1 report:
+tar `6fcf5fa4…`, PDF `4a6e9c6b…`, vnitřní `count_nl_infosets.c` `c4032c8d…`.
+Vendorováno: tar+PDF v `certification/leduc_restore/archives/`, rozbalený
+zdroj v `FORENSICS/ARTIFACTS/count_nl_infosets/SOURCE/`.
+
+Nezávislá reprodukce v TÉTO session (metoda vlastníka: změněno POUZE
+`MAX_STACK` na testovaný stack; gcc -O3, -lgmp na konci):
+
+- **ACPC 2009** (4 kola, 1/2, stack 400): výstup BYTE-IDENTICAL
+  s autorovým `acpc-2009.txt` (po odstranění elapsed řádku + koncových
+  prázdných řádků).
+- **ACPC 2007–2008** (stack 1000): BYTE-IDENTICAL s `acpc-2007-2008.txt`.
+- **Royal [2-$20] $1-$2** (2 kola): všech 12 polí Table 7 EXACT
+  (1188/3561/1187/1187, 19996/57616/38807, 29700/89025/155168960/
+  447100160/301142320).
+
+Betting sémantika potvrzena PŘÍMO ve zdrojáku (count_nl_infosets.c:154–163):
+`min_bet = bigblind; if (faced > min_bet) min_bet = faced;
+if (stack - faced < min_bet) min_bet = stack - faced;` + enumerace
+`a = min_bet … stack - faced` — doslova reportovaná pravidla; stavový
+model (stack, faced) odpovídá formalizaci použité v johanson_rules_diff.py
+(PASS vs ACPC game.c).
+
+**Tier 1 kotvy pro NAŠI konfiguraci** (autorův přesný výstup
+`acpc-2010-2013.txt`, SHA `117b69f8…`, elapsed 1d17h47m32s, 50/100,
+stack 20000): celkem States 6.31144e+164, State-Actions 1.89343e+165,
+Terminal 1.26229e+165; betting sekvence Round 0: 2.05342e+95; plné
+přesné celočíselné hodnoty v souboru. Čerstvý re-run této konfigurace
+zde neprováděn (6,4 GB alokace + ~2 dny CPU; soubor je autorská
+reference).
