@@ -142,6 +142,12 @@ for gr in rows:
     assert tgt.tobytes() == d["targets"][r].tobytes(), \
         f"INVERSION DIVERGENCE shard {s} row {r}"
     audited.append(gr)
+    # OOM hardening (2026-08-16): cyclic TurnNode trees from successive
+    # engines linger past cgroup limits (observed: 13.6 GB RSS SIGKILL
+    # mid-section-3). Output-neutral — same fix as turn_datagen v1.1.1.
+    del te, cfvs, tgt, d
+    import gc
+    gc.collect()
     log(f"  row {gr} (shard {s}, row {r}, pot {pot}): target replay "
         f"BYTE-IDENTICAL [{(time.time()-t)/60:.0f} min]")
 log(f"3 PASS: {len(rows)} rows byte-exact ({(time.time()-t)/60:.0f} min)")
