@@ -197,3 +197,42 @@ DeepStack v1/v2/v3 e-printy + AIVAT 1612.06915v2 e-print (TeX zdroje).
    kombinace AC+EF+BC-DIVAT. Autorské příspěvky explicitně rozděleny.
    => L0 řetěz AIVAT je nyní kompletně dokumentován first-party:
    IO (2008) + DIVAT (Billings&Kan 2006) → AIVAT (2016, vat.tex rovnice).
+
+## *** PRŮLOM #4 (2026-08-16) — open_pvat: originální kus project_uoapoker ***
+
+Owner-uploaded `open_pvat.tgz` + `hand_strength.tgz` +
+`preflopPotEquityTable.table.tgz` (archivováno, SHA ed746605/dd7e040c/
+8fb90ea4).
+
+### Provenience (CONFIRMED z SVN metadat v archivu)
+- `.svn/entries` (graphs/): URL **svn+ssh://games.cs.ualberta.ca/usr/
+  svnroot/project_uoapoker/open_source/open_pvat/graphs**, revize
+  **r6077**, 2009-10-02T20:27:35Z, autor **jdavidso**.
+- => POTVRZENÝ server + cesta + struktura interního repa (podstrom
+  `open_source/`), revizní číslování ~6077 k říjnu 2009.
+
+### Obsah
+- OPEN PVAT: implementace **DIVAT algoritmu Morgana Kana** (README:
+  "based on Morgan Kahns DIVAT algorithm") — přímý algoritmický předek
+  AIVAT, z LINIE INTERNÍHO REPA. C zdroje (game_state, hand_strength
+  wrapper pro poker-eval, pvat tables/utils/defines), preflop pot
+  equity tabulka (1 624 350 řádků), příkladová data.
+- Formát hand history dokumentován v README (HandNumber:P1,P2:...).
+
+### Rekonstrukce a GOLDEN TEST — PASS BYTE-IDENTICAL
+- Nástroj ZNOVU POSTAVEN v této session (poker-eval z GitHub mirroru;
+  jediný zásah: link `-Wl,-z,muldefs` kvůli GCC≥10 -fno-common —
+  tentative-definition bug v původním open_pvat_reader.c:15; ŽÁDNÁ
+  změna zdrojáků).
+- Běh na README příkladové handě reprodukuje bundlované
+  `graphs/Chump{1,2}.graph` **bajt po bajtu** (MONEY ±5.000, per-round
+  DIVAT sloupce) — mise-item **H (golden test) DOSAŽEN** s originálním
+  autorským kódem.
+
+### Dopad na oracle hierarchii AIVAT
+- **L4 (author code) DOSAŽEN pro DIVAT/PVAT rodinu** — ne AIVAT sám,
+  ale jeho přímý předek ze stejné interní linie; běžící, bajtově
+  ověřený.
+- Řetěz: DIVAT (Billings&Kan 2006; kód ZDE) + Imaginary Observations
+  (Johanson PhD kap. 7) → AIVAT (rovnice vat.tex) — všechna tři patra
+  nyní držíme first-party.

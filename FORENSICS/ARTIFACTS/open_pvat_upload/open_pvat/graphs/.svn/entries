@@ -1,0 +1,40 @@
+8
+
+dir
+6077
+svn+ssh://games.cs.ualberta.ca/usr/svnroot/project_uoapoker/open_source/open_pvat/graphs
+svn+ssh://games.cs.ualberta.ca/usr/svnroot/project_uoapoker
+
+
+
+2009-10-02T20:27:35.160341Z
+6077
+jdavidso
+
+
+svn:special svn:externals svn:needs-lock
+
+Chump1.graph
+file
+
+
+
+
+2009-10-02T20:12:24.000000Z
+76382eaff6da7a753c170678e68f6578
+2009-10-02T20:27:35.160341Z
+6077
+jdavidso
+
+Chump2.graph
+file
+
+
+
+
+2009-10-02T20:12:24.000000Z
+d61ef91a14d58b7fc1f4ec5b5ed8cd43
+2009-10-02T20:27:35.160341Z
+6077
+jdavidso
+

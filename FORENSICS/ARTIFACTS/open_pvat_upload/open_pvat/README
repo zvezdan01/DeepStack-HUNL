@@ -1,0 +1,40 @@
+This is the basic compiling and running information, as well as background 
+information on the OPEN PVAT project, based on Morgan Kahns DIVAT algorithm 
+and utilities.
+
+Requirements:
+The preflop pot equity table
+An evaluation tool for evaluating the hand strength of a particular hand.
+We have a hand strength wrapper available for use with the PokerEval library 
+v1.36+ which can be found here: pokersource.sourceforge.net/
+
+Compiling:
+If using poker-eval:
+
+Place the poker-eval library in the libs folder as well as
+the hand_strength wrapper we have made available
+
+Type make at the console from within the open_pvat directory.  
+This should compile the library, as well as the source files.
+
+If not using poker-eval:
+You will most likely need to modify the makefile as it looks for poker-eval as
+a lib target.  As well, you will need to write an interface into the pvat code
+to handle the calls to hand_strength.  See the hand_strength.c and 
+hand_strength.h wrappers for details.
+
+Running:
+Run open_pvat with a hand history file.  
+
+The hand history file must be in the following format:
+HandNumber:P1,P2:Seat<ACTION_SEQUENCE>:<CARD_SEQUENCE>:P1Winnings,P2Winnings
+
+<ACTION_SEQUENCE> refers to rcf for each of raise call and fold, rounds are 
+separated by /
+
+<CARD_SEQUENCE> refers to the cards sequence for the round.
+The sequence goes P1 Cards,P2 Cards|/Flop Cards/Turn Card/RiverCard
+A card is <RANK><SUIT> where <RANK> is 2-9,T,J,Q,K,A and <SUIT> is s,d,h,c
+
+Example:
+1:Chump1,Chump2:0rc/rrrc/crf:4dKd,2s9d|/2d7sKh/Js:-50,50
