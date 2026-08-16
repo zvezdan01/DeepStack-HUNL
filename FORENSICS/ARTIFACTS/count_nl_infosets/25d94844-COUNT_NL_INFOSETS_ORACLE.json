@@ -1,0 +1,13 @@
+{
+  "source_archive_sha256": "6fcf5fa41387ed71f720c9c850c47b7b111830b68f979853a8c3f998365ac0c8",
+  "count_nl_infosets_c_sha256": "c4032c8db6220e703de3f98a8d3ce260861c3d64153ee50a5bf66b225e061cb7",
+  "paper_sha256": "4a6e9c6b472843e4f66a0cb3c622f9fb549b02fa6c405ae3261bc6c2c3fae598",
+  "verified": {
+    "royal_2_20_table7": {"fields_exact": 12, "fields_total": 12, "normalized_output_sha256": "d6cd73ad4125fc4f38a14e181c670c007828a83da09e9fda591e183f06850251", "gcc_clang_exact": true},
+    "acpc_2009": {"fresh_run_matches_author_reference_without_elapsed": true, "reference_run_sha256": "ea6c0bcccc3116650d0f657b5ff7a0296bc33e25d25f80836b1bfc3a4433597d", "gcc_clang_exact": true},
+    "acpc_2007_2008": {"fresh_run_matches_author_reference_without_elapsed": true, "reference_run_sha256": "dd60f478362a29f002b370ac0318b9ec18099aaa2b29548f13aaa21399f40588", "gcc_clang_exact": true}
+  },
+  "author_reference_only_not_freshly_rerun": {
+    "acpc_2010_2013_file_sha256": "117b69f8d837c0fbd206b1f00ae430a02fc95c89d35f22394c3fe60b53fce35c"
+  }
+}

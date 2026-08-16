@@ -76,3 +76,30 @@ Svědectví povýšeno: recollection → implementation+oracle-verified.
   Strategies…") lokalizována (poker.cs.ualberta.ca + scholaris —
   OBĚ egress-blokovány; URL zaznamenány pro stroj bez omezení).
 - johanson.ca + cs.cmu.edu PDF — egress-blokovány (zaznamenáno).
+
+## count_nl_infosets — autorský orákulum-nástroj (Tier 1, owner-verified round 1)
+
+Vlastník dodal report z externího ověření Johansonova nástroje `count_nl_infosets.tar`
+(hlavička zdrojáku: „Mike Johanson, Feb 1, 02013"; tar owner johanson/johanson;
+tar SHA-256 6fcf5fa41387ed71f720c9c850c47b7b111830b68f979853a8c3f998365ac0c8).
+Vendorováno: `FORENSICS/ARTIFACTS/count_nl_infosets/` (JSON oracle + MD report;
+samotný tar v této session nemáme).
+
+Co je bitově potvrzeno (externí běhy vlastníka, GCC==Clang byte-identical po
+normalizaci elapsed-time řádku):
+
+- Royal hold'em [2-$20] $1-$2: 12/12 polí Table 7 EXACT.
+- ACPC 2009 ($1/$2, stack 400): čerstvý běh byte-identical s autorovým `acpc-2009.txt`.
+- ACPC 2007–2008 ($1/$2, stack 1000): byte-identical s autorovým výstupem.
+- ACPC 2010–2013 ($50/$100, stack 20000 = naše HUHL konfigurace): autorův přesný
+  výstup zachován jako reference (SHA-256 117b69f8…), čerstvý re-run neproveden
+  (alokace 6,4 GB + ~2 dny CPU).
+
+První-osobní sémantika betting pravidel z autorova zdrojáku:
+fold legální ⇔ faced>0; check/call vždy; min_bet = max(bigblind, faced);
+short all-in výjimka (stack−faced < min_bet ⇒ all-in legální); všechny celočíselné
+částky min_bet…stack−faced legální (neabstrahované); call přechází do dalšího kola.
+
+Hranice: NENÍ to FCPA orákulum ani DataGenerator — certifikuje jen bazální NL
+legalitu/přechody. Navazující krok: diferenciální test proti našemu betting enginu
+(`johanson_rules_diff` — první interaktivní verze timeoutovala, nutný dávkový přepis).
