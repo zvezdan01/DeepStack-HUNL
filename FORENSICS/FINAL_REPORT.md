@@ -1,8 +1,8 @@
 # Závěrečná forenzní zpráva — HUHL data generátor + DeepStack forenzní mise
 
 Datum: 2026-08-16 · Větev: `claude/generator-dat-pro-huhl-forenzic-rvclmx`
-Stav: certifikační harness dobíhá (sekce 3/5); tato zpráva se po doběhu
-finalizuje doplněním výsledků sekcí 3–5.
+Stav: **FINÁLNÍ** — certifikační harness dokončen, všech 5 sekcí PASS
+(`certification/hunl_g1/TURN_DATAGEN_CERT_RESULT.txt`).
 
 ## 1. Shrnutí
 
@@ -10,10 +10,12 @@ finalizuje doplněním výsledků sekcí 3–5.
    12 shardů × 20 vzorků (240/240) + plný replay shardu 0 v čerstvém
    procesu — všech pět polí byte-identical. Kombinovaný dataset anchor
    SHA-256 `274188d4…`.
-2. **Certifikace**: sekce 1 (manifesty + RNG ledger) a 2 (replay
-   byte-identity) PASS; sekce 3 (row-level inversion audit, 8 náhodných
-   řádků) průběžně 5/8 BYTE-IDENTICAL, běží; sekce 4 (nezávislá orákula)
-   a 5 (statistická QA) následují.
+2. **Certifikace KOMPLETNÍ — všech 5 sekcí PASS** (133 min souvislý
+   běh): manifesty+RNG ledger přesně; replay shardu 0 BYTE_EXACT; 8/8
+   auditních řádků BYTE-IDENTICAL; nezávislá orákula (forced-check
+   ≤1.3e-15, LP ≤0.000 % potu); statistická QA (0 duplikátů, zero-sum
+   ≤9e-9, pot kategorie [45,44,58,48,45], chi² board karet 38.3
+   na efektivní tah — deska se dle návrhu losuje 1× na BATCH=10 vzorků).
 3. **Bit-exact rekonstrukce ORIGINÁLNÍHO DeepStack HUNL DataGenerátoru:
    NE. Algorithm-exact: ANO (~90–95 % funkční věrnosti po komponentách)**
    — detailní rozpad v `GENERATOR_READINESS.md`, zdůvodnění v
@@ -46,11 +48,14 @@ Golden export: `huhl-golden-reference-aa04c5a.zip`, SHA-256
 
 | Sekce | Obsah | Výsledek |
 |---|---|---|
-| 1 | manifesty 12 shardů, SHA ověření, RNG ledger reconciliace (4+rej board, 22 540+752 range, 40 pot draws/shard) | **PASS** |
+| 1 | manifesty 12 shardů, SHA ověření, RNG ledger reconciliace | **PASS** (přesně) |
 | 2 | plný replay shardu 0 v čerstvém procesu | **PASS (BYTE_EXACT)** |
-| 3 | inversion audit 8 náhodných řádků — nezávislé přehrání targetu | běží, 5/8 BYTE-IDENTICAL |
-| 4 | nezávislá orákula: forced-check/all-in + LP cross-check | čeká |
-| 5 | statistická QA (chi² board karet, pot korelace, unikátnost řádků) | čeká |
+| 3 | inversion audit 8 náhodných řádků — nezávislé přehrání targetu | **PASS 8/8 BYTE-IDENTICAL** (řádky 27/44/48/62/67/131/179/234; pot 246–13 137) |
+| 4 | nezávislá orákula: forced-check/all-in (≤1.3e-15) + sequence-form LP (|d| 0.000 % potu, 2 boardy) | **PASS** |
+| 5 | statistická QA: 0 duplikátů, zero-sum ≤9e-9, pot kategorie [45,44,58,48,45]/240, chi² 38.3/ef. tah (df 51), pot korelace −0.033 | **PASS** |
+
+Sekce 3 byla napříč třemi běhy harnessu plně reprodukovatelná (řádky
+27/44/48/62 třikrát, celých 8/8 dvakrát — vždy BYTE-IDENTICAL).
 
 Navíc certifikováno: checkpoint-resume (případy A–E: kill po 3./7.
 vzorku, korupce ckpt → self-heal, skip hotového shardu — vše
@@ -67,7 +72,10 @@ incidenty; žádný nevedl ke ztrátě dat ani nedeterminismu:
    send_later řetězu (~8 h) byl důvodem přechodu na cron.
 2. OOM kill workera (4×4,4 GB) → gc fix v generátoru v1.1.1 + driver
    v2.1 s wave-completeness respawnem; OOM kill cert harnessu (13,6 GB)
-   → gc fix v sekci 3.
+   → gc fix v sekci 3; 2× OOM kill v sekci 4 (13,9 GB — hustá
+   sequence-form LP matice pro hluboký strom malého potu) → LP
+   přepsáno na plně řídké (csr + sparse HiGHS), peak 2,6 GB, poté
+   kompletní PASS.
 3. Výpadek git proxy po nočním restartu → kritické soubory pushnuty
    přes GitHub API (commit a2a8e49), poté normální režim.
 4. Neúplná obnova ACPCServer (chybějící hlavičky) → kompletní re-copy
@@ -167,8 +175,8 @@ integrována po místní re-verifikaci:
 
 ## 7. Co zbývá / doporučení
 
-1. Doběh cert sekcí 3–5 → zápis `TURN_DATAGEN_CERT_RESULT.txt` +
-   finalizace této zprávy; poté smazání cron babysitu.
+1. ~~Doběh cert sekcí 3–5~~ **HOTOVO** — `TURN_DATAGEN_CERT_RESULT.txt`
+   zapsán, cron babysit smazán.
 2. Volitelné senzitivní experimenty (omit 0/250/500 iterací, čtení
    intervalu [100,200)) — kvantifikace vlivu otevřených vidliček.
 3. Od uživatele stále chybí (pokud existují): Johanson MSc 2007, Burch
