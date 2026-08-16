@@ -55,4 +55,4 @@ while True:
         print(f"SUSPECT (cpu+log frozen >=2 checks): {'; '.join(sus)} | healthy: {'; '.join(ok)} | {done}/12")
     else:
         print(f"pilot OK: {len(w)} workers [{'; '.join(ok)}] drv={drv} {done}/12 shards, replay={replay}")
-    time.sleep(1800)
+    time.sleep(1500)
