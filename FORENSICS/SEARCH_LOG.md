@@ -108,3 +108,19 @@ limits, not as artifact non-existence.
     kandidát na adaptaci pro test proti našemu 45k L3 oracle).
   - Johanson MSc 2007 (starší indexace): URL lokalizovány, egress-
     blokovány (kandidát na owner upload).
+[16.8.] ARCHIVE SWEEP dle Mikeových jmen (na pokyn vlastníka, před webem):
+  - CFRplus_holdem_nolimit_FCPA: NIKDE v našich archivech (repo, IFP,
+    vs_LBR, DS workspace, všechny klony). NEG.
+  - meta_player.so / acpc14.map / rgbr_nl_cprg.so: pouze jako TEXT v
+    hlavičkách 400-408 vs_LBR logů (cesty /home/viliam/cprg/
+    project_uoapoker/trunk/src/c/) — binárky samotné NEmáme. NEG.
+  - game_def.fullholdem (LBR gamedef): referencován v 620 hlavičkách,
+    soubor NEpřiložen v release. NEG.
+  - gamedef inventura: jen standardní ACPC .game (holdem limit/nolimit
+    2p/3p, kuhn, leduc, royal, rhode, 2-1, 2-4) — žádný FCPA-specifický.
+  - NOVÝ ARTEFAKT z hlaviček: přesný 56-frakční LBR seznam (geometrická
+    řada 0.05*1.15^k, k=0..55) — first-party konfigurační konstanta.
+  - IFP ACPC dealer logy: čisté STATE řádky + unix timestampy; seed
+    dealeru v souborech není.
+  - BLOCKED_LINKS.md sepsán pro ruční stažení vlastníkem (13 položek,
+    prioritizováno).
