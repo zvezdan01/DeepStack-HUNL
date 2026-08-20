@@ -1,0 +1,86 @@
+{
+  "status": "V105 INVERSE DECISION-COUNT LOCK",
+  "rows": [
+    "2P",
+    "1/2P",
+    "P",
+    "1/2P+P",
+    "P+2P",
+    "1/2P+P+2P",
+    "FULL"
+  ],
+  "published_nominal_centers": [
+    48000,
+    100000,
+    61000,
+    126000,
+    204000,
+    360000,
+    555000
+  ],
+  "current_decision_counts": [
+    16,
+    32,
+    20,
+    40,
+    64,
+    112,
+    172
+  ],
+  "scan": {
+    "candidate_D_range": [
+      1,
+      500
+    ],
+    "per_row_candidates_tested": 500,
+    "total_candidate_vectors_tested": 3500,
+    "criterion": "existence of any real affine slope/intercept placing all seven Size cells inside their full nearest-thousand bins"
+  },
+  "result": {
+    "feasible_D_by_heldout_row": {
+      "2P": [
+        16
+      ],
+      "1/2P": [
+        32
+      ],
+      "P": [
+        20
+      ],
+      "1/2P+P": [
+        40
+      ],
+      "P+2P": [
+        64
+      ],
+      "1/2P+P+2P": [
+        112
+      ],
+      "FULL": [
+        172
+      ]
+    },
+    "all_rows_uniquely_locked": true,
+    "unique_counts": {
+      "2P": 16,
+      "1/2P": 32,
+      "P": 20,
+      "1/2P+P": 40,
+      "P+2P": 64,
+      "1/2P+P+2P": 112,
+      "FULL": 172
+    }
+  },
+  "interpretation": [
+    "Holding the other six reconstructed decision counts fixed, each published Size bin uniquely determines the seventh decision count as an integer from 1..500.",
+    "This remains true with full +/-500 publication uncertainty and with slope/intercept re-optimized independently for every candidate.",
+    "Therefore none of the seven current decision counts can be shifted by even one integer while preserving an affine explanation of all seven published Size cells.",
+    "This is an inverse validation: the published Size column reconstructs the same integer decision-count vector used by the current structural witness, conditional only on the affine-family hypothesis and the other six counts."
+  ],
+  "boundary": [
+    "This is conditional on an affine relation between the structural count and hidden raw Size within each printed bin.",
+    "It does not prove decision nodes were the private DeepStack operational counter; V99's N/D/E algebraic dependence remains.",
+    "The scan range 1..500 safely contains all current counts and broad nearby alternatives but is not an unbounded integer proof.",
+    "No Supremus/CPRG/Leduc/Libratus/Pluribus semantics are imported as DeepStack facts."
+  ]
+}

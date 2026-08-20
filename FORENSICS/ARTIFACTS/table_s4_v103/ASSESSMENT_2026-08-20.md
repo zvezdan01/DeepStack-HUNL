@@ -39,3 +39,36 @@ Vyžádat od zdrojové session derivační skript pro D (pokud existuje);
 do té doby klasifikace: kolinearita = CONFIRMED (first-party čísla),
 "size law přes decision uzly" = HYPOTHESIS (částečná podpora u
 jednofrakčních menu).
+
+## Dodatek: V104 + V105 (přijato a nezávisle ověřeno 2026-08-20)
+
+Upload V105 zip SHA-256:
+771cd297a87ea206fcaaba7795bf7aab924de6985f1bb43d50a5636782f02d07
+(vendorováno ve v104_v105/).
+
+Nezávislá re-verifikace vlastní implementací (exact Fraction 2D-LP
+feasibilita, včetně dx=0 případu, který dodaný kód přeskakuje):
+
+- V104: z 5 040 permutací přiřazení Size↔řádek je afinně feasibilní
+  (i s plnou ±500 rounding volností) PŘESNĚ 1 — skutečné přiřazení. ✓
+- V105: při držení šesti D a skenu kandidáta 1..500 přežívá pro FULL
+  jen 172 a pro 2P jen 16 (ostatní řádky dle dodaného pytestu 6/6,
+  reprodukován zde). ✓
+
+Interpretace: tato dvojice KOREKTNĚ vyvrací námitku „generická náhoda
+zaokrouhlených čísel" pro PÁROVÁNÍ hodnot — afinní vztah je numericky
+rigidní (i široké ±500 biny určují celočíselný vektor jednoznačně).
+
+Co se NEMĚNÍ: oba testy jsou podmíněné vektorem D, který ani zde není
+derivován (v testech natvrdo). Rigidita afinního vztahu je při exaktní
+kolinearitě očekávatelná (2 stupně volnosti vs 7 vazeb) — V104/V105 ji
+kvantifikují, ale nedodávají nezávislou provenienci D. V104 boundary
+sekce sama odkazuje na „V99's algebraic ambiguity between decision
+nodes, public nodes, and edges" — tj. derivační rodina stromů ve
+zdrojové session EXISTUJE. Klíčový chybějící artefakt zůstává:
+skripty V99–V102 (derivace 16/32/20/40/64/112/172 ze stromu, včetně
+rozlišení decision/public/edge čítače).
+
+Klasifikace beze změny: kolinearita+rigidita = CONFIRMED (derived,
+Tier 3); „D = decision-node counts konkrétní rodiny stromů" =
+HYPOTHESIS s částečnou podporou (jednofrakční menu při potu 200).
