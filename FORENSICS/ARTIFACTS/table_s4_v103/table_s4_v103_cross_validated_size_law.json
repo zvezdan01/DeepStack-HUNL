@@ -1,0 +1,46 @@
+{
+  "status": "V103 CROSS-VALIDATED EXACT SIZE LAW",
+  "rows": [
+    "2P",
+    "1/2P",
+    "P",
+    "1/2P+P",
+    "P+2P",
+    "1/2P+P+2P",
+    "FULL"
+  ],
+  "decision_nodes": [
+    16,
+    32,
+    20,
+    40,
+    64,
+    112,
+    172
+  ],
+  "published_nominal_size_centers": [
+    48000,
+    100000,
+    61000,
+    126000,
+    204000,
+    360000,
+    555000
+  ],
+  "exact_law": "Size_center = 3250 * D_decision - 4000",
+  "held_out_FULL": {
+    "D": 172,
+    "prediction": 555000,
+    "published": 555000,
+    "residual": 0
+  },
+  "cross_validation": {
+    "sparse_training_pairs": "15/15 exact",
+    "leave_one_out": "7/7 exact"
+  },
+  "unpublished_halfP_plus_2P_prediction": {
+    "D": 146,
+    "Size_center": 470500
+  },
+  "boundary": "Exact nominal-center identity is not proof of the unpublished operational Size counter or raw rounding convention."
+}
