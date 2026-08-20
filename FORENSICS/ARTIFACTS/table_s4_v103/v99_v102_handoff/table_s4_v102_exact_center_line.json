@@ -1,0 +1,62 @@
+{
+  "status": "V102 EXACT SEVEN-ROW CENTER-LINE IDENTITY",
+  "published_centers": {
+    "2P": 48000,
+    "1/2P": 100000,
+    "P": 61000,
+    "1/2P+P": 126000,
+    "P+2P": 204000,
+    "1/2P+P+2P": 360000,
+    "FULL": 555000
+  },
+  "reconstructed_decision_nodes": {
+    "2P": 16,
+    "1/2P": 32,
+    "P": 20,
+    "1/2P+P": 40,
+    "P+2P": 64,
+    "1/2P+P+2P": 112,
+    "FULL": 172
+  },
+  "identity": {
+    "formula": "printed Size center = 3250 * D_decision - 4000",
+    "slope": 3250,
+    "intercept": -4000,
+    "residuals": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "all_21_pairwise_slopes_equal_3250": true,
+    "pair_count": 21
+  },
+  "equivalent_due_tree_identity": {
+    "tree_identity": "N_public = 3*D_decision - 3; E = 3*D_decision - 4",
+    "exact_node_affine": "Size = (3250/3)*N_public - 750",
+    "exact_edge_affine": "Size = (3250/3)*E + 1000/3",
+    "integer_slope_note": "The exact center law has integer slope on D, but fractional slope 3250/3 on N or E.",
+    "gauge_warning": "This does not identify the historical counter because N,D,E are algebraically dependent on the reconstructed tree family."
+  },
+  "new_out_of_sample_discriminator": {
+    "held_out_root": "1/2P+2P",
+    "V87_predicted_decision_nodes": 146,
+    "exact_center_line_raw_prediction": 470500,
+    "prediction": "470,500 raw units",
+    "importance": "This lands exactly on the nearest-thousand half-way boundary, so an original omitted-row artifact would simultaneously discriminate the accounting family and the publication tie/rounding convention."
+  },
+  "interpretation": [
+    "All seven printed Table-S4 Size centers, not merely their +/-500 bins, lie exactly on one affine line in reconstructed decision-node count with zero residual.",
+    "This exact-to-unit identity is substantially stronger numerically than nearest-thousand compatibility, but V99/V100 prevent promoting D_decision as the historical operational Size counter.",
+    "The coefficient 3250 decomposes as 3*1081+7, showing why 1081-wide hand-vector accounting can be algebraically equivalent after adding a small per-decision term and offset.",
+    "The held-out 1/2P+2P row now has a sharp raw prediction of 470,500 under the exact-center law."
+  ],
+  "boundary": [
+    "The published values are shown in k units, so treating 48k as the exact center 48,000 is an arithmetic convention for this identity, not proof that the hidden raw counter equaled 48,000.",
+    "The exact operational Size counter and original rounding/formatting code remain unrecovered.",
+    "No Supremus, CPRG, Leduc, Libratus, or Pluribus semantics are imported as DeepStack facts."
+  ]
+}

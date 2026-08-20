@@ -1,0 +1,120 @@
+{
+  "status": "V107 NINE-STATE 1081-HAND VALUE PILOT / CORPUS EFFECT SURVIVES OUT-OF-SAMPLE EXTENSION",
+  "protocol": {
+    "states": 9,
+    "first_block_states": 5,
+    "held_out_extension_states": 4,
+    "sparse_iterations": 100,
+    "full_iterations": 400,
+    "sparse_omit": 50,
+    "full_omit": 200,
+    "legal_private_hands": 1081,
+    "diagnostic_only": true
+  },
+  "result": {
+    "five_state_call_only_MARE": 0.19537263895599302,
+    "four_new_state_call_only_MARE": 0.255017782558208,
+    "nine_state_call_only_MARE": 0.2163900816072193,
+    "five_state_mean_action_norms_MARE": 0.22996392513746597,
+    "four_new_state_mean_action_norms_MARE": 0.2850396151983909,
+    "nine_state_mean_action_norms_MARE": 0.2499371195559482,
+    "best_nine_state_layout": "call_only",
+    "best_nine_state_mean_ratio_MARE": 0.2163900816072193,
+    "global_layouts": {
+      "call_only": {
+        "mean_ratio_mare": 0.2163900816072193,
+        "max_ratio_mare": 0.4011138813811622
+      },
+      "mean_action_norms": {
+        "mean_ratio_mare": 0.2499371195559482,
+        "max_ratio_mare": 0.3468619770745992
+      },
+      "mean_vector": {
+        "mean_ratio_mare": 0.32131884374737657,
+        "max_ratio_mare": 0.5828613969791983
+      },
+      "sum_vector": {
+        "mean_ratio_mare": 0.3213188437473767,
+        "max_ratio_mare": 0.5828613969791985
+      },
+      "max_action_norms": {
+        "mean_ratio_mare": 0.36087894941307924,
+        "max_ratio_mare": 0.6448588993957144
+      },
+      "bets_concat": {
+        "mean_ratio_mare": 0.674853415693895,
+        "max_ratio_mare": 1.1746296355638481
+      },
+      "nonallin_concat": {
+        "mean_ratio_mare": 0.7861912980402413,
+        "max_ratio_mare": 1.1556532429309772
+      },
+      "concat": {
+        "mean_ratio_mare": 0.7968907716895531,
+        "max_ratio_mare": 1.145558546875921
+      }
+    },
+    "cumulative": [
+      {
+        "states": 1,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.35210783217016733,
+        "call_only": 0.35210783217016733,
+        "mean_action_norms": 0.4030833326031686
+      },
+      {
+        "states": 2,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.1731927377822452,
+        "call_only": 0.1731927377822452,
+        "mean_action_norms": 0.19791927535883655
+      },
+      {
+        "states": 5,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.19537263895599302,
+        "call_only": 0.19537263895599302,
+        "mean_action_norms": 0.22996392513746597
+      },
+      {
+        "states": 6,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.19709573916678402,
+        "call_only": 0.19709573916678402,
+        "mean_action_norms": 0.22337531912784706
+      },
+      {
+        "states": 7,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.21234794810853494,
+        "call_only": 0.21234794810853494,
+        "mean_action_norms": 0.23911711491340817
+      },
+      {
+        "states": 8,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.21872000029787717,
+        "call_only": 0.21872000029787717,
+        "mean_action_norms": 0.25089916587550526
+      },
+      {
+        "states": 9,
+        "best_layout": "call_only",
+        "best_mean_ratio_mare": 0.2163900816072193,
+        "call_only": 0.2163900816072193,
+        "mean_action_norms": 0.2499371195559482
+      }
+    ]
+  },
+  "interpretation": [
+    "The four new held-out states do not reproduce the unusually strong two-state dip from V106; their standalone call-only MARE is about 25.5%.",
+    "After combining all nine independent diagnostic states, call-only MARE remains materially below the original one-state result and settles near the low-20% range.",
+    "The nine-state result is therefore evidence for a real corpus-averaging effect, but not evidence of convergence toward zero.",
+    "The remaining gap is large enough that a Mac 20-100-state run is justified, while a claim of near-exact Table-S4 value reproduction is not."
+  ],
+  "boundary": [
+    "This uses scaled 100-vs-400 iterations, not historical 1000-vs-4000.",
+    "The nine diagnostic boards/ranges are not the unrecovered historical 100 Table-S4 situations.",
+    "No Supremus/CPRG/Leduc/Libratus/Pluribus semantics are imported as DeepStack facts."
+  ]
+}

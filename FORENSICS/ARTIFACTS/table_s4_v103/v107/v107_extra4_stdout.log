@@ -1,0 +1,46 @@
+STATE 1/4 5sAdJdJsKh seed=5
+  FULL 400 4.3s
+STATE 2/4 6s8s9hAcQh seed=6
+  FULL 400 4.1s
+STATE 3/4 3s4c8sAcTh seed=7
+  FULL 400 4.2s
+STATE 4/4 2h6c6hJhKd seed=8
+  FULL 400 4.5s
+FINAL GLOBAL {
+  "call_only": {
+    "mean_ratio_mare": 0.255017782558208,
+    "max_ratio_mare": 0.4469423942184042
+  },
+  "mean_action_norms": {
+    "mean_ratio_mare": 0.2850396151983909,
+    "max_ratio_mare": 0.41653318662823857
+  },
+  "max_action_norms": {
+    "mean_ratio_mare": 0.40302767505828935,
+    "max_ratio_mare": 0.585804395430349
+  },
+  "sum_vector": {
+    "mean_ratio_mare": 0.5100406426437684,
+    "max_ratio_mare": 0.9365289936353253
+  },
+  "mean_vector": {
+    "mean_ratio_mare": 0.5100406426437684,
+    "max_ratio_mare": 0.936528993635325
+  },
+  "bets_concat": {
+    "mean_ratio_mare": 0.7790573161850262,
+    "max_ratio_mare": 1.456187899826015
+  },
+  "nonallin_concat": {
+    "mean_ratio_mare": 0.842699678647616,
+    "max_ratio_mare": 1.3342329161539936
+  },
+  "concat": {
+    "mean_ratio_mare": 0.8486393371956519,
+    "max_ratio_mare": 1.354548605974609
+  }
+}
+CUMULATIVE BEST
+1 ('mean_action_norms', {'mean_ratio_mare': 0.19811365092278496, 'max_ratio_mare': 0.2810415542800446})
+2 ('mean_action_norms', {'mean_ratio_mare': 0.27184676908311306, 'max_ratio_mare': 0.3910810042537777})
+4 ('call_only', {'mean_ratio_mare': 0.255017782558208, 'max_ratio_mare': 0.4469423942184042})

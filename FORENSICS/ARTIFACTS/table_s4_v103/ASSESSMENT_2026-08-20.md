@@ -72,3 +72,30 @@ rozlišení decision/public/edge čítače).
 Klasifikace beze změny: kolinearita+rigidita = CONFIRMED (derived,
 Tier 3); „D = decision-node counts konkrétní rodiny stromů" =
 HYPOTHESIS s částečnou podporou (jednofrakční menu při potu 200).
+
+## Dodatek 2: V99–V102 handoff dorazil — derivace D uzavřena (2026-08-20)
+
+Upload SHA-256: ac0c1caa384ef7aafd76d268b8c1af49f98b7d954b96bc41c8180ab742e7a068
+(vendorováno ve v99_v102_handoff/; V107 checkpoint ve v107/,
+zip SHA 9a296cf2faf3af7ff6d9f1adc07a8a9eea3698a4407eac15c6b76a42451de535).
+
+`reproduce_table_s4_tree_counts.py` spuštěn ZDE: všech 7 párů
+(public, decision) = (45,16)(93,32)(57,20)(117,40)(189,64)(333,112)
+(513,172) reprodukováno, pytest 3/3 PASS. Klíč k mému dřívějšímu
+neúspěchu s vícefrakčními menu: rodina používá VRSTVENÁ menu
+First/Second/Remaining (konvence Table 4), ne pravidlo neklesajících
+frakcí; audit stav pot 200/stack 20000; raise-to = maxSpent + f·pot.
+
+Poctivá klasifikace po handoffu:
+- Jednofrakční řádky (16/32/20): derivace DVOJITĚ nezávislá (jejich
+  vrstvená rodina + můj neklesající enumerátor — na singletonech se
+  sémantiky shodují). CONFIRMED.
+- Vícefrakční řádky (40/64/112/172): derivovány z EXPLICITNÍ rodiny
+  svědků, ale Second/Remaining menu V86 a FULL rozvrh V43 jsou
+  syntetizovaní svědci vybraní, aby seděly strukturní vazby — NE
+  obnovený kód (handoff to sám zdůrazňuje). Klasifikace: WITNESS-
+  DERIVED (existenční důkaz konzistentní rodiny s publikovaným
+  slovníkem akcí), nikoli primární fakt.
+- N_public = 3D−3 na celé rodině ⇒ Size čítač zůstává algebraicky
+  neidentifikovatelný (decision/public/edge) — shodné s mým V106
+  nálezem třídy ekvivalence.

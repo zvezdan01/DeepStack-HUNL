@@ -1,0 +1,83 @@
+{
+  "status": "FORENSIC STRUCTURAL FAMILY USED BY V99-V102; NOT RECOVERED HISTORICAL CODE",
+  "audit_state": {
+    "pot": 200,
+    "stack": 20000,
+    "big_blind": 100
+  },
+  "sparse_family": {
+    "rule_name": "V86 FULL-menu lattice morphology",
+    "first_layers": "exact Table-S4 sparse betting sizings",
+    "second": "singleton preserves own sizing; multi-size uses Min",
+    "remaining": {
+      "2P": [
+        "2P"
+      ],
+      "1/2P": [
+        "1/2P"
+      ],
+      "P": [
+        "P"
+      ],
+      "1/2P+P": [
+        "3/4P"
+      ],
+      "P+2P": [
+        "3/4P",
+        "3P"
+      ],
+      "1/2P+P+2P": [
+        "1/4P",
+        "10P"
+      ]
+    }
+  },
+  "full_family": {
+    "rule_name": "V43 recovered 513-public-node witness",
+    "first": [
+      "Min",
+      "1/4P",
+      "1/2P",
+      "3/4P",
+      "P",
+      "2P",
+      "10P"
+    ],
+    "second": [
+      "Min",
+      "3P",
+      "10P"
+    ],
+    "remaining": [
+      "P",
+      "3P"
+    ]
+  },
+  "exact_counts": {
+    "public": [
+      45,
+      93,
+      57,
+      117,
+      189,
+      333,
+      513
+    ],
+    "decision": [
+      16,
+      32,
+      20,
+      40,
+      64,
+      112,
+      172
+    ]
+  },
+  "tree_identity": "N_public = 3*D_decision - 3 on all seven witnesses",
+  "V102_center_identity": "Size_center = 3250*D_decision - 4000",
+  "historical_boundary": [
+    "V86 continuation mapping is synthesized from exact structural constraints and DeepStack's published FULL experimental action vocabulary.",
+    "V43 FULL schedule is a forensic witness from an exhaustive FULL-only membership search, not recovered original DeepStack code.",
+    "The exact Table-S4 operational Size counter remains unrecovered."
+  ]
+}
