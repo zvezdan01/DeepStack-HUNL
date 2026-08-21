@@ -1,0 +1,27 @@
+{
+  "milestone": "V251",
+  "paper_crossings": {
+    "P->1/2P+P": "++-",
+    "P->P+2P": "++-",
+    "P+2P->triple": "--+"
+  },
+  "menus": [
+    "2P",
+    "1/2P",
+    "P",
+    "1/2P+P",
+    "P+2P",
+    "1/2P+P+2P",
+    "FULL"
+  ],
+  "iterations": {
+    "sparse": 1000,
+    "sparse_skip": 500,
+    "full": 4000,
+    "full_skip": 2000
+  },
+  "expected_legal_river_hands": 1081,
+  "priority_object": "true root/parent opponent CFV",
+  "root_formula": "sum(all sparse first-layer opponent child CFVs) - sum(all FULL first-layer opponent child CFVs)",
+  "state_requirement": "exact V106/V107 prior corpus; do not substitute"
+}

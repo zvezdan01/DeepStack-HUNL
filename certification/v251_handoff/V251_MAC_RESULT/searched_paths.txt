@@ -1,0 +1,12 @@
+# V251 Phase-0 search log (2026-08-21, all results NEGATIVE unless noted)
+/home/user/quant-trade                         recursive content grep -i: v106, v107, v95_, nine_state, 9_state, 'table s4', table_s4  -> 0 hits
+/home/user/quant-trade (git, all refs)         git log --all -i --grep v106/v107/'table s4'/v95 (messages)                            -> 0 hits
+/home/user/quant-trade (git, all refs)         git log --all -S V106 / -S V107 / -S v95_table_s4 / -S nine_state (content pickaxe)    -> 0 hits
+/home /root /workspace /tmp (depth sweep)      find -iname *v106*,*v107*,*v95*,*nine_state*,*9_state*,*s4*,*table_s4*,*corpus*        -> only unrelated AGT test fixtures (…deltas4.npz etc.)
+/workspace/deepstack_leduc_v1.1-bitexact-certified  content grep -i v95_table_s4|v106|v107|nine_state                                 -> 0 hits
+/workspace/happypepper/deepholdem              content grep (same tokens)                                                             -> 0 hits
+/workspace/lucky72s/dyypholdem                 content grep (same tokens)                                                             -> 0 hits
+/workspace/godmoves/deeperstack                content grep (same tokens)                                                             -> 0 hits
+/workspace/michalp21/coms4995-finalproj        content grep (same tokens)                                                             -> 0 hits
+/root/.claude/uploads/ab297466-.../ (14 files) filename scan + unzip -l of every ZIP, grep -i v106|v107|v95|state|s4                  -> only the two V251 handoff ZIPs themselves
+/tmp (incl. session scratchpads)               find -iname *v106*,*v107*,*v95*                                                        -> 0 hits

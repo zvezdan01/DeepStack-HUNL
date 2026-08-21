@@ -1,0 +1,22 @@
+{
+  "milestone": "V251",
+  "phase0_status": "BLOCKED",
+  "states": [],
+  "recovered_state_count": 0,
+  "notes": "No V106/V107 state artifact exists in this environment. The only V251-related files found anywhere are the two handoff ZIPs themselves, which contain no state data.",
+  "handoff_artifacts_found": [
+    {
+      "path": "/root/.claude/uploads/ab297466-f300-5fe2-aeba-419112c121c8/0c0dfd2e-DEEPSTACK_V251_MAC_MULTISTATE_CFV_DISCRIMINATION_TASK.zip",
+      "sha256": "520c5d34b1d7e32444f830592fadc02c2c6b3faa4f35374d79ab4fdd5ecda2c"
+    },
+    {
+      "path": "/root/.claude/uploads/ab297466-f300-5fe2-aeba-419112c121c8/421007fd-DEEPSTACK_V251_MAC_ADDENDUM_V253.zip",
+      "sha256": "c3c615350a2bec98fdda98a1c08a912eaaa55543c4c1deb25639eeb98ee2ec15"
+    }
+  ],
+  "missing": [
+    "V106/V107 per-state definitions (board, pot, stack, both range vectors) or their deterministic generator+seeds",
+    "v95_table_s4_hybrid.py + chunk/runner scripts + menu encodings + skip logic",
+    "V106/V107 run logs/manifests/hashes fixing the exact state count"
+  ]
+}

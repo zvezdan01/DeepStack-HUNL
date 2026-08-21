@@ -1,0 +1,26 @@
+{
+  "addendum": "V253",
+  "mandatory": true,
+  "table_s4_totals": {
+    "sparse": 1000,
+    "full": 4000
+  },
+  "production_river": {
+    "total": 2000,
+    "skip": 1000
+  },
+  "s4_skip_status": "UNRESOLVED",
+  "sparse_skip_candidates": [
+    0,
+    250,
+    500,
+    750
+  ],
+  "full_skip_candidates": [
+    0,
+    1000,
+    2000,
+    3000
+  ],
+  "required_output": "v251_omission_sensitivity.json"
+}
